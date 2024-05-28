@@ -3608,7 +3608,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameSceneName: 2
   PrototypeNetworkStartPrefab: {fileID: 708224997584141365, guid: 4d9d16306dbd3f943a7d104d9adca37e, type: 3}
-  _uiController: {fileID: 1733417135}
+  _uiControllers:
+  - {fileID: 1733417135}
 --- !u!4 &964395535
 Transform:
   m_ObjectHideFlags: 0

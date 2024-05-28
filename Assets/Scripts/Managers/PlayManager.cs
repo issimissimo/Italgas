@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class PlayManager : NetworkManagerBase
 {
-    [SerializeField] private UiPlayController _uiController;
-    private PlayerController _myPlayer = null;
+    // [SerializeField] private UiPlayController _uiController;
+    // private PlayerController _myPlayer = null;
     private PlayerController _otherPlayer = null;
 
 
@@ -21,17 +21,6 @@ public class PlayManager : NetworkManagerBase
     /// <param name="buttonNumber"></param> <summary>
     public void OnAnswerButtonPressed(bool isTrue)
     {
-        // /// Stop the Countdown Timer
-        // GameManager.instance.StopTimer();
-
-        // /// Set my Player score
-        // _myPlayer.NetworkedAnswerResult = buttonNumber;
-        // _myPlayer.NetworkedTimeSpent = GameManager.timer;
-
-
-
-        // /// Set my Player ready for next step
-        // _myPlayer.NetworkedRunningState = PlayerController.RUNNING_STATE.FINISHED;
         _myPlayer.Set_RUNNING_STATE_FINISHED(result: isTrue);
     }
 
@@ -42,11 +31,6 @@ public class PlayManager : NetworkManagerBase
     /// </summary>
     public void Set_RUNNING()
     {
-        int aa = GameManager.gameSessionData.numberOfPlayersRunning;
-        print("********* AVVIO IL MIO PLAYER, CON N.GIOCATORI: " + aa);
-
-
-        // _myPlayer.NetworkedSessionRequestedPlayers = GameManager.gameSessionData.numberOfPlayersRunning;
         _myPlayer.Set_STATE_RUNNING();
     }
 
@@ -102,30 +86,30 @@ public class PlayManager : NetworkManagerBase
     /// <summary>
     /// /////////////////////////////// TESTTTTTTTTT
     /// </summary>
-    private void ProceedToNext()
-    {
-        if (GameManager.currentGamePageIndex == 0)
-        {
-            _uiController.Set_RUNNING_STATE_NEW_CHAPTER();
+    // private void ProceedToNext()
+    // {
+    //     if (GameManager.currentGamePageIndex == 0)
+    //     {
+    //         _uiController.Set_RUNNING_STATE_NEW_CHAPTER();
 
-        }
-        else
-        {
-            print("------------ FINITO!!!!!!!!!!!");
+    //     }
+    //     else
+    //     {
+    //         print("------------ FINITO!!!!!!!!!!!");
 
-            /// Game is finished!!!
-            GameManager.currentGameChapterIndex = 0;
-            GameManager.currentGamePageIndex = -1;
+    //         /// Game is finished!!!
+    //         GameManager.currentGameChapterIndex = 0;
+    //         GameManager.currentGamePageIndex = -1;
 
-            /// Set my Player
-            // _myPlayer.NetworkedState = PlayerController.STATE.FINISHED;
-            _myPlayer.Set_RUNNING_STATE_NONE();
+    //         /// Set my Player
+    //         // _myPlayer.NetworkedState = PlayerController.STATE.FINISHED;
+    //         _myPlayer.Set_RUNNING_STATE_NONE();
 
-            /// UI
-            _uiController.Set_RUNNING_STATE_FINAL_SCORE();
+    //         /// UI
+    //         _uiController.Set_RUNNING_STATE_FINAL_SCORE();
 
-        }
-    }
+    //     }
+    // }
 
 
 
@@ -213,7 +197,7 @@ public class PlayManager : NetworkManagerBase
                 if (playerId == _myPlayer.NetworkedPlayerId)
                 {
                     print("Rimetto in READY_TO_START il mio!!!!!!");
-                    _uiController.Set_STATE_READY_TO_START();
+                    _uiControllers[0].Set_STATE_READY_TO_START();
                 }
                 else if (playerId == _otherPlayer.NetworkedPlayerId)
                 {
@@ -225,7 +209,7 @@ public class PlayManager : NetworkManagerBase
 
                     /// I suppose we are waiting for other Player to finish...
                     else
-                        _uiController.Set_STATE_READY_TO_START();
+                        _uiControllers[0].Set_STATE_READY_TO_START();
                 }
                 break;
 
@@ -234,7 +218,7 @@ public class PlayManager : NetworkManagerBase
                 /// I'm starting the Game for my own Player
                 if (playerId == _myPlayer.NetworkedPlayerId)
                 {
-                    _uiController.Set_STATE_IN_GAME();
+                    _uiControllers[0].Set_STATE_IN_GAME();
 
                     // _myPlayer.Set_RUNNING_STATE_THINKING();
                     ContinueInGame();
@@ -245,7 +229,7 @@ public class PlayManager : NetworkManagerBase
                     if (_otherPlayer.NetworkedSessionRequestedPlayers == 1)
                     {
                         print("L'ALTRO PLAYER VUOLE GIOCARE DA SOLO");
-                        _uiController.Set_STATE_WAITING_FOR_PLAYERS();
+                        _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
                     }
                     else if (_otherPlayer.NetworkedSessionRequestedPlayers == 2)
                     {
@@ -274,7 +258,7 @@ public class PlayManager : NetworkManagerBase
         /// retrieve my and other player
         int i = 0;
         print("-------------- OnPlayersCountChanged -----------------");
-        foreach (var p in players)
+        foreach (var p in _players)
         {
             print("Player n. " + i + " --- ID: " + p.NetworkedPlayerId);
             if (p.HasStateAuthority) _myPlayer = p;
@@ -284,17 +268,17 @@ public class PlayManager : NetworkManagerBase
         }
 
         /// Too less Players
-        if (players.Count < GameManager.userData.requestedPlayers)
+        if (_players.Count < GameManager.userData.requestedPlayers)
         {
-            print("<<<<<<<<<<< NON C'E' il NUMERO DI UTENTI RICHIESTO: " + players.Count + "/" + GameManager.userData.requestedPlayers);
+            print("<<<<<<<<<<< NON C'E' il NUMERO DI UTENTI RICHIESTO: " + _players.Count + "/" + GameManager.userData.requestedPlayers);
             
             /// Set UI
-            if (_uiController.state != UiControllerBase.STATE.WAITING_FOR_PLAYERS)
-                _uiController.Set_STATE_WAITING_FOR_PLAYERS();
+            if (_uiControllers[0].state != UiControllerBase.STATE.WAITING_FOR_PLAYERS)
+                _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
         }
 
         /// Right number of Players!
-        else if (players.Count == GameManager.userData.requestedPlayers)
+        else if (_players.Count == GameManager.userData.requestedPlayers)
         {
             if (_otherPlayer != null)
             {
@@ -304,7 +288,7 @@ public class PlayManager : NetworkManagerBase
             print(">>>>>>>>>>>>>>> C'E' IL NUMERO DI UTENTI RICHIESTO, VERIFICHIAMO I LORO ID...");
 
             /// Reset the other Player to null
-            if (players.Count == 1) _otherPlayer = null;
+            if (_players.Count == 1) _otherPlayer = null;
 
             if (_myPlayer != null && _otherPlayer != null && _otherPlayer.NetworkedPlayerId == _myPlayer.NetworkedPlayerId)
             {
@@ -323,7 +307,7 @@ public class PlayManager : NetworkManagerBase
                 }
 
                 /// Set UI IDLE
-                _uiController.Set_STATE_READY_TO_START();
+                _uiControllers[0].Set_STATE_READY_TO_START();
             }
         }
     }

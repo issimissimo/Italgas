@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ViewManager : NetworkManagerBase
 {
-    [SerializeField] UiViewController[] _uiControllers;
+    // [SerializeField] UiViewController[] _uiControllers;
 
     // private enum GAMESTATE { IDLE, RUNNING, FINISHED }
     // private GAMESTATE gameState;
@@ -28,7 +28,7 @@ public class ViewManager : NetworkManagerBase
         {
             case PlayerController.STATE.IDLE:
 
-                _uiControllers[playerId].SetState(UiControllerBase.STATE.READY_TO_START);
+                _uiControllers[playerId].Set_STATE_READY_TO_START();
                 break;
 
             case PlayerController.STATE.RUNNING:
@@ -36,14 +36,14 @@ public class ViewManager : NetworkManagerBase
                 // PlayerController runningPlayer = null;
                 // foreach(var p in players) if (p.NetworkedPlayerId == playerId) runningPlayer = p;
 
-                PlayerController runningPlayer = players.Find(x => x.NetworkedPlayerId == playerId);
+                PlayerController runningPlayer = _players.Find(x => x.NetworkedPlayerId == playerId);
 
                 GameManager.gameSessionData = new Data.GameSessionData
                 {
                     numberOfPlayersRunning = runningPlayer.NetworkedSessionRequestedPlayers
                 };
 
-                _uiControllers[playerId].SetState(UiControllerBase.STATE.IN_GAME);
+                _uiControllers[playerId].Set_STATE_IN_GAME();
                 break;
 
             // case PlayerController.STATE.FINISHED:
