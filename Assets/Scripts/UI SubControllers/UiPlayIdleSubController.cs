@@ -22,9 +22,9 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
 
         _sessionPlayersCanvasController.Toggle(GameManager.userData.requestedPlayers == 1 ? false : true);
 
-        /// Actually I don't have a better way to manage the ENTER state
-        /// of this particular animation...
-        _titlesAnimation.Enter();
+        // /// Actually I don't have a better way to manage the ENTER state
+        // /// of this particular animation...
+        // _titlesAnimation.Enter();
     }
 
 
