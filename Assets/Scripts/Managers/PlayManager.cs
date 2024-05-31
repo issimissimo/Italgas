@@ -150,6 +150,7 @@ public class PlayManager : NetworkManagerBase
                         _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() =>
                         {
                             print("OOOOOOOOOOOOOOOOOOOOOO");
+                            ContinueInGame();
                         });
                     }
                     else
@@ -171,6 +172,7 @@ public class PlayManager : NetworkManagerBase
                         _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() =>
                         {
                             print("OOOOOOOOOOOOOOOOOOOOOO");
+                            ContinueInGame();
                         });
                     }
                     else
@@ -188,7 +190,7 @@ public class PlayManager : NetworkManagerBase
     /// </summary>
     private async void ContinueInGame()
     {
-        await Task.Delay(250);
+        await Task.Delay(500);
         _myPlayer.Set_RUNNING_STATE_THINKING();
         GameManager.currentGamePageIndex++;
         ProceedToNext();

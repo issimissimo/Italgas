@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
@@ -18,8 +16,8 @@ public class UiAnimatedElementBase : MonoBehaviour
     public async void Enter()
     {
         if (_isActivated) return;
-        await Task.Delay(_enterDelay);
         _isActivated = true;
+        await Task.Delay(_enterDelay);
         _animator.SetTrigger("ENTER");
     }
 
@@ -29,6 +27,7 @@ public class UiAnimatedElementBase : MonoBehaviour
         await Task.Delay(_exitDelay);
         _isActivated = false;
         _animator.SetTrigger("EXIT");
+        print(gameObject.name + " ===> EXIT_TRUE");
     }
 
     public async void ExitTrue()
@@ -54,16 +53,6 @@ public class UiAnimatedElementBase : MonoBehaviour
         print(gameObject.name + " --> CLICKED");
         _animator.SetTrigger("CLICKED");
     }
-
-    public void SetIsTrue(bool value)
-    {
-        _animator.SetInteger("IS_TRUE", value ? 1 : 0);
-    }
-
-    // public void SetRESULT(bool value)
-    // {
-    //     _animator.SetBool("RESULT", value);
-    // }
 
 
     public bool IsOnEmptyState()

@@ -396,7 +396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   behaviour: 2
   _chapterNameText: {fileID: 260430567}
-  _pageCanvasGroup: {fileID: 479808776}
+  _pageCanvasGroup: {fileID: 72762876}
   _countdownText: {fileID: 2131172567}
   _questionText: {fileID: 1080567664}
   _answerList:
@@ -404,6 +404,9 @@ MonoBehaviour:
   - {fileID: 1615584551}
   - {fileID: 1195486073}
   - {fileID: 1979007811}
+  _otherAnimations:
+  - {fileID: 446978966}
+  - {fileID: 1627330090}
   _totalTime: {fileID: 1079836606}
   _rightAnswers: {fileID: 759704683}
   _winnerOrLooser: {fileID: 90710076}
@@ -2068,7 +2071,6 @@ GameObject:
   - component: {fileID: 479808775}
   - component: {fileID: 479808774}
   - component: {fileID: 479808772}
-  - component: {fileID: 479808776}
   m_Layer: 5
   m_Name: PAGE
   m_TagString: Untagged
@@ -2132,18 +2134,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!225 &479808776
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479808771}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &494996932
 GameObject:
   m_ObjectHideFlags: 0

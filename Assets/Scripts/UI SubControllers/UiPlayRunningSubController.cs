@@ -11,9 +11,12 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
     [Header("NEW_PAGE")]
     [SerializeField] CanvasGroup _pageCanvasGroup;
+    // [SerializeField] CanvasController _pageCanvasGroupCtrl;
     [SerializeField] private TMP_Text _countdownText;
     [SerializeField] private TMP_Text _questionText;
     [SerializeField] private AnswerButtonComponent[] _answerList;
+    [SerializeField] private UiAnimatedElement[] _otherAnimations;
+
 
     [Header("FINALE_SCORE")]
     [SerializeField] private TMP_Text _totalTime;
@@ -32,6 +35,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         _playManager = FindObjectOfType<PlayManager>();
         foreach (var a in _answerList) _answerListAnimations.Add(a.animationController);
         _pageCanvasGroup.interactable = false;
+        // _pageCanvasGroupCtrl.Toggle(false);
     }
 
 
@@ -62,6 +66,9 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
                 GameManager.PlayerStats myPlayerStats = new GameManager.PlayerStats(GameManager.userData.playerId);
                 _totalTime.text = "Tempo totale: " + myPlayerStats.totalTime;
                 _rightAnswers.text = "Risposte giuste: " + myPlayerStats.rightQuestions + "/" + myPlayerStats.totalQuestions;
+
+                print("Tempo totale: " + myPlayerStats.totalTime);
+                print("Risposte giuste: " + myPlayerStats.rightQuestions + "/" + myPlayerStats.totalQuestions);
 
                 if (GameManager.gameSessionData.numberOfPlayersRunning == 1)
                 {
@@ -125,6 +132,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
 
         _pageCanvasGroup.interactable = true;
+        // _pageCanvasGroupCtrl.Toggle(true);
     }
 
 
@@ -147,23 +155,34 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         for (int i = 0; i < _answerListAnimations.Count; i++)
         {
+            print("(((((((((((((((  TASTO N. " + i + " )))))))))))))))");
             if (i == buttonPressed)
             {
                 if (isTrue)
                 {
-                    // print(_answerListAnimations[i].gameObject.name + " ======> ExitTrue");
+                    print(_answerListAnimations[i].gameObject.name + " QUESTO E' CLICCATO ED ESCE TRUE");
                     _answerListAnimations[i].ExitTrue();
                 }
-                
+
                 else
                 {
-                    // print(_answerListAnimations[i].gameObject.name + " ======> ExitFalse");
+                    print(_answerListAnimations[i].gameObject.name + " QUESTO E' CLICCATO ED ESCE FALSE");
                     _answerListAnimations[i].ExitFalse();
                 }
-                
+
             }
-            else _answerListAnimations[i].Exit();
+
+            else
+            {
+                print(_answerListAnimations[i].gameObject.name + " QUESTO NON E' CLICCATO ED ESCE E BASTA");
+                _answerListAnimations[i].Exit();
+
+            }
+
+
         }
+
+        foreach (var a in _otherAnimations) a.Exit();
 
         /// Let's wait for all animation EXIT
         while (AnimationsManager.instance.IsAnyAnimationNotInEmptyState(_answerListAnimations.ToArray()))
@@ -183,36 +202,15 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <param name="answerClicked"></param>
     private void AnswerButtonClicked(AnswerButtonComponent answerClicked)
     {
-        // /// Avoid double click
-        // if (_answerClicked == answerClicked) return;
-
         /// Avoid other unwanted clicks
         _pageCanvasGroup.interactable = false;
+        // _pageCanvasGroupCtrl.Toggle(false);
 
-        // _answerClicked = answerClicked;
-
+        /// Stop Countdown
         GameManager.instance.StopTimer();
 
         /// Change animation state to CLICKED
         answerClicked.animationController.Clicked();
-
-        // /// Change non clicked buttons animation state to EXIT
-        // for (int i = 0; i < _answerList.Count; i++)
-        // {
-        //     if (_answerList[i] != answerClicked)
-        //     {
-        //         _answerList[i].animationController._exitDelay = i * 200;
-        //         _answerList[i].animationController.Exit();
-        //     }
-        // }
-
-        // /// Let's wait some time, to not change state immediately
-        // /// when we are 1 player mode
-        // await Task.Delay(1000);
-
-        // /// Change animation value to IS_TRUE (or not) --> BUT does not change the STATE!!!!
-        // /// We will EXIT it on next STATE change
-        // answerClicked.animationController.SetIsTrue(answerClicked.isTrue);
 
         /// Send the information to the PlayManager that
         /// the answer has been clicked
