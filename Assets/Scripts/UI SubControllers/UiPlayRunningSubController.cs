@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using TMPro;
-using System.Threading.Tasks;
 
 public class UiPlayRunningSubController : GamePanelSubControllerBase
 {
     [Header("NEW_CHAPTER")]
     [SerializeField] private TMP_Text _chapterNameText;
+
     [Header("NEW_PAGE")]
+    [SerializeField] CanvasGroup _pageCanvasGroup;
     [SerializeField] private TMP_Text _countdownText;
     [SerializeField] private TMP_Text _questionText;
-    [SerializeField] private List<AnswerButtonComponent> _answerList;
+    [SerializeField] private AnswerButtonComponent[] _answerList;
+
     [Header("FINALE_SCORE")]
     [SerializeField] private TMP_Text _totalTime;
     [SerializeField] private TMP_Text _rightAnswers;
@@ -22,40 +24,37 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
 
     private PlayManager _playManager;
-    private AnswerButtonComponent _answerClicked;
+    private List<UiAnimatedElement> _answerListAnimations = new List<UiAnimatedElement>();
 
 
     void Awake()
     {
         _playManager = FindObjectOfType<PlayManager>();
+        foreach (var a in _answerList) _answerListAnimations.Add(a.animationController);
+        _pageCanvasGroup.interactable = false;
     }
 
 
-    public override void SetUI_on_RUNNING_STATE(UiControllerBase.RUNNING_STATE runningState)
+    public override void SetUI_on_RUNNING_STATE(UiControllerBase.RUNNING_STATE runningState, Action callback = null)
     {
         switch (runningState)
         {
-            case UiControllerBase.RUNNING_STATE.NEW_CHAPTER:
+            case UiControllerBase.RUNNING_STATE.OPEN_CHAPTER:
 
-                _chapterNameText.text = GameManager.currentGameChapter.chapterName;
+                OpenChapter();
                 break;
 
-            case UiControllerBase.RUNNING_STATE.NEW_PAGE:
+            case UiControllerBase.RUNNING_STATE.OPEN_PAGE:
 
-                _answerClicked = null;
-                _questionText.text = GameManager.currentGamePage.question;
+                StartCoroutine(OpenPage());
+                break;
 
-                for (int i = 0; i < _answerList.Count; i++)
-                {
-                    AnswerButtonComponent answerBttn = _answerList[i];
-                    answerBttn.Set(
-                        text: GameManager.currentGamePage.answers[i].title,
-                        result: GameManager.currentGamePage.answers[i].isTrue,
-                        number: i
-                    );
-                    answerBttn.button.onClick.RemoveAllListeners();
-                    answerBttn.button.onClick.AddListener(() => AnswerButtonClicked(answerBttn));
-                }
+            case UiControllerBase.RUNNING_STATE.WAIT_OTHER_PLAYER:
+                break;
+
+            case UiControllerBase.RUNNING_STATE.CLOSE_PAGE:
+
+                StartCoroutine(ClosePage(callback));
                 break;
 
             case UiControllerBase.RUNNING_STATE.FINAL_SCORE:
@@ -85,41 +84,139 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     }
 
 
-
-    private async void AnswerButtonClicked(AnswerButtonComponent answerClicked)
+    private void OpenChapter()
     {
-        /// Avoid double click
-        if (_answerClicked == answerClicked) return;
+        _chapterNameText.text = GameManager.currentGameChapter.chapterName;
+    }
 
-        _answerClicked = answerClicked;
+
+    /// <summary>
+    /// OPEN THE PAGE
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator OpenPage()
+    {
+        /// Setup the Question
+        _questionText.text = GameManager.currentGamePage.question;
+
+        /// Setup the Answer Buttons
+        for (int i = 0; i < _answerList.Length; i++)
+        {
+            AnswerButtonComponent answerBttn = _answerList[i];
+            answerBttn.Set(
+                text: GameManager.currentGamePage.answers[i].title,
+                result: GameManager.currentGamePage.answers[i].isTrue,
+                number: i
+            );
+            answerBttn.button.onClick.RemoveAllListeners();
+            answerBttn.button.onClick.AddListener(() => AnswerButtonClicked(answerBttn));
+
+            answerBttn.animationController.Enter();
+        }
+
+
+
+        /// Let's wait for all animation ENTER
+        while (AnimationsManager.instance.IsAnyAnimationPlaying(_answerListAnimations.ToArray(), "Enter"))
+        {
+            // print("SI APRONO I TASTIIIIIIIIIIII");
+            yield return null;
+        }
+
+
+        _pageCanvasGroup.interactable = true;
+    }
+
+
+    /// <summary>
+    /// CLOSE THE PAGE
+    /// </summary>
+    /// <param name="buttonPressed"></param>
+    /// <param name="isTrue"></param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    public IEnumerator ClosePage(Action callback)
+    {
+
+        int buttonPressed = _playManager._myPlayer.NetworkedButtonPressedNumber;
+        bool isTrue = _playManager._myPlayer.NetworkedAnswerResult;
+
+        print("------------> CLOSE PAGE!!! ");
+        print("------------> buttonPressed: " + buttonPressed);
+        print("------------> isTrue: " + isTrue);
+
+        for (int i = 0; i < _answerListAnimations.Count; i++)
+        {
+            if (i == buttonPressed)
+            {
+                if (isTrue)
+                {
+                    // print(_answerListAnimations[i].gameObject.name + " ======> ExitTrue");
+                    _answerListAnimations[i].ExitTrue();
+                }
+                
+                else
+                {
+                    // print(_answerListAnimations[i].gameObject.name + " ======> ExitFalse");
+                    _answerListAnimations[i].ExitFalse();
+                }
+                
+            }
+            else _answerListAnimations[i].Exit();
+        }
+
+        /// Let's wait for all animation EXIT
+        while (AnimationsManager.instance.IsAnyAnimationNotInEmptyState(_answerListAnimations.ToArray()))
+        {
+            // print("SI CHIUDONO I TASTIIIIIIIIIIII");
+            yield return null;
+        }
+
+        callback.Invoke();
+    }
+
+
+
+    /// <summary>
+    /// BUTTON CLICKED LISTENER
+    /// </summary>
+    /// <param name="answerClicked"></param>
+    private void AnswerButtonClicked(AnswerButtonComponent answerClicked)
+    {
+        // /// Avoid double click
+        // if (_answerClicked == answerClicked) return;
+
+        /// Avoid other unwanted clicks
+        _pageCanvasGroup.interactable = false;
+
+        // _answerClicked = answerClicked;
 
         GameManager.instance.StopTimer();
 
         /// Change animation state to CLICKED
         answerClicked.animationController.Clicked();
 
-        /// Change non clicked buttons animation state to EXIT
-        for (int i = 0; i < _answerList.Count; i++)
-        {
-            if (_answerList[i] != answerClicked)
-            {
-                _answerList[i].animationController._exitDelay = i * 200;
-                _answerList[i].animationController.Exit();
-            }
-        }
+        // /// Change non clicked buttons animation state to EXIT
+        // for (int i = 0; i < _answerList.Count; i++)
+        // {
+        //     if (_answerList[i] != answerClicked)
+        //     {
+        //         _answerList[i].animationController._exitDelay = i * 200;
+        //         _answerList[i].animationController.Exit();
+        //     }
+        // }
 
-        /// Let's wait some time, to not change state immediately
-        /// when we are 1 player mode
-        await Task.Delay(1000);
+        // /// Let's wait some time, to not change state immediately
+        // /// when we are 1 player mode
+        // await Task.Delay(1000);
 
-        /// Change animation value to IS_TRUE (or not) --> BUT does not change the STATE!!!!
-        /// We will EXIT it on next STATE change
-        answerClicked.animationController.SetIsTrue(answerClicked.isTrue);
+        // /// Change animation value to IS_TRUE (or not) --> BUT does not change the STATE!!!!
+        // /// We will EXIT it on next STATE change
+        // answerClicked.animationController.SetIsTrue(answerClicked.isTrue);
 
         /// Send the information to the PlayManager that
         /// the answer has been clicked
-        // PlayManager playManager = FindObjectOfType<PlayManager>();
-        _playManager.OnAnswerButtonPressed(isTrue: answerClicked.isTrue);
+        _playManager.OnAnswerButtonPressed(buttonNumber: answerClicked.buttonNumber, isTrue: answerClicked.isTrue);
     }
 
 
@@ -136,7 +233,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         _playManager.Set_IDLE();
     }
-   
+
 
 
     void Update()
@@ -144,9 +241,5 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         _countdownText.text = (GameManager.instance.maximumSeconds - Mathf.Floor(GameManager.timer)).ToString();
     }
 
-    private bool IsAnyAnimationPlaying(UiAnimatedElement[] animations)
-    {
-        var firstMatch = Array.Find(animations, elem => elem.IsOnEmptyState() == false);
-        return firstMatch == null ? false : true;
-    }
+
 }

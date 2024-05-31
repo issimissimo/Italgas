@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 
+
 public class UiPlayController : UiControllerBase
 {
     private void Start()
@@ -8,6 +9,12 @@ public class UiPlayController : UiControllerBase
     }
 
 
+
+    /// <summary>
+    /// THIS METHOD IS CALLED AFTER "Set_PanelsUI_on_STATE"
+    /// OF THE BASE CLASS
+    /// </summary>
+    /// <returns></returns>
     protected override void StateChanged()
     {
         switch (state)
@@ -31,24 +38,25 @@ public class UiPlayController : UiControllerBase
             case STATE.IN_GAME:
                 break;
         }
-
-        // Set_PanelsUI_on_STATE();
     }
 
 
+    /// <summary>
+    /// THIS METHOD IS CALLED AFTER "Set_PanelsUI_on_RUNNING_STATE"
+    /// OF THE BASE CLASS
+    /// </summary>
+    /// <returns></returns>
     protected override async void RunningStateChanged()
     {
-        // Set_PanelsUI_on_RUNNING_STATE();
-
         switch (runningState)
         {
-            case RUNNING_STATE.NEW_CHAPTER:
-                
+            case RUNNING_STATE.OPEN_CHAPTER:
+
                 await Task.Delay(3000);
-                Set_RUNNING_STATE_NEW_PAGE();
+                Set_RUNNING_STATE_OPEN_PAGE();
                 break;
 
-            case RUNNING_STATE.NEW_PAGE:
+            case RUNNING_STATE.OPEN_PAGE:
 
                 GameManager.instance.StartTimer(
                     seconds: GameManager.instance.maximumSeconds,
@@ -56,15 +64,19 @@ public class UiPlayController : UiControllerBase
                     {
                         print("TEMPO SCADUTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                         var manager = FindObjectOfType<PlayManager>();
-                        manager.OnAnswerButtonPressed(false);
+                        manager.OnAnswerButtonPressed(buttonNumber: -1, isTrue: false);
                     }
                 );
+                break;
+
+            case RUNNING_STATE.WAIT_OTHER_PLAYER:
+                break;
+
+            case RUNNING_STATE.CLOSE_PAGE:
                 break;
 
             case RUNNING_STATE.FINAL_SCORE:
                 break;
         }
-
-        // Set_PanelsUI_on_RUNNING_STATE();
     }
 }

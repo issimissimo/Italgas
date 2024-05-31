@@ -30,37 +30,13 @@ public class AnimationsManager : MonoBehaviour
     /// Close ALL animations (EXIT)
     /// </summary>
     /// <returns></returns>
-    public IEnumerator WaitExitAllAnimations()
+    public IEnumerator ExitAllAnimationsAndWaitForFinish()
     {
         ExitAllAnimations();
 
-        while (IsAnyAnimationPlaying(_animations))
+        while (IsAnyAnimationNotInEmptyState(_animations))
             yield return null;
     }
-
-
-    // /// <summary>
-    // /// Close animation (EXIT)
-    // /// </summary>
-    // /// <returns></returns>
-    // public IEnumerator WaitExitAnimation(UiAnimatedElement animation)
-    // {
-    //     _animations = new UiAnimatedElement[] { animation };
-
-    //     ExitAllAnimations();
-
-    //     while (IsAnyAnimationPlaying(_animations))
-    //         yield return null;
-    // }
-
-
-    public IEnumerator WaitAnimation(UiAnimatedElementBase animation)
-    {
-        while (!animation.IsOnEmptyState())
-            yield return null;
-        
-    }
-
 
 
 
@@ -69,9 +45,25 @@ public class AnimationsManager : MonoBehaviour
     /// </summary>
     /// <param name="animations"></param>
     /// <returns></returns> <summary>
-    public bool IsAnyAnimationPlaying(UiAnimatedElement[] animations)
+    public bool IsAnyAnimationNotInEmptyState(UiAnimatedElement[] animations)
     {
         var firstMatch = Array.Find(animations, elem => elem.IsOnEmptyState() == false);
         return firstMatch == null ? false : true;
     }
+
+
+    
+    /// <summary>
+    /// Check ANY "UiAnimatedElement" of the array is playing some state
+    /// </summary>
+    /// <param name="animations"></param>
+    /// <param name="stateName"></param>
+    /// <returns></returns>
+    public bool IsAnyAnimationPlaying(UiAnimatedElement[] animations, string stateName)
+    {
+        var firstMatch = Array.Find(animations, elem => elem.IsPlaying(stateName) == true);
+        return firstMatch == null ? true : false;
+    }
+    
+ 
 }

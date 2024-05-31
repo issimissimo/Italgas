@@ -31,8 +31,27 @@ public class UiAnimatedElementBase : MonoBehaviour
         _animator.SetTrigger("EXIT");
     }
 
+    public async void ExitTrue()
+    {
+        if (!_isActivated) return;
+        await Task.Delay(_exitDelay);
+        _isActivated = false;
+        _animator.SetTrigger("EXIT_TRUE");
+        print(gameObject.name + " ===> EXIT_TRUE");
+    }
+
+    public async void ExitFalse()
+    {
+        if (!_isActivated) return;
+        await Task.Delay(_exitDelay);
+        _isActivated = false;
+        _animator.SetTrigger("EXIT_FALSE");
+        print(gameObject.name + " ===> EXIT_FALSE");
+    }
+
     public void Clicked()
     {
+        print(gameObject.name + " --> CLICKED");
         _animator.SetTrigger("CLICKED");
     }
 
@@ -41,10 +60,10 @@ public class UiAnimatedElementBase : MonoBehaviour
         _animator.SetInteger("IS_TRUE", value ? 1 : 0);
     }
 
-    public void SetRESULT(bool value)
-    {
-        _animator.SetBool("RESULT", value);
-    }
+    // public void SetRESULT(bool value)
+    // {
+    //     _animator.SetBool("RESULT", value);
+    // }
 
 
     public bool IsOnEmptyState()
@@ -52,7 +71,16 @@ public class UiAnimatedElementBase : MonoBehaviour
         AnimatorStateInfo animatorStateInfo = _animator.GetCurrentAnimatorStateInfo(0);
         var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
         if (clipInfo.Length > 0)
-        return clipInfo[0].clip.name == "Empty" ? true : false;
+            return clipInfo[0].clip.name == "Empty" ? true : false;
         else return true;
     }
+
+    public bool IsPlaying(string stateName)
+    {
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName(stateName) &&
+                _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            return true;
+        else return false;
+    }
+
 }

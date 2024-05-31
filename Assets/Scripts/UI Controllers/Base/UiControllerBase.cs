@@ -6,7 +6,7 @@ using System.Collections;
 public abstract class UiControllerBase : MonoBehaviour
 {
     public enum STATE { WAITING_FOR_PLAYERS, READY_TO_START, IN_GAME }
-    public enum RUNNING_STATE { NEW_CHAPTER, NEW_PAGE, FINAL_SCORE }
+    public enum RUNNING_STATE { OPEN_CHAPTER, OPEN_PAGE, WAIT_OTHER_PLAYER, CLOSE_PAGE, FINAL_SCORE }
     public STATE state { get; protected set; }
     public RUNNING_STATE runningState { get; protected set; }
 
@@ -23,8 +23,10 @@ public abstract class UiControllerBase : MonoBehaviour
 
 
 
-    public void Set_RUNNING_STATE_NEW_CHAPTER() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.NEW_CHAPTER));
-    public void Set_RUNNING_STATE_NEW_PAGE() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.NEW_PAGE));
+    public void Set_RUNNING_STATE_OPEN_CHAPTER() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.OPEN_CHAPTER));
+    public void Set_RUNNING_STATE_OPEN_PAGE() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.OPEN_PAGE));
+    public void Set_RUNNING_STATE_WAIT_OTHER_PLAYER() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.WAIT_OTHER_PLAYER));
+    public void Set_RUNNING_STATE_CLOSE_PAGE(Action callback) => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.CLOSE_PAGE, closeAnimations: false, callback));
     public void Set_RUNNING_STATE_FINAL_SCORE() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.FINAL_SCORE));
 
 
@@ -39,19 +41,11 @@ public abstract class UiControllerBase : MonoBehaviour
         /// to override
     }
 
-    // public void SetState(STATE newState)
-    // {
-    //     state = newState;
-    //     print("-------------------------------- CAMBIATO STATO UI IN: " + state.ToString());
-    //     StateChanged();
-
-    //     Set_PanelsUI_on_STATE();
-    // }
 
     private IEnumerator SetStateCoroutine(STATE newState)
     {
         /// EXIT all animations before to proceed to new state
-        yield return AnimationsManager.instance.WaitExitAllAnimations();
+        yield return AnimationsManager.instance.ExitAllAnimationsAndWaitForFinish();
 
         /// Set new state
         state = newState;
@@ -66,24 +60,21 @@ public abstract class UiControllerBase : MonoBehaviour
     }
 
 
-    private IEnumerator SetRunningStateCoroutine(RUNNING_STATE newRunningState)
+    private IEnumerator SetRunningStateCoroutine(RUNNING_STATE newRunningState, bool closeAnimations = true, Action callback = null)
     {
-        // /// Exit all animations before to proceed to new state
-        // UiAnimatedElement[] animCtrl = FindObjectsOfType<UiAnimatedElement>();
-        // foreach (var a in animCtrl) a.Exit();
-
-        // while (IsAnyAnimationPlaying(animCtrl))
-        //     yield return null;
-
-
-        /// EXIT all animations before to proceed to new state
-        yield return AnimationsManager.instance.WaitExitAllAnimations();
+        if (closeAnimations)
+        {
+            /// EXIT all animations that are not in EMPTY state before to proceed to new state
+            yield return AnimationsManager.instance.ExitAllAnimationsAndWaitForFinish();
+        }
+        else yield return null;
 
         /// Set new running state
         runningState = newRunningState;
 
-        Set_PanelsUI_on_RUNNING_STATE();
-        
+        /// Setup the UI of the new panel
+        Set_PanelsUI_on_RUNNING_STATE(callback);
+
         /// Call the Method of the Classes that derive from this one
         RunningStateChanged();
 
@@ -110,7 +101,7 @@ public abstract class UiControllerBase : MonoBehaviour
         }
     }
 
-    protected void Set_PanelsUI_on_RUNNING_STATE()
+    protected void Set_PanelsUI_on_RUNNING_STATE(Action callback = null)
     {
         foreach (var panel in _uiPanels)
         {
@@ -118,7 +109,7 @@ public abstract class UiControllerBase : MonoBehaviour
 
             if (panelController.behaviour == state)
             {
-                panelController.SetUI_on_RUNNING_STATE(runningState);
+                panelController.SetUI_on_RUNNING_STATE(runningState, callback);
             }
         }
     }

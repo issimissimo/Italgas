@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections.Generic;
+using System;
 
 public abstract class GamePanelSubControllerBase : MonoBehaviour
 {
@@ -9,7 +9,7 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
     {
         /// To override
     }
-    public virtual void SetUI_on_RUNNING_STATE(UiControllerBase.RUNNING_STATE runningState)
+    public virtual void SetUI_on_RUNNING_STATE(UiControllerBase.RUNNING_STATE runningState, Action callback = null)
     {
         /// To override
     }

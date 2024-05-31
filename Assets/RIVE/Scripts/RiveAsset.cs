@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEditor;
 using Rive;
 
 using LoadAction = UnityEngine.Rendering.RenderBufferLoadAction;
@@ -23,6 +22,10 @@ public class RiveAsset : MonoBehaviour
     private StateMachine m_stateMachine;
 
     private Camera m_camera;
+
+
+    private bool _run = true;
+    private SMITrigger _triggerEnter;
 
 
     /// Rive inputs
@@ -60,20 +63,32 @@ public class RiveAsset : MonoBehaviour
             }
 
             _SMItrigger = m_stateMachine.GetTrigger("Trigger 1");
+            _triggerEnter = m_stateMachine.GetTrigger("ENTER");
             _SMInumber = m_stateMachine.GetNumber("number");
             _SMIbool = m_stateMachine.GetBool("bool");
         }
     }
 
+    public void StartRiveAsset()
+    {
+        _run = true;
+        _triggerEnter.Fire();
+    }
+
+    public void StopRiveAsset()
+    {
+        _run = false;
+    }
+
     private void Update()
     {
-        if (m_stateMachine != null)
+        if (m_stateMachine != null && _run)
             m_stateMachine.Advance(Time.deltaTime);
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            _SMItrigger.Fire();     
-        }
+        // if (Input.GetKeyDown(KeyCode.E))
+        // {
+        //     _SMItrigger.Fire();     
+        // }
     }
 
     private void OnDisable()

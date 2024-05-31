@@ -19,9 +19,9 @@ public class PlayManager : NetworkManagerBase
     /// CLICKED ON THE ANSWER IN THE UI
     /// </summary>
     /// <param name="buttonNumber"></param> <summary>
-    public void OnAnswerButtonPressed(bool isTrue)
+    public void OnAnswerButtonPressed(int buttonNumber, bool isTrue)
     {
-        _myPlayer.Set_RUNNING_STATE_FINISHED(result: isTrue);
+        _myPlayer.Set_RUNNING_STATE_FINISHED(buttonNumber, isTrue);
     }
 
 
@@ -117,7 +117,7 @@ public class PlayManager : NetworkManagerBase
     {
         if (_myPlayer.NetworkedState != PlayerController.STATE.RUNNING) return;
 
-        print("************  RICEVUTO CHANGE RUNNING STATE DA PLAYER: " + playerId);
+        print("************  RICEVUTO CHANGE RUNNING STATE DA PLAYER: " + playerId + " --> " + runningState.ToString());
 
         switch (runningState)
         {
@@ -141,7 +141,16 @@ public class PlayManager : NetworkManagerBase
                          _otherPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
                     {
                         /// I have finished too, now we can move on!
-                        ContinueInGame();
+                        /// 
+                        /// 
+                        /// 
+                        /// 
+                        /// 
+                        // ContinueInGame();
+                        _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() =>
+                        {
+                            print("OOOOOOOOOOOOOOOOOOOOOO");
+                        });
                     }
                     else
                     {
@@ -153,7 +162,16 @@ public class PlayManager : NetworkManagerBase
                     if (_myPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
                     {
                         /// Other player have finished too, now we can move on!
-                        ContinueInGame();
+                        ///
+                        /// 
+                        /// 
+                        /// 
+                        /// 
+                        // ContinueInGame();
+                        _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() =>
+                        {
+                            print("OOOOOOOOOOOOOOOOOOOOOO");
+                        });
                     }
                     else
                     {
@@ -271,7 +289,7 @@ public class PlayManager : NetworkManagerBase
         if (_players.Count < GameManager.userData.requestedPlayers)
         {
             print("<<<<<<<<<<< NON C'E' il NUMERO DI UTENTI RICHIESTO: " + _players.Count + "/" + GameManager.userData.requestedPlayers);
-            
+
             /// Set UI
             if (_uiControllers[0].state != UiControllerBase.STATE.WAITING_FOR_PLAYERS)
                 _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();

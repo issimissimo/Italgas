@@ -21,7 +21,8 @@ public class FileUploader
 
 		var file = new FileInfo(fileFullPath);
 		var newFileName = String.IsNullOrEmpty(newName) ? file.Name : newName;
-		var address = new Uri("ftp://" + server + "/" + Path.Combine(initialPath, newFileName));
+		// var address = new Uri("ftp://" + server + "/" + Path.Combine(initialPath, newFileName));
+		var address = new Uri(server + "/" + Path.Combine(initialPath, newFileName));
 
 		Debug.Log("TRY TO UPLOAD TO: " + address);
 

@@ -15,7 +15,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
     [SerializeField] protected UiControllerBase[] _uiControllers;
 
     protected List<PlayerController> _players = new List<PlayerController>();
-    protected PlayerController _myPlayer = null;
+    public PlayerController _myPlayer = null;
 
 
 
@@ -106,66 +106,73 @@ public abstract class NetworkManagerBase : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    // protected void ProceedToNext()
-    // {
-    //     if (GameManager.currentGamePageIndex <= GameManager.currentGameChapter.pages.Count - 1)
-    //     {
-    //         if (GameManager.currentGamePageIndex == 0) _uiController.Set_RUNNING_STATE_NEW_CHAPTER();
-    //         else _uiController.Set_RUNNING_STATE_NEW_PAGE();
-    //     }
-    //     else
-    //     {
-    //         if (GameManager.currentGameChapterIndex < GameManager.currentGameVersion.chapters.Count - 1)
-    //         {
-    //             GameManager.currentGameChapterIndex++;
-    //             GameManager.currentGamePageIndex = 0;
+    protected void ProceedToNext()
+    {
+        if (GameManager.currentGamePageIndex <= GameManager.currentGameChapter.pages.Count - 1)
+        {
+            if (GameManager.currentGamePageIndex == 0)
+            {
+                foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_OPEN_CHAPTER();
+            }
+            else
+            {
+                foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_OPEN_PAGE();
+            }
+            
+        }
+        else
+        {
+            if (GameManager.currentGameChapterIndex < GameManager.currentGameVersion.chapters.Count - 1)
+            {
+                GameManager.currentGameChapterIndex++;
+                GameManager.currentGamePageIndex = 0;
 
-    //             ProceedToNext();
-    //         }
-    //         else
-    //         {
-    //             print ("------------ FINITO!!!!!!!!!!!");
+                ProceedToNext();
+            }
+            else
+            {
+                print("------------ FINITO!!!!!!!!!!!");
 
-    //             /// Game is finished!!!
-    //             GameManager.currentGameChapterIndex = 0;
-    //             GameManager.currentGamePageIndex = -1;
+                /// Game is finished!!!
+                GameManager.currentGameChapterIndex = 0;
+                GameManager.currentGamePageIndex = -1;
 
-    //             /// Set my Player
-    //             // _myPlayer.NetworkedState = PlayerController.STATE.FINISHED;
-    //             _myPlayer.Set_RUNNING_STATE_NONE();
+                /// Set my Player
+                // _myPlayer.NetworkedState = PlayerController.STATE.FINISHED;
+                if (_myPlayer != null) _myPlayer.Set_RUNNING_STATE_NONE();
 
-    //             /// UI
-    //             _uiController.Set_RUNNING_STATE_FINAL_SCORE();
-    //         }
-    //     }
-    // }
+                /// UI
+                foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_FINAL_SCORE();
+            }
+        }
+    }
 
     /// <summary>
     /// /////////////////////////////// TESTTTTTTTTT
     /// </summary>
-    protected void ProceedToNext()
-    {
-        if (GameManager.currentGamePageIndex == 0)
-        {
-            foreach(var ui in _uiControllers) ui.Set_RUNNING_STATE_NEW_CHAPTER();
+    // protected void ProceedToNext()
+    // {
+    //     if (GameManager.currentGamePageIndex == 0)
+    //     {
+    //         foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_NEW_CHAPTER();
 
-        }
-        else
-        {
-            print("------------ FINITO!!!!!!!!!!!");
+    //     }
+    //     else
+    //     {
+    //         print("------------ FINITO!!!!!!!!!!!");
 
-            /// Game is finished!!!
-            GameManager.currentGameChapterIndex = 0;
-            GameManager.currentGamePageIndex = -1;
+    //         /// Game is finished!!!
+    //         GameManager.currentGameChapterIndex = 0;
+    //         GameManager.currentGamePageIndex = -1;
 
-            /// Set my Player
-            // _myPlayer.NetworkedState = PlayerController.STATE.FINISHED;
-            if (_myPlayer != null) _myPlayer.Set_RUNNING_STATE_NONE();
+    //         /// Set my Player
+    //         // _myPlayer.NetworkedState = PlayerController.STATE.FINISHED;
+    //         if (_myPlayer != null) _myPlayer.Set_RUNNING_STATE_NONE();
 
-            /// UI
-            foreach(var ui in _uiControllers) ui.Set_RUNNING_STATE_FINAL_SCORE();
+    //         /// UI
+    //         foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_FINAL_SCORE();
 
-        }
-    }
+    //     }
+    // }
 
 }

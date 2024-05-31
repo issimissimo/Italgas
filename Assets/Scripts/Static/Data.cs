@@ -49,6 +49,7 @@ public static class Data
     {
         public bool isCorrect;
         public float timeSpent;
+        public int buttonPressed;
     }
     public class TotalPlayerScore
     {

@@ -7,6 +7,7 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
     [SerializeField] private List<Toggle> _sessionPlayersToggles;
     [SerializeField] private CanvasController _sessionPlayersCanvasController;
     [SerializeField] private UiAnimatedElementBase _titlesAnimation;
+    [SerializeField] private RiveAsset _riveAsset;
    
 
 
@@ -25,6 +26,7 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
         // /// Actually I don't have a better way to manage the ENTER state
         // /// of this particular animation...
         // _titlesAnimation.Enter();
+        _riveAsset.StartRiveAsset();
     }
 
 

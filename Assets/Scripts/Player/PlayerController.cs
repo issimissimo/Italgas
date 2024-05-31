@@ -19,6 +19,8 @@ public class PlayerController : NetworkBehaviour
     [Networked]
     public bool NetworkedAnswerResult { get; set; }
     [Networked]
+    public int NetworkedButtonPressedNumber { get; set; }
+    [Networked]
     public float NetworkedTimeSpent { get; set; }
     //#endregion
 
@@ -81,11 +83,13 @@ public class PlayerController : NetworkBehaviour
                 new Data.SinglePlayerScore
                 {
                     isCorrect = NetworkedAnswerResult,
-                    timeSpent = NetworkedTimeSpent
+                    timeSpent = NetworkedTimeSpent,
+                    buttonPressed = NetworkedButtonPressedNumber
                 });
 
 
             print("******** SCORE PLAYER " + NetworkedPlayerId + " **********");
+            print("Tasto premuto n. " + NetworkedButtonPressedNumber);
             print("Tempo: " + NetworkedTimeSpent);
             print("Risposta giusta? " + NetworkedAnswerResult);
             print("*****************");
@@ -141,10 +145,11 @@ public class PlayerController : NetworkBehaviour
 
     public void Set_RUNNING_STATE_THINKING() => NetworkedRunningState = RUNNING_STATE.THINKING;
 
-    public void Set_RUNNING_STATE_FINISHED(bool result)
+    public void Set_RUNNING_STATE_FINISHED(int buttonNumber, bool result)
     {
         NetworkedTimeSpent = GameManager.timer;
         NetworkedAnswerResult = result;
+        NetworkedButtonPressedNumber = buttonNumber;
         NetworkedRunningState = RUNNING_STATE.FINISHED;
     }
 

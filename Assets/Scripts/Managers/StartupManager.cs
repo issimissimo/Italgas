@@ -12,17 +12,17 @@ public class StartupManager : MonoBehaviour
     /// <summary>
     /// START
     /// </summary>
-    private IEnumerator Start()
+    private void Start()
     {
-        if (GameManager.instance.appJustStarted == true)
-        {
-            GameManager.instance.appJustStarted = false;
+        // if (GameManager.instance.appJustStarted == true)
+        // {
+        //     GameManager.instance.appJustStarted = false;
 
-            /// Show Logo
-            _logoAnimation.Enter();
-        }
-        yield return null;
-        yield return AnimationsManager.instance.WaitAnimation(_logoAnimation);
+        //     /// Show Logo
+        //     _logoAnimation.Enter();
+        // }
+        // yield return null;
+        // yield return AnimationsManager.instance.WaitAnimationOnEmptyState(_logoAnimation);
         StartCoroutine(StartUp());
     }
 
