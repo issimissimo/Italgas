@@ -396,6 +396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   behaviour: 2
   _chapterNameText: {fileID: 260430567}
+  _chapterAnimation: {fileID: 2006832324}
   _pageCanvasGroup: {fileID: 72762876}
   _countdownText: {fileID: 2131172567}
   _questionText: {fileID: 1080567664}
@@ -4375,7 +4376,6 @@ MonoBehaviour:
   PrototypeNetworkStartPrefab: {fileID: 708224997584141365, guid: 4d9d16306dbd3f943a7d104d9adca37e, type: 3}
   _uiControllers:
   - {fileID: 1733417135}
-  _myPlayer: {fileID: 0}
 --- !u!4 &964395535
 Transform:
   m_ObjectHideFlags: 0
@@ -7631,7 +7631,7 @@ MonoBehaviour:
   _domain: 1
   _STATE: 2
   _RUNNING_STATE: 0
-  _useAutoEnter: 1
+  _useAutoEnter: 0
   _useAutoExit: 0
 --- !u!225 &2006832325
 CanvasGroup:

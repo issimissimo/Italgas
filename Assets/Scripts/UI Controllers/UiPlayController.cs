@@ -52,8 +52,8 @@ public class UiPlayController : UiControllerBase
         {
             case RUNNING_STATE.OPEN_CHAPTER:
 
-                await Task.Delay(3000);
-                Set_RUNNING_STATE_OPEN_PAGE();
+                // await Task.Delay(3000);
+                // Set_RUNNING_STATE_OPEN_PAGE();
                 break;
 
             case RUNNING_STATE.OPEN_PAGE:

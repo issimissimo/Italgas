@@ -24,10 +24,10 @@ public class UiAnimatedElementBase : MonoBehaviour
     public async void Exit()
     {
         if (!_isActivated) return;
-        await Task.Delay(_exitDelay);
         _isActivated = false;
+        await Task.Delay(_exitDelay);
         _animator.SetTrigger("EXIT");
-        print(gameObject.name + " ===> EXIT_TRUE");
+        print(gameObject.name + " ===> EXIT");
     }
 
     public async void ExitTrue()

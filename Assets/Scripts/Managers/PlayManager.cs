@@ -1,15 +1,8 @@
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class PlayManager : NetworkManagerBase
 {
-    // [SerializeField] private UiPlayController _uiController;
-    // private PlayerController _myPlayer = null;
     private PlayerController _otherPlayer = null;
-
-
-
-
 
 
 
@@ -123,14 +116,11 @@ public class PlayManager : NetworkManagerBase
         {
             case PlayerController.RUNNING_STATE.THINKING:
 
-                // // print("---------------------------");
-                // if (playerId == _myPlayer.NetworkedPlayerId)
-                // {
-                //     // print("ADESSO SONO IN THINKING...");
-
-                //     GameManager.currentGamePageIndex++;
-                //     ProceedToNext();
-                // }
+                if (playerId == _myPlayer.NetworkedPlayerId)
+                {
+                    GameManager.currentGamePageIndex++;
+                    ProceedToNext();
+                }
                 break;
 
             case PlayerController.RUNNING_STATE.FINISHED:
@@ -141,17 +131,7 @@ public class PlayManager : NetworkManagerBase
                          _otherPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
                     {
                         /// I have finished too, now we can move on!
-                        /// 
-                        /// 
-                        /// 
-                        /// 
-                        /// 
-                        // ContinueInGame();
-                        _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() =>
-                        {
-                            print("OOOOOOOOOOOOOOOOOOOOOO");
-                            ContinueInGame();
-                        });
+                        _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() => _myPlayer.Set_RUNNING_STATE_THINKING());
                     }
                     else
                     {
@@ -163,17 +143,8 @@ public class PlayManager : NetworkManagerBase
                     if (_myPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
                     {
                         /// Other player have finished too, now we can move on!
-                        ///
-                        /// 
-                        /// 
-                        /// 
-                        /// 
-                        // ContinueInGame();
-                        _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() =>
-                        {
-                            print("OOOOOOOOOOOOOOOOOOOOOO");
-                            ContinueInGame();
-                        });
+                        _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() => _myPlayer.Set_RUNNING_STATE_THINKING());
+                        
                     }
                     else
                     {
@@ -188,13 +159,13 @@ public class PlayManager : NetworkManagerBase
     /// We use this Method, instead detecting the RUNNING_STATE_THINKING over the network,
     /// because it would seem to work only with a delay...
     /// </summary>
-    private async void ContinueInGame()
-    {
-        await Task.Delay(500);
-        _myPlayer.Set_RUNNING_STATE_THINKING();
-        GameManager.currentGamePageIndex++;
-        ProceedToNext();
-    }
+    // private async void ContinueInGame()
+    // {
+    //     // await Task.Delay(500);
+    //     _myPlayer.Set_RUNNING_STATE_THINKING();
+    //     // GameManager.currentGamePageIndex++;
+    //     // ProceedToNext();
+    // }
 
     //#region APP LOGICS
 
@@ -239,9 +210,8 @@ public class PlayManager : NetworkManagerBase
                 if (playerId == _myPlayer.NetworkedPlayerId)
                 {
                     _uiControllers[0].Set_STATE_IN_GAME();
-
-                    // _myPlayer.Set_RUNNING_STATE_THINKING();
-                    ContinueInGame();
+                    _myPlayer.Set_RUNNING_STATE_THINKING();
+                    // ContinueInGame();
                 }
                 /// Other Player started the Game
                 else if (playerId == _otherPlayer.NetworkedPlayerId)
@@ -250,6 +220,7 @@ public class PlayManager : NetworkManagerBase
                     {
                         print("L'ALTRO PLAYER VUOLE GIOCARE DA SOLO");
                         _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
+                        GameManager.instance.ShowNotification("L'altro Player gioca da solo! Attendi...");
                     }
                     else if (_otherPlayer.NetworkedSessionRequestedPlayers == 2)
                     {

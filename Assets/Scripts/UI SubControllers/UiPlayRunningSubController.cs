@@ -8,6 +8,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 {
     [Header("NEW_CHAPTER")]
     [SerializeField] private TMP_Text _chapterNameText;
+    [SerializeField] private UiAnimatedElement _chapterAnimation;
 
     [Header("NEW_PAGE")]
     [SerializeField] CanvasGroup _pageCanvasGroup;
@@ -18,7 +19,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     [SerializeField] private UiAnimatedElement[] _otherAnimations;
 
 
-    [Header("FINALE_SCORE")]
+    [Header("FINAL_SCORE")]
     [SerializeField] private TMP_Text _totalTime;
     [SerializeField] private TMP_Text _rightAnswers;
     [SerializeField] private TMP_Text _winnerOrLooser;
@@ -45,7 +46,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         {
             case UiControllerBase.RUNNING_STATE.OPEN_CHAPTER:
 
-                OpenChapter();
+                StartCoroutine(OpenChapter(callback));
                 break;
 
             case UiControllerBase.RUNNING_STATE.OPEN_PAGE:
@@ -91,9 +92,26 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     }
 
 
-    private void OpenChapter()
+    private IEnumerator OpenChapter(Action callback)
     {
+        /// Setup the Chapter
         _chapterNameText.text = GameManager.currentGameChapter.chapterName;
+
+        print("APRO CHAPTER: " + GameManager.currentGameChapter.chapterName);
+
+        /// Play the "Enter" animation
+        _chapterAnimation.Enter();
+        yield return null;
+
+        /// Wait for animation finished
+        while (!_chapterAnimation.IsOnEmptyState()) yield return null;
+
+        print("FINITO CHAPTER!");
+
+        // print("CHIUDO CHAPTER");
+
+        /// Callback
+        callback.Invoke();
     }
 
 

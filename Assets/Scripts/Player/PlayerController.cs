@@ -152,32 +152,4 @@ public class PlayerController : NetworkBehaviour
         NetworkedButtonPressedNumber = buttonNumber;
         NetworkedRunningState = RUNNING_STATE.FINISHED;
     }
-
-
-    // private ChangeDetector _changeDetector;
-
-    // public override void Spawned()
-    // {
-    //     print("+++++++++++++++++ Spawned");
-    //     _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState);
-    // }
-
-    // public override void FixedUpdateNetwork()
-    // {
-    //     foreach (var change in _changeDetector.DetectChanges(this))
-    //     {
-    //         switch (change)
-    //         {
-    //             case nameof(NetworkedState):
-    //             print("+++++++++ Cambiato STATE: " + NetworkedState.ToString());
-    //             OnStateChanged();
-    //             break;
-
-    //             case nameof(NetworkedRunningState):
-    //             print("+++++++++ Cambiato RUNNING_STATE: " + NetworkedRunningState.ToString());
-    //             OnRunningStateChanged();
-    //             break;
-    //         }
-    //     }
-    // }
 }
