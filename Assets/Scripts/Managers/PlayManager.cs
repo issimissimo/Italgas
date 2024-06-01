@@ -85,6 +85,7 @@ public class PlayManager : NetworkManagerBase
                     else
                     {
                         /// I have finished, but I have to wait the other Player...
+                        _uiControllers[0].Set_RUNNING_STATE_WAIT_OTHER_PLAYER();
                     }
                 }
                 else if (playerId == _otherPlayer.NetworkedPlayerId)

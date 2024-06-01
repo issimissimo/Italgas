@@ -26,7 +26,7 @@ public abstract class UiControllerBase : MonoBehaviour
     public void Set_RUNNING_STATE_OPEN_CHAPTER(Action callback) => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.OPEN_CHAPTER, callback: callback));
     public void Set_RUNNING_STATE_OPEN_PAGE() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.OPEN_PAGE));
     public void Set_RUNNING_STATE_ANSWER_CLICKED(Action callback) => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.ANSWER_CLICKED, closeAnimations: false, callback: callback));
-    public void Set_RUNNING_STATE_WAIT_OTHER_PLAYER() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.WAIT_OTHER_PLAYER));
+    public void Set_RUNNING_STATE_WAIT_OTHER_PLAYER() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.WAIT_OTHER_PLAYER, closeAnimations: false));
     public void Set_RUNNING_STATE_CLOSE_PAGE(Action callback) => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.CLOSE_PAGE, closeAnimations: false, callback: callback));
     public void Set_RUNNING_STATE_FINAL_SCORE() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.FINAL_SCORE));
 

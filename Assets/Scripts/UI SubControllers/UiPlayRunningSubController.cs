@@ -16,9 +16,9 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     [SerializeField] private TMP_Text _countdownText;
     [SerializeField] private TMP_Text _questionText;
     [SerializeField] private AnswerButtonComponent[] _answerList;
-    // [SerializeField] private UiAnimatedElement[] _otherAnimations;
     [SerializeField] private UiAnimatedElement _questionAnimation;
     [SerializeField] private UiAnimatedElement _countdownAnimation;
+    [SerializeField] private UiAnimatedElement _waitOtherPlayerAnimation;
 
 
     [Header("FINAL_SCORE")]
@@ -62,6 +62,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
                 break;
 
             case UiControllerBase.RUNNING_STATE.WAIT_OTHER_PLAYER:
+
+                ShowWaitOtherPlayer();
                 break;
 
             case UiControllerBase.RUNNING_STATE.CLOSE_PAGE:
@@ -71,29 +73,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
             case UiControllerBase.RUNNING_STATE.FINAL_SCORE:
 
-                GameManager.PlayerStats myPlayerStats = new GameManager.PlayerStats(GameManager.userData.playerId);
-                _totalTime.text = "Tempo totale: " + myPlayerStats.totalTime;
-                _rightAnswers.text = "Risposte giuste: " + myPlayerStats.rightQuestions + "/" + myPlayerStats.totalQuestions;
-
-                print("Tempo totale: " + myPlayerStats.totalTime);
-                print("Risposte giuste: " + myPlayerStats.rightQuestions + "/" + myPlayerStats.totalQuestions);
-
-                if (GameManager.gameSessionData.numberOfPlayersRunning == 1)
-                {
-                    _winnerOrLooser.gameObject.SetActive(false);
-                    _score.gameObject.SetActive(true);
-                    _score.text = "Punteggio: " + myPlayerStats.score.ToString();
-                }
-                else if (GameManager.gameSessionData.numberOfPlayersRunning == 2)
-                {
-                    int otherPlayerId = GameManager.userData.playerId == 0 ? 1 : 0;
-                    GameManager.PlayerStats otherPlayerStats = new GameManager.PlayerStats(otherPlayerId);
-
-                    _winnerOrLooser.gameObject.SetActive(true);
-                    _score.gameObject.SetActive(false);
-                    _winnerOrLooser.text = myPlayerStats.score > otherPlayerStats.score ? "HAI VINTO!!" : "HAI PERSO...";
-                }
-
+                OpenFinalScore();
                 break;
         }
     }
@@ -167,8 +147,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             );
 
 
-        /// QUI DOBBIAMO FARE ENTRARE IL TIMER!!!!
-
         _pageCanvasGroup.interactable = true;
         // _pageCanvasGroupCtrl.Toggle(true);
     }
@@ -208,6 +186,13 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         /// Callback
         callback.Invoke();
+    }
+
+
+
+    private void ShowWaitOtherPlayer()
+    {
+        _waitOtherPlayerAnimation.Enter();
     }
 
 
@@ -258,10 +243,11 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         }
 
-        // foreach (var a in _otherAnimations) a.Exit();
+        
         _questionAnimation.Exit();
+        _waitOtherPlayerAnimation.Exit();
 
-        /// Let's wait for all animation EXIT
+        /// Let's wait for button animations EXIT
         while (AnimationsManager.instance.IsAnyAnimationNotInEmptyState(_answerListAnimations.ToArray()))
         {
             // print("SI CHIUDONO I TASTIIIIIIIIIIII");
@@ -292,6 +278,34 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         /// Send the information to the PlayManager that
         /// the answer has been clicked
         _playManager.OnAnswerButtonPressed(buttonNumber: answerClicked.buttonNumber, isTrue: answerClicked.isTrue, time: timer);
+    }
+
+
+
+    private void OpenFinalScore()
+    {
+        GameManager.PlayerStats myPlayerStats = new GameManager.PlayerStats(GameManager.userData.playerId);
+        _totalTime.text = "Tempo totale: " + myPlayerStats.totalTime;
+        _rightAnswers.text = "Risposte giuste: " + myPlayerStats.rightQuestions + "/" + myPlayerStats.totalQuestions;
+
+        print("Tempo totale: " + myPlayerStats.totalTime);
+        print("Risposte giuste: " + myPlayerStats.rightQuestions + "/" + myPlayerStats.totalQuestions);
+
+        if (GameManager.gameSessionData.numberOfPlayersRunning == 1)
+        {
+            _winnerOrLooser.gameObject.SetActive(false);
+            _score.gameObject.SetActive(true);
+            _score.text = "Punteggio: " + myPlayerStats.score.ToString();
+        }
+        else if (GameManager.gameSessionData.numberOfPlayersRunning == 2)
+        {
+            int otherPlayerId = GameManager.userData.playerId == 0 ? 1 : 0;
+            GameManager.PlayerStats otherPlayerStats = new GameManager.PlayerStats(otherPlayerId);
+
+            _winnerOrLooser.gameObject.SetActive(true);
+            _score.gameObject.SetActive(false);
+            _winnerOrLooser.text = myPlayerStats.score > otherPlayerStats.score ? "HAI VINTO!!" : "HAI PERSO...";
+        }
     }
 
 
