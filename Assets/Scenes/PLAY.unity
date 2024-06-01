@@ -3079,7 +3079,7 @@ GameObject:
   - component: {fileID: 653308990}
   - component: {fileID: 653308989}
   m_Layer: 5
-  m_Name: Toggle (1)
+  m_Name: Toggle 2 PLAYERS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3237,7 +3237,19 @@ MonoBehaviour:
   m_Group: {fileID: 436469800}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 932839118}
+        m_TargetAssemblyTypeName: UiPlayIdleSubController, Assembly-CSharp
+        m_MethodName: OnSessionPlayersNumberChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!222 &653308994
 CanvasRenderer:
@@ -4158,7 +4170,6 @@ MonoBehaviour:
   - {fileID: 1055005857}
   - {fileID: 653308993}
   _sessionPlayersCanvasController: {fileID: 204766792}
-  _titlesAnimation: {fileID: 0}
   _riveAsset: {fileID: 575535509}
 --- !u!114 &932839119
 MonoBehaviour:
@@ -4721,7 +4732,7 @@ GameObject:
   - component: {fileID: 1055005854}
   - component: {fileID: 1055005853}
   m_Layer: 5
-  m_Name: Toggle
+  m_Name: Toggle 1 PLAYER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4879,7 +4890,19 @@ MonoBehaviour:
   m_Group: {fileID: 436469800}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 932839118}
+        m_TargetAssemblyTypeName: UiPlayIdleSubController, Assembly-CSharp
+        m_MethodName: OnSessionPlayersNumberChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!222 &1055005858
 CanvasRenderer:

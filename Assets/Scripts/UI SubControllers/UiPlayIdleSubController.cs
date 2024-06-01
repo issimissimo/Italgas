@@ -6,7 +6,6 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
 {
     [SerializeField] private List<Toggle> _sessionPlayersToggles;
     [SerializeField] private CanvasController _sessionPlayersCanvasController;
-    [SerializeField] private UiAnimatedElementBase _titlesAnimation;
     [SerializeField] private RiveAsset _riveAsset;
    
 
@@ -23,9 +22,7 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
 
         _sessionPlayersCanvasController.Toggle(GameManager.userData.requestedPlayers == 1 ? false : true);
 
-        // /// Actually I don't have a better way to manage the ENTER state
-        // /// of this particular animation...
-        // _titlesAnimation.Enter();
+        /// Show RIVE animation
         _riveAsset.StartRiveAsset();
     }
 
@@ -37,6 +34,8 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
         {
             int selected = _sessionPlayersToggles.FindIndex(a => a.isOn == true);
             GameManager.gameSessionData.numberOfPlayersRunning = selected + 1;
+
+            print("ADESSO I GIOCATORI SONO: " + GameManager.gameSessionData.numberOfPlayersRunning);
         }
     }
 
