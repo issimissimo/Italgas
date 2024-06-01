@@ -15,7 +15,7 @@ public class UiSetupZone : MonoBehaviour
         for (int i = 0; i < _playerNumberImages.Length; i++)
         {
             Image img = _playerNumberImages[i];
-            img.color = new Color(img.color.r, img.color.r, img.color.g, 0f);
+            img.color = new Color(img.color.r, img.color.r, img.color.g, 0.3f);
         }
     }
 
