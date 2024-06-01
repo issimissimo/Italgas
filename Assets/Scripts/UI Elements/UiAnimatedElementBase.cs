@@ -27,7 +27,7 @@ public class UiAnimatedElementBase : MonoBehaviour
         _isActivated = false;
         await Task.Delay(_exitDelay);
         _animator.SetTrigger("EXIT");
-        print(gameObject.name + " ===> EXIT");
+        // print(gameObject.name + " ===> EXIT");
     }
 
     public async void ExitTrue()
@@ -36,7 +36,7 @@ public class UiAnimatedElementBase : MonoBehaviour
         await Task.Delay(_exitDelay);
         _isActivated = false;
         _animator.SetTrigger("EXIT_TRUE");
-        print(gameObject.name + " ===> EXIT_TRUE");
+        // print(gameObject.name + " ===> EXIT_TRUE");
     }
 
     public async void ExitFalse()
@@ -45,13 +45,18 @@ public class UiAnimatedElementBase : MonoBehaviour
         await Task.Delay(_exitDelay);
         _isActivated = false;
         _animator.SetTrigger("EXIT_FALSE");
-        print(gameObject.name + " ===> EXIT_FALSE");
+        // print(gameObject.name + " ===> EXIT_FALSE");
     }
 
     public void Clicked()
     {
-        print(gameObject.name + " --> CLICKED");
+        // print(gameObject.name + " --> CLICKED");
         _animator.SetTrigger("CLICKED");
+    }
+
+    public void NotClicked()
+    {
+        _animator.SetTrigger("NOT_CLICKED");
     }
 
 

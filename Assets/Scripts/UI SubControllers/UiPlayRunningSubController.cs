@@ -16,7 +16,9 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     [SerializeField] private TMP_Text _countdownText;
     [SerializeField] private TMP_Text _questionText;
     [SerializeField] private AnswerButtonComponent[] _answerList;
-    [SerializeField] private UiAnimatedElement[] _otherAnimations;
+    // [SerializeField] private UiAnimatedElement[] _otherAnimations;
+    [SerializeField] private UiAnimatedElement _questionAnimation;
+    [SerializeField] private UiAnimatedElement _countdownAnimation;
 
 
     [Header("FINAL_SCORE")]
@@ -52,6 +54,11 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             case UiControllerBase.RUNNING_STATE.OPEN_PAGE:
 
                 StartCoroutine(OpenPage());
+                break;
+
+            case UiControllerBase.RUNNING_STATE.ANSWER_CLICKED:
+
+                StartCoroutine(OnAnswerClicked(callback));
                 break;
 
             case UiControllerBase.RUNNING_STATE.WAIT_OTHER_PLAYER:
@@ -97,7 +104,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         /// Setup the Chapter
         _chapterNameText.text = GameManager.currentGameChapter.chapterName;
 
-        print("APRO CHAPTER: " + GameManager.currentGameChapter.chapterName);
+        // print("APRO CHAPTER: " + GameManager.currentGameChapter.chapterName);
 
         /// Play the "Enter" animation
         _chapterAnimation.Enter();
@@ -106,7 +113,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         /// Wait for animation finished
         while (!_chapterAnimation.IsOnEmptyState()) yield return null;
 
-        print("FINITO CHAPTER!");
+        // print("FINITO CHAPTER!");
 
         // print("CHIUDO CHAPTER");
 
@@ -123,6 +130,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     {
         /// Setup the Question
         _questionText.text = GameManager.currentGamePage.question;
+        _questionAnimation.Enter();
 
         /// Setup the Answer Buttons
         for (int i = 0; i < _answerList.Length; i++)
@@ -134,24 +142,72 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
                 number: i
             );
             answerBttn.button.onClick.RemoveAllListeners();
-            answerBttn.button.onClick.AddListener(() => AnswerButtonClicked(answerBttn));
+            answerBttn.button.onClick.AddListener(() => AnswerButtonListener(answerBttn));
 
             answerBttn.animationController.Enter();
         }
 
-
-
         /// Let's wait for all animation ENTER
         while (AnimationsManager.instance.IsAnyAnimationPlaying(_answerListAnimations.ToArray(), "Enter"))
-        {
-            // print("SI APRONO I TASTIIIIIIIIIIII");
             yield return null;
-        }
 
+        /// Setup the Countdown
+        _countdownText.text = GameManager.instance.maximumSeconds.ToString();
+        _countdownAnimation.Enter();
+
+        /// Start the Countdown
+        GameManager.instance.StartTimer(
+                    seconds: GameManager.instance.maximumSeconds,
+                    callback: () =>
+                    {
+                        /// Time is finished!
+                        print("TEMPO SCADUTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        _playManager.OnAnswerButtonPressed(buttonNumber: -1, isTrue: false);
+                    }
+                );
+
+
+        /// QUI DOBBIAMO FARE ENTRARE IL TIMER!!!!
 
         _pageCanvasGroup.interactable = true;
         // _pageCanvasGroupCtrl.Toggle(true);
     }
+
+
+
+    /// <summary>
+    /// SHOW THE BUTTONS CLICKED / NOT CLICKED
+    /// </summary>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    private IEnumerator OnAnswerClicked(Action callback)
+    {
+        /// Stop Countdown
+        GameManager.instance.StopTimer();
+        _countdownAnimation.Exit();
+        
+        int buttonPressed = _playManager._myPlayer.NetworkedButtonPressedNumber;
+        UiAnimatedElement buttonPressedAnimation = null;
+
+        /// Show button animations
+        for (int i = 0; i < _answerListAnimations.Count; i++)
+        {
+            if (i == buttonPressed)
+            {
+                _answerListAnimations[i].Clicked();
+                buttonPressedAnimation = _answerListAnimations[i];
+            }
+            else _answerListAnimations[i].NotClicked();
+        }
+
+        /// Wait for animation finished
+        yield return null;
+        while(buttonPressedAnimation.IsPlaying("Clicked")) yield return null;
+           
+        /// Callback
+        callback.Invoke();
+    }
+
 
 
     /// <summary>
@@ -161,7 +217,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <param name="isTrue"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public IEnumerator ClosePage(Action callback)
+    private IEnumerator ClosePage(Action callback)
     {
 
         int buttonPressed = _playManager._myPlayer.NetworkedButtonPressedNumber;
@@ -200,7 +256,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         }
 
-        foreach (var a in _otherAnimations) a.Exit();
+        // foreach (var a in _otherAnimations) a.Exit();
+        _questionAnimation.Exit();
 
         /// Let's wait for all animation EXIT
         while (AnimationsManager.instance.IsAnyAnimationNotInEmptyState(_answerListAnimations.ToArray()))
@@ -218,17 +275,17 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// BUTTON CLICKED LISTENER
     /// </summary>
     /// <param name="answerClicked"></param>
-    private void AnswerButtonClicked(AnswerButtonComponent answerClicked)
+    private void AnswerButtonListener(AnswerButtonComponent answerClicked)
     {
         /// Avoid other unwanted clicks
         _pageCanvasGroup.interactable = false;
         // _pageCanvasGroupCtrl.Toggle(false);
 
-        /// Stop Countdown
-        GameManager.instance.StopTimer();
+        // /// Stop Countdown
+        // GameManager.instance.StopTimer();
 
-        /// Change animation state to CLICKED
-        answerClicked.animationController.Clicked();
+        // /// Change animation state to CLICKED
+        // answerClicked.animationController.Clicked();
 
         /// Send the information to the PlayManager that
         /// the answer has been clicked

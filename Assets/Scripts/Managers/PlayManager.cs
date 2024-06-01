@@ -14,7 +14,7 @@ public class PlayManager : NetworkManagerBase
     /// <param name="buttonNumber"></param> <summary>
     public void OnAnswerButtonPressed(int buttonNumber, bool isTrue)
     {
-        _myPlayer.Set_RUNNING_STATE_FINISHED(buttonNumber, isTrue);
+        _myPlayer.Set_RUNNING_STATE_CLICKED(buttonNumber, isTrue);
     }
 
 
@@ -37,75 +37,14 @@ public class PlayManager : NetworkManagerBase
 
 
 
-    //#region RUNNING GAME LOGICS
-
-    /// <summary>
-    /// 
-    /// </summary>
-    // private void ProceedToNext()
-    // {
-    //     if (GameManager.currentGamePageIndex <= GameManager.currentGameChapter.pages.Count - 1)
-    //     {
-    //         if (GameManager.currentGamePageIndex == 0) _uiController.Set_RUNNING_STATE_NEW_CHAPTER();
-    //         else _uiController.Set_RUNNING_STATE_NEW_PAGE();
-    //     }
-    //     else
-    //     {
-    //         if (GameManager.currentGameChapterIndex < GameManager.currentGameVersion.chapters.Count - 1)
-    //         {
-    //             GameManager.currentGameChapterIndex++;
-    //             GameManager.currentGamePageIndex = 0;
-
-    //             ProceedToNext();
-    //         }
-    //         else
-    //         {
-    //             print ("------------ FINITO!!!!!!!!!!!");
-
-    //             /// Game is finished!!!
-    //             GameManager.currentGameChapterIndex = 0;
-    //             GameManager.currentGamePageIndex = -1;
-
-    //             /// Set my Player
-    //             // _myPlayer.NetworkedState = PlayerController.STATE.FINISHED;
-    //             _myPlayer.Set_RUNNING_STATE_NONE();
-
-    //             /// UI
-    //             _uiController.Set_RUNNING_STATE_FINAL_SCORE();
-    //         }
-    //     }
-    // }
-
-    /// <summary>
-    /// /////////////////////////////// TESTTTTTTTTT
-    /// </summary>
-    // private void ProceedToNext()
-    // {
-    //     if (GameManager.currentGamePageIndex == 0)
-    //     {
-    //         _uiController.Set_RUNNING_STATE_NEW_CHAPTER();
-
-    //     }
-    //     else
-    //     {
-    //         print("------------ FINITO!!!!!!!!!!!");
-
-    //         /// Game is finished!!!
-    //         GameManager.currentGameChapterIndex = 0;
-    //         GameManager.currentGamePageIndex = -1;
-
-    //         /// Set my Player
-    //         // _myPlayer.NetworkedState = PlayerController.STATE.FINISHED;
-    //         _myPlayer.Set_RUNNING_STATE_NONE();
-
-    //         /// UI
-    //         _uiController.Set_RUNNING_STATE_FINAL_SCORE();
-
-    //     }
-    // }
 
 
 
+
+
+
+
+    //#region GAME LOGICS
     public override void OnPlayerRunningStateChanged(int playerId, PlayerController.RUNNING_STATE runningState)
     {
         if (_myPlayer.NetworkedState != PlayerController.STATE.RUNNING) return;
@@ -122,6 +61,16 @@ public class PlayManager : NetworkManagerBase
                     ProceedToNext();
                 }
                 break;
+
+
+            case PlayerController.RUNNING_STATE.CLICKED:
+                if (playerId == _myPlayer.NetworkedPlayerId)
+                {
+                    /// I have clicked on the answer
+                    _uiControllers[0].Set_RUNNING_STATE_ANSWER_CLICKED(() => _myPlayer.Set_RUNNING_STATE_FINISHED());
+                }
+                break;
+
 
             case PlayerController.RUNNING_STATE.FINISHED:
 
@@ -144,7 +93,7 @@ public class PlayManager : NetworkManagerBase
                     {
                         /// Other player have finished too, now we can move on!
                         _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() => _myPlayer.Set_RUNNING_STATE_THINKING());
-                        
+
                     }
                     else
                     {
@@ -166,6 +115,14 @@ public class PlayManager : NetworkManagerBase
     //     // GameManager.currentGamePageIndex++;
     //     // ProceedToNext();
     // }
+
+
+
+
+
+
+
+
 
     //#region APP LOGICS
 

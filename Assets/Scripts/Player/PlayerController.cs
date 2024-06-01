@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 public class PlayerController : NetworkBehaviour
 {
     public enum STATE { IDLE, RUNNING }
-    public enum RUNNING_STATE { NONE, THINKING, FINISHED }
+    public enum RUNNING_STATE { NONE, THINKING, CLICKED, FINISHED }
 
 
     //#region GENERAL
@@ -67,7 +67,7 @@ public class PlayerController : NetworkBehaviour
     private void OnRunningStateChanged()
     {
         /// ADD HERE THE SCORE OF THE PLAYER
-        if (NetworkedRunningState == RUNNING_STATE.FINISHED)
+        if (NetworkedRunningState == RUNNING_STATE.CLICKED)
         {
             /// Initialize
             if (GameManager.gameSessionData.scores[NetworkedPlayerId] == null)
@@ -145,11 +145,13 @@ public class PlayerController : NetworkBehaviour
 
     public void Set_RUNNING_STATE_THINKING() => NetworkedRunningState = RUNNING_STATE.THINKING;
 
-    public void Set_RUNNING_STATE_FINISHED(int buttonNumber, bool result)
+    public void Set_RUNNING_STATE_CLICKED(int buttonNumber, bool result)
     {
         NetworkedTimeSpent = GameManager.timer;
         NetworkedAnswerResult = result;
         NetworkedButtonPressedNumber = buttonNumber;
-        NetworkedRunningState = RUNNING_STATE.FINISHED;
+        NetworkedRunningState = RUNNING_STATE.CLICKED;
     }
+
+    public void Set_RUNNING_STATE_FINISHED() => NetworkedRunningState = RUNNING_STATE.FINISHED;
 }
