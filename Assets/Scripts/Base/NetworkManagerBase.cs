@@ -113,7 +113,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
             if (GameManager.currentGamePageIndex == 0)
             {
                 /// Open a Chapter, and next open a Page
-                foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_OPEN_CHAPTER(()=> ui.Set_RUNNING_STATE_OPEN_PAGE());
+                foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_OPEN_CHAPTER(() => ui.Set_RUNNING_STATE_OPEN_PAGE());
             }
             else
             {
@@ -133,17 +133,23 @@ public abstract class NetworkManagerBase : MonoBehaviour
             else
             {
                 /// Finished
-                GameManager.currentGameChapterIndex = 0;
-                GameManager.currentGamePageIndex = -1;
+                // GameManager.currentGameChapterIndex = 0;
+                // GameManager.currentGamePageIndex = -1;
 
                 print("------------ FINITO!!!!!!!!!!!");
 
-                /// Set my Player
+                
                 // _myPlayer.NetworkedState = PlayerController.STATE.FINISHED;
+
+                /// Player
                 if (_myPlayer != null) _myPlayer.Set_RUNNING_STATE_NONE();
 
-                /// UI
-                foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_FINAL_SCORE();
+                /// Viewer
+                else foreach(var p in _players) p.Set_RUNNING_STATE_NONE();
+                
+
+                // /// UI
+                // foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_FINAL_SCORE();
             }
         }
     }

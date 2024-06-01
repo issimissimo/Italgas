@@ -11,7 +11,7 @@ public class UiConfigGameDataVersionSubController : MonoBehaviour
     {
         _version = GameManager.gameData.GetVersion(versionName);
 
-        _maxTimeSlider.currentValue = _version.maxTimeInSeconds / 60f;
+        _maxTimeSlider.currentValue = _version.maxTimeInSeconds;
         _maxTimeSlider.ForceUpdate();
     }
 
@@ -20,7 +20,7 @@ public class UiConfigGameDataVersionSubController : MonoBehaviour
     {
         if (_version != null)
         {
-            _version.maxTimeInSeconds = _maxTimeSlider.currentValue * 60f;
+            _version.maxTimeInSeconds = _maxTimeSlider.currentValue;
         }
     }
 }

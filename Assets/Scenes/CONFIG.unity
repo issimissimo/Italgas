@@ -1704,12 +1704,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803cebee00d5c504e930205383017dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentValue: 2.66
+  currentValue: 10
   sliderImage: {fileID: 1925839723}
   indicatorPivot: {fileID: 1000913679}
   valueText: {fileID: 1257471571}
-  minValue: 1
-  maxValue: 20
+  minValue: 10
+  maxValue: 60
   decimals: 0
   isPercent: 0
   startPoint: 0
@@ -4751,7 +4751,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1886063490}
   m_HandleRect: {fileID: 1886063489}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -10479,7 +10479,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Minuti per completare il gioco
+  m_text: Secondi per rispondere
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4bd810f1cbcb0f446a8f5a31453e243f, type: 2}
   m_sharedMaterial: {fileID: 21539420542967178, guid: 4bd810f1cbcb0f446a8f5a31453e243f, type: 2}
@@ -16634,7 +16634,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000913678}
-  m_LocalRotation: {x: 0.9139709, y: -0.40577978, z: -0.000000017737197, w: -0.000000039950937}
+  m_LocalRotation: {x: 0.8660254, y: -0.5, z: -0.000000021855694, w: -0.000000037855173}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21211,7 +21211,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2,66
+  m_text: 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
   m_sharedMaterial: {fileID: 21261991626553910, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
@@ -33649,7 +33649,7 @@ MonoBehaviour:
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.133
+  m_FillAmount: 0.16666667
   m_FillClockwise: 1
   m_FillOrigin: 3
   m_UseSpriteMesh: 0

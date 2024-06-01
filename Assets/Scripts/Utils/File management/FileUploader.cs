@@ -25,6 +25,9 @@ public class FileUploader
 		var address = new Uri(server + "/" + Path.Combine(initialPath, newFileName));
 
 		Debug.Log("TRY TO UPLOAD TO: " + address);
+		Debug.Log("username: " + username);
+		Debug.Log("password: " + password + "----");
+
 
 		// var address = new Uri(Path.Combine(serverPath, file.Name));
 		var request = FtpWebRequest.Create(address) as FtpWebRequest;

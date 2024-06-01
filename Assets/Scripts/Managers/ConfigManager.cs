@@ -51,9 +51,9 @@ public class ConfigManager : MonoBehaviour
     /// </summary>
     public async void SaveGameData()
     {
-        await Task.Delay(200);
-
         GameManager.instance.ShowSpinner();
+
+        await Task.Delay(500);
 
         if (Data.imagesToUploadLocalPathList.Count > 0)
         {

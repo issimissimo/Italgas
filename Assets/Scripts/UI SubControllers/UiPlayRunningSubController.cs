@@ -132,12 +132,12 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             yield return null;
 
         /// Setup the Countdown
-        _countdownText.text = GameManager.instance.maximumSeconds.ToString();
+        _countdownText.text = GameManager.currentGameVersion.maxTimeInSeconds.ToString();
         _countdownAnimation.Enter();
 
         /// Start the Countdown
         StartTimer(
-            seconds: GameManager.instance.maximumSeconds,
+            seconds: GameManager.currentGameVersion.maxTimeInSeconds,
             callback: () =>
                 {
                     /// Time is finished!
@@ -327,7 +327,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
     void Update()
     {
-        _countdownText.text = (GameManager.instance.maximumSeconds - Mathf.Floor(timer)).ToString();
+        _countdownText.text = (GameManager.currentGameVersion.maxTimeInSeconds - Mathf.Floor(timer)).ToString();
     }
 
 

@@ -53,6 +53,14 @@ public class PlayManager : NetworkManagerBase
 
         switch (runningState)
         {
+            case PlayerController.RUNNING_STATE.NONE:
+            
+                /// The game is finished
+                GameManager.currentGameChapterIndex = 0;
+                GameManager.currentGamePageIndex = -1;
+                _uiControllers[0].Set_RUNNING_STATE_FINAL_SCORE();
+                break;
+
             case PlayerController.RUNNING_STATE.THINKING:
 
                 if (playerId == _myPlayer.NetworkedPlayerId)
