@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public float maximumSeconds = 10f;
     public bool sendMessageToRestart { get; set; } = false;
     public bool appJustStarted { get; set; } = true;
-    public static float timer { get; private set; }
+    // public static float timer { get; private set; }
     public Globals.GAMESCENE gameScene { get; private set; }
     public static GameManager instance;
     private Coroutine _timerCoroutine;
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ModalWindowManager _modalWindowManager;
     [SerializeField] NotificationManager _notificationManager;
     [SerializeField] SpinnerManager _spinnerManager;
-    [SerializeField] GameObject _setupButton;
+    // [SerializeField] GameObject _setupButton;
     [SerializeField] UiSetupZone _setupZone;
 
 
@@ -154,19 +154,19 @@ public class GameManager : MonoBehaviour
     {
         _spinnerManager.CloseSpinner();
     }
-    public void StartTimer(float seconds, Action callback = null)
-    {
-        if (_timerCoroutine != null) StopTimer();
-        _timerCoroutine = StartCoroutine(TimerCoroutine(seconds, callback));
-    }
-    public void StopTimer()
-    {
-        if (_timerCoroutine != null)
-        {
-            StopCoroutine(_timerCoroutine);
-            _timerCoroutine = null;
-        }
-    }
+    // public void StartTimer(float seconds, Action callback = null)
+    // {
+    //     if (_timerCoroutine != null) StopTimer();
+    //     _timerCoroutine = StartCoroutine(TimerCoroutine(seconds, callback));
+    // }
+    // public void StopTimer()
+    // {
+    //     if (_timerCoroutine != null)
+    //     {
+    //         StopCoroutine(_timerCoroutine);
+    //         _timerCoroutine = null;
+    //     }
+    // }
 
 
     //#region PRIVATE FUNCTIONS
@@ -174,14 +174,14 @@ public class GameManager : MonoBehaviour
     {
         _setupZone.SetupUi();
     }
-    private IEnumerator TimerCoroutine(float seconds, Action callback)
-    {
-        timer = 0f;
-        while (timer < seconds)
-        {
-            timer += Time.deltaTime;
-            yield return null;
-        }
-        if (callback != null) callback.Invoke();
-    }
+    // private IEnumerator TimerCoroutine(float seconds, Action callback)
+    // {
+    //     timer = 0f;
+    //     while (timer < seconds)
+    //     {
+    //         timer += Time.deltaTime;
+    //         yield return null;
+    //     }
+    //     if (callback != null) callback.Invoke();
+    // }
 }

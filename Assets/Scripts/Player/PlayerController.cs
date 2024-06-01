@@ -145,9 +145,9 @@ public class PlayerController : NetworkBehaviour
 
     public void Set_RUNNING_STATE_THINKING() => NetworkedRunningState = RUNNING_STATE.THINKING;
 
-    public void Set_RUNNING_STATE_CLICKED(int buttonNumber, bool result)
+    public void Set_RUNNING_STATE_CLICKED(int buttonNumber, bool result, float time)
     {
-        NetworkedTimeSpent = GameManager.timer;
+        NetworkedTimeSpent = time;
         NetworkedAnswerResult = result;
         NetworkedButtonPressedNumber = buttonNumber;
         NetworkedRunningState = RUNNING_STATE.CLICKED;

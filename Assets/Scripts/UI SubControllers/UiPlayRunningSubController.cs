@@ -156,15 +156,15 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         _countdownAnimation.Enter();
 
         /// Start the Countdown
-        GameManager.instance.StartTimer(
-                    seconds: GameManager.instance.maximumSeconds,
-                    callback: () =>
-                    {
-                        /// Time is finished!
-                        print("TEMPO SCADUTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                        _playManager.OnAnswerButtonPressed(buttonNumber: -1, isTrue: false);
-                    }
-                );
+        StartTimer(
+            seconds: GameManager.instance.maximumSeconds,
+            callback: () =>
+                {
+                    /// Time is finished!
+                    print("TEMPO SCADUTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    _playManager.OnAnswerButtonPressed(buttonNumber: -1, isTrue: false, time: timer);
+                }
+            );
 
 
         /// QUI DOBBIAMO FARE ENTRARE IL TIMER!!!!
@@ -183,9 +183,9 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     private IEnumerator OnAnswerClicked(Action callback)
     {
         /// Stop Countdown
-        GameManager.instance.StopTimer();
+        StopTimer();
         _countdownAnimation.Exit();
-        
+
         int buttonPressed = _playManager._myPlayer.NetworkedButtonPressedNumber;
         UiAnimatedElement buttonPressedAnimation = null;
 
@@ -202,8 +202,10 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         /// Wait for animation finished
         yield return null;
-        while(buttonPressedAnimation.IsPlaying("Clicked")) yield return null;
-           
+        if (buttonPressedAnimation != null)
+            while (buttonPressedAnimation.IsPlaying("Clicked")) yield return null;
+        else yield return new WaitForSeconds(1);
+
         /// Callback
         callback.Invoke();
     }
@@ -289,7 +291,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         /// Send the information to the PlayManager that
         /// the answer has been clicked
-        _playManager.OnAnswerButtonPressed(buttonNumber: answerClicked.buttonNumber, isTrue: answerClicked.isTrue);
+        _playManager.OnAnswerButtonPressed(buttonNumber: answerClicked.buttonNumber, isTrue: answerClicked.isTrue, time: timer);
     }
 
 
@@ -311,7 +313,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
     void Update()
     {
-        _countdownText.text = (GameManager.instance.maximumSeconds - Mathf.Floor(GameManager.timer)).ToString();
+        _countdownText.text = (GameManager.instance.maximumSeconds - Mathf.Floor(timer)).ToString();
     }
 
 

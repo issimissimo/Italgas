@@ -12,9 +12,9 @@ public class PlayManager : NetworkManagerBase
     /// CLICKED ON THE ANSWER IN THE UI
     /// </summary>
     /// <param name="buttonNumber"></param> <summary>
-    public void OnAnswerButtonPressed(int buttonNumber, bool isTrue)
+    public void OnAnswerButtonPressed(int buttonNumber, bool isTrue, float time)
     {
-        _myPlayer.Set_RUNNING_STATE_CLICKED(buttonNumber, isTrue);
+        _myPlayer.Set_RUNNING_STATE_CLICKED(buttonNumber, isTrue, time);
     }
 
 
