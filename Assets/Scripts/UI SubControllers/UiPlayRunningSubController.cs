@@ -110,6 +110,13 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <returns></returns>
     private IEnumerator OpenPage()
     {
+        /// Check if page data are valid
+        if (string.IsNullOrEmpty(GameManager.currentGamePage.question) || GameManager.currentGamePage.answers.Count < 4)
+        {
+            GameManager.instance.ShowModal("ERRORE!", "Non sono stati inseriti i dati per questa pagina!", true, false);
+            yield break;
+        }
+
         /// Setup the Question
         _questionText.text = GameManager.currentGamePage.question;
         _questionAnimation.Enter();
@@ -246,7 +253,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         }
 
-        
+
         _questionAnimation.Exit();
         _waitOtherPlayerAnimation.Exit();
 
