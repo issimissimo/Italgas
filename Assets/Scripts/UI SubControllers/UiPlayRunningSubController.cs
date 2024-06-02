@@ -136,7 +136,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         /// Setup the Countdown
         _countdownProgressBar.maxValue = GameManager.currentGameVersion.maxTimeInSeconds;
         yield return null;
-        _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds;
+        _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds - 0.1f; /// weird...
         _countdownAnimation.Enter();
 
         /// Start the Countdown
@@ -152,7 +152,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
 
         _pageCanvasGroup.interactable = true;
-        // _pageCanvasGroupCtrl.Toggle(true);
     }
 
 
@@ -331,7 +330,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
     void Update()
     {
-        _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds - Mathf.Floor(timer);
+        // _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds - Mathf.Floor(timer);
+        _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds - timer;
     }
 
 
