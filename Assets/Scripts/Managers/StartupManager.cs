@@ -23,14 +23,14 @@ public class StartupManager : MonoBehaviour
         // }
         // yield return null;
         // yield return AnimationsManager.instance.WaitAnimationOnEmptyState(_logoAnimation);
-        StartCoroutine(StartUp());
+        StartUp();
     }
 
 
-    private IEnumerator StartUp()
+    private void StartUp()
     {
-        GameManager.instance.ShowSpinner();
-        yield return new WaitForSeconds(1);
+        GameManager.instance.ShowSpinner(delayTime: 1f);
+        // yield return new WaitForSeconds(1);
 
         LoadUserData((success) =>
         {
@@ -43,6 +43,8 @@ public class StartupManager : MonoBehaviour
                                     {
                                         /// Start the Game
                                         print("NOW WE SHOULD START THE GAME...");
+
+                                        GameManager.instance.CloseSpinner();
 
                                         if (GameManager.instance.isDevelopment)
                                         {

@@ -26,6 +26,7 @@ public class SpinnerManager : MonoBehaviour
 
     public void CloseSpinner()
     {
+        print("CloseSpinner **************************************");
         _canvasController.SetOff();
         isOn = false;
     }

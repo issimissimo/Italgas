@@ -874,11 +874,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDevelopment: 1
-  maximumSeconds: 30
   _modalWindowManager: {fileID: 8164853624248774133}
   _notificationManager: {fileID: 1426818768}
   _spinnerManager: {fileID: 1273296260}
-  _setupButton: {fileID: 0}
   _setupZone: {fileID: 7067648153369917622}
 --- !u!4 &298900380
 Transform:

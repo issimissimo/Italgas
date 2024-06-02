@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Michsky.UI.ModernUIPack;
 using System.Collections.Generic;
+using System.Collections;
 
 
 public class GameManager : MonoBehaviour
@@ -86,8 +87,19 @@ public class GameManager : MonoBehaviour
     }
     //#endregion
 
+    //#region PRIVATE
 
-    void Awake()
+    private Coroutine _showSpinnerWithDelay;
+
+    private IEnumerator ShowSpinnerWithDelayCoroutine(float delayTime, string description)
+    {
+        yield return new WaitForSeconds(delayTime);
+        _showSpinnerWithDelay = null;
+        ShowSpinner(description);
+    }
+
+
+    private void Awake()
     {
         if (instance == null)
         {
@@ -96,10 +108,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void InitializeSetupZone()
+    {
+        _setupZone.SetupUi();
+    }
+
+
+
+
+
     //#region PUBLIC FUNCTIONS
     public void SetGameScene(Globals.GAMESCENE newGameScene)
     {
-        if (_spinnerManager.isOn) CloseSpinner();
+        // if (_spinnerManager.isOn) CloseSpinner();
 
         _setupZone.gameObject.SetActive(newGameScene == Globals.GAMESCENE.CONFIG ? false : true);
 
@@ -143,16 +164,25 @@ public class GameManager : MonoBehaviour
     {
         _spinnerManager.OpenSpinner(description);
     }
+    public void ShowSpinner(float delayTime, string description = null)
+    {
+        _showSpinnerWithDelay = StartCoroutine(ShowSpinnerWithDelayCoroutine(delayTime, description));
+    }
     public void CloseSpinner()
     {
-        _spinnerManager.CloseSpinner();
+        if (_showSpinnerWithDelay != null)
+        {
+            StopCoroutine(_showSpinnerWithDelay);
+            _showSpinnerWithDelay = null;
+        }
+        else
+        {
+            _spinnerManager.CloseSpinner();
+        }
     }
-    
+
 
 
     //#region PRIVATE FUNCTIONS
-    private void InitializeSetupZone()
-    {
-        _setupZone.SetupUi();
-    }
+
 }
