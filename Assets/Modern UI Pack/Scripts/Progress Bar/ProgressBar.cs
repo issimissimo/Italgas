@@ -46,8 +46,8 @@ namespace Michsky.UI.ModernUIPack
             if (isOn == false)
                 return;
 
-            if (currentPercent <= maxValue && invert == false) { currentPercent += speed * Time.deltaTime; }
-            else if (currentPercent >= minValue && invert == true) { currentPercent -= speed * Time.deltaTime; }
+            // if (currentPercent <= maxValue && invert == false) { currentPercent += speed * Time.deltaTime; }
+            // else if (currentPercent >= minValue && invert == true) { currentPercent -= speed * Time.deltaTime; }
 
             if (currentPercent >= maxValue && speed != 0 && restart == true && invert == false) { currentPercent = 0; }
             else if (currentPercent <= minValue && speed != 0 && restart == true && invert == true) { currentPercent = maxValue; }

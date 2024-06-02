@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using TMPro;
+using Michsky.UI.ModernUIPack;
 
 public class UiPlayRunningSubController : GamePanelSubControllerBase
 {
@@ -13,7 +14,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     [Header("NEW_PAGE")]
     [SerializeField] CanvasGroup _pageCanvasGroup;
     // [SerializeField] CanvasController _pageCanvasGroupCtrl;
-    [SerializeField] private TMP_Text _countdownText;
+    // [SerializeField] private TMP_Text _countdownText;
+    [SerializeField] private ProgressBar _countdownProgressBar;
     [SerializeField] private TMP_Text _questionText;
     [SerializeField] private AnswerButtonComponent[] _answerList;
     [SerializeField] private UiAnimatedElement _questionAnimation;
@@ -132,7 +134,9 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             yield return null;
 
         /// Setup the Countdown
-        _countdownText.text = GameManager.currentGameVersion.maxTimeInSeconds.ToString();
+        _countdownProgressBar.maxValue = GameManager.currentGameVersion.maxTimeInSeconds;
+        yield return null;
+        _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds;
         _countdownAnimation.Enter();
 
         /// Start the Countdown
@@ -327,7 +331,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
     void Update()
     {
-        _countdownText.text = (GameManager.currentGameVersion.maxTimeInSeconds - Mathf.Floor(timer)).ToString();
+        _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds - Mathf.Floor(timer);
     }
 
 
