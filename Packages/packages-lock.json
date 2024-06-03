@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "830570362338d8e20f7bbb550dc575fc62036d88"
     },
+    "com.gindemit.rlottie": {
+      "version": "https://github.com/gindemit/unity-rlottie.git?path=/unity/RLottieUnity/Assets/LottiePlugin/#0.2.2",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "82e20a0008295f5fd1cc819c398a0e7a5bcfe731"
+    },
     "com.unity.collab-proxy": {
       "version": "2.3.1",
       "depth": 0,

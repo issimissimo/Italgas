@@ -22,8 +22,8 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
 
         _sessionPlayersCanvasController.Toggle(GameManager.userData.requestedPlayers == 1 ? false : true);
 
-        /// Show RIVE animation
-        _riveAsset.StartRiveAsset();
+        // /// Show RIVE animation
+        // _riveAsset.StartRiveAsset();
     }
 
 
