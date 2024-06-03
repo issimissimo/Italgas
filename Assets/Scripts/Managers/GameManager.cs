@@ -123,6 +123,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        _backgroundImage.enabled = false;
+    }
+
     private void InitializeSetupZone()
     {
         _setupZone.SetupUi();
@@ -197,6 +202,7 @@ public class GameManager : MonoBehaviour
     }
     public void SetBackground(bool useDefault = false)
     {
+        print("SetBackground..........");
         Sprite sp = null;
         if (useDefault) sp = _defaultBackgroundSprite;
         else
@@ -207,7 +213,12 @@ public class GameManager : MonoBehaviour
                     sp = bck.sprite;
             }
         }
-        if (sp != null) _backgroundImage.sprite = sp;
+        if (sp != null)
+        {
+            print("OOOKKK..........");
+            _backgroundImage.enabled = true;
+            _backgroundImage.sprite = sp;
+        }
         else Debug.LogError("Non è stato inserito lo sprite per lo sfondo!");
     }
 

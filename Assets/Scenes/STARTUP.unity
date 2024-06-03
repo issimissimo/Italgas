@@ -854,7 +854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76707b2533347aa44b46578b0aeb005c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDevelopment: 0
+  isDevelopment: 1
   _modalWindowManager: {fileID: 8164853624248774133}
   _notificationManager: {fileID: 1426818768}
   _spinnerManager: {fileID: 1273296260}
@@ -911,7 +911,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &342867931
 MonoBehaviour:
   m_ObjectHideFlags: 0

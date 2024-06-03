@@ -47,6 +47,8 @@ public class StartupManager : MonoBehaviour
 
                                         GameManager.instance.CloseSpinner();
 
+                                        GameManager.instance.SetBackground();
+
                                         if (GameManager.instance.isDevelopment)
                                         {
                                             print("TUTTO OK!!! MA SICCOME SEI IN DEVELOPMENT, APRO COMUNQUE LA CONFIGURAZIONE");
@@ -58,8 +60,10 @@ public class StartupManager : MonoBehaviour
                                             GameManager.instance.StartGame();
                                         }
                                     }
+                                    else GameManager.instance.SetBackground(useDefault: true);
                                 });
             }
+            else GameManager.instance.SetBackground(useDefault: true);
         });
     }
 
