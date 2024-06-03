@@ -398,7 +398,6 @@ MonoBehaviour:
   _chapterNameText: {fileID: 260430567}
   _chapterAnimation: {fileID: 2006832324}
   _pageCanvasGroup: {fileID: 72762876}
-  _countdownText: {fileID: 2131172567}
   _countdownProgressBar: {fileID: 396353983}
   _questionText: {fileID: 1080567664}
   _answerList:
@@ -7681,7 +7680,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 48ef8dd61128af644b2db4c527b4dfbc, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7825,7 +7824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1771125557
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7841,9 +7840,9 @@ RectTransform:
   - {fileID: 571201303}
   m_Father: {fileID: 94561269}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 33.589996, y: -530}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1771125558

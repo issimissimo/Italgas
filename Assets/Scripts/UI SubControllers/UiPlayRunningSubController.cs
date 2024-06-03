@@ -75,7 +75,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
             case UiControllerBase.RUNNING_STATE.FINAL_SCORE:
 
-                OpenFinalScore();
+                StartCoroutine(OpenFinalScore());
                 break;
         }
     }
@@ -292,7 +292,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
 
 
-    private void OpenFinalScore()
+    private IEnumerator OpenFinalScore()
     {
         GameManager.PlayerStats myPlayerStats = new GameManager.PlayerStats(GameManager.userData.playerId);
         _totalTime.text = "Tempo totale: " + myPlayerStats.totalTime;
@@ -316,6 +316,14 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             _score.gameObject.SetActive(false);
             _winnerOrLooser.text = myPlayerStats.score > otherPlayerStats.score ? "HAI VINTO!!" : "HAI PERSO...";
         }
+
+        yield return new WaitForSeconds(7);
+
+        _finalScoreAnimationCtrl.Exit();
+        yield return null;
+        while(!_finalScoreAnimationCtrl.IsOnEmptyState()) yield return null;
+
+        _playManager.Set_IDLE();
     }
 
 

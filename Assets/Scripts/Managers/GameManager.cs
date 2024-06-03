@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Michsky.UI.ModernUIPack;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 
 
 public class GameManager : MonoBehaviour
@@ -18,6 +20,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] NotificationManager _notificationManager;
     [SerializeField] SpinnerManager _spinnerManager;
     [SerializeField] UiSetupZone _setupZone;
+
+    [Header("Background images")]
+    [SerializeField] Image _backgroundImage;
+    [SerializeField] Sprite _defaultBackgroundSprite;
+    [SerializeField] Background[] _backgrounds;
 
 
     //#region Game DATA
@@ -88,6 +95,14 @@ public class GameManager : MonoBehaviour
     //#endregion
 
     //#region PRIVATE
+
+    [Serializable]
+    private class Background
+    {
+        public Globals.GAMEMODE gameMode;
+        public Data.VERSION_NAME gameVersion;
+        public Sprite sprite;
+    }
 
     private Coroutine _showSpinnerWithDelay;
 
@@ -179,6 +194,21 @@ public class GameManager : MonoBehaviour
         {
             _spinnerManager.CloseSpinner();
         }
+    }
+    public void SetBackground(bool useDefault = false)
+    {
+        Sprite sp = null;
+        if (useDefault) sp = _defaultBackgroundSprite;
+        else
+        {
+            foreach (var bck in _backgrounds)
+            {
+                if (bck.gameMode == userData.gameMode && bck.gameVersion == gameData.currentVersion)
+                    sp = bck.sprite;
+            }
+        }
+        if (sp != null) _backgroundImage.sprite = sp;
+        else Debug.LogError("Non è stato inserito lo sprite per lo sfondo!");
     }
 
 

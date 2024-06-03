@@ -156,18 +156,18 @@ public class PlayManager : NetworkManagerBase
                     print("Rimetto in READY_TO_START il mio!!!!!!");
                     _uiControllers[0].Set_STATE_READY_TO_START();
                 }
-                else if (playerId == _otherPlayer.NetworkedPlayerId)
-                {
-                    print("L'altro PLAYER è in READY_TO_START, quindi metto anche il mio, che attualmente è in: " + _myPlayer.NetworkedState.ToString());
+                // else if (playerId == _otherPlayer.NetworkedPlayerId)
+                // {
+                //     print("L'altro PLAYER è in READY_TO_START, quindi metto anche il mio, che attualmente è in: " + _myPlayer.NetworkedState.ToString());
 
-                    /// If we are in Game...
-                    if (_myPlayer.NetworkedState != PlayerController.STATE.IDLE)
-                        _myPlayer.Set_STATE_IDLE();
+                //     /// If we are in Game...
+                //     if (_myPlayer.NetworkedState != PlayerController.STATE.IDLE)
+                //         _myPlayer.Set_STATE_IDLE();
 
-                    /// I suppose we are waiting for other Player to finish...
-                    else
-                        _uiControllers[0].Set_STATE_READY_TO_START();
-                }
+                //     /// I suppose we are waiting for other Player to finish...
+                //     else
+                //         _uiControllers[0].Set_STATE_READY_TO_START();
+                // }
                 break;
 
             case PlayerController.STATE.RUNNING:
