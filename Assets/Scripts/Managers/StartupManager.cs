@@ -29,6 +29,7 @@ public class StartupManager : MonoBehaviour
 
     private void StartUp()
     {
+        GameManager.instance.CloseSpinner();
         GameManager.instance.ShowSpinner(delayTime: 1f);
         // yield return new WaitForSeconds(1);
 

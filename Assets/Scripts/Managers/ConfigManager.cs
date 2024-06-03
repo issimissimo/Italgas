@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 public class ConfigManager : MonoBehaviour
 {
+    [SerializeField] CanvasController canvasController;
     [SerializeField] UiConfigUserDataController userDataController;
     [SerializeField] UiConfigGameDataController gameDataController;
 
@@ -12,6 +13,7 @@ public class ConfigManager : MonoBehaviour
 
     void Start()
     {
+        canvasController.SetOn();
         userDataController.UpdateUI();
         gameDataController.UpdateUI();
     }
@@ -49,11 +51,13 @@ public class ConfigManager : MonoBehaviour
     /// <summary>
     /// BUTTON
     /// </summary>
-    public async void SaveGameData()
+    public void SaveGameData()
     {
-        GameManager.instance.ShowSpinner();
+        
+        // GameManager.instance.ShowSpinner();
+        GameManager.instance.ShowSpinner(delayTime: 1f);
 
-        await Task.Delay(500);
+        // await Task.Delay(500);
 
         if (Data.imagesToUploadLocalPathList.Count > 0)
         {
