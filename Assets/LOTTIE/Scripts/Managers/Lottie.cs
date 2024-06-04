@@ -44,29 +44,10 @@ public class Lottie : MonoBehaviour
     }
 
 
-    public void FadeIn(LottieAnimation[] lottieAnimations, float? time)
+    public void FadeIn(LottieAnimation[] lottieAnimations, float? time = null)
     {
         isFading = true;
-        float fadeTime = time != null ? time.Value : 1f;
-
-        if (SetMaterialOpacity != null)
-        {
-            StopCoroutine(SetMaterialOpacity);
-            SetMaterialOpacity = null;
-        }
-
-        SetMaterialsOpacityCoroutine(lottieAnimations, fadeTime, 0f, 1f, () =>
-        {
-            foreach (var anim in lottieAnimations) anim.Stop();
-            isFading = false;
-        });
-    }
-
-
-    public void FadeOut(LottieAnimation[] lottieAnimations, float? time)
-    {
-        isFading = true;
-        float fadeTime = time != null ? time.Value : 1f;
+        float fadeTime = time != null ? time.Value : 0.5f;
 
         if (SetMaterialOpacity != null)
         {
@@ -76,10 +57,29 @@ public class Lottie : MonoBehaviour
 
         foreach (var anim in lottieAnimations) anim.Play();
 
-        SetMaterialsOpacityCoroutine(lottieAnimations, fadeTime, 0f, 1f, () =>
+        SetMaterialOpacity = StartCoroutine(SetMaterialsOpacityCoroutine(lottieAnimations, fadeTime, 0f, 1f, () =>
         {
             isFading = false;
-        });
+        }));
+    }
+
+
+    public void FadeOut(LottieAnimation[] lottieAnimations, float? time = null)
+    {
+        isFading = true;
+        float fadeTime = time != null ? time.Value : 0.5f;
+
+        if (SetMaterialOpacity != null)
+        {
+            StopCoroutine(SetMaterialOpacity);
+            SetMaterialOpacity = null;
+        }
+
+        SetMaterialOpacity = StartCoroutine(SetMaterialsOpacityCoroutine(lottieAnimations, fadeTime, 0f, 1f, () =>
+        {
+            foreach (var anim in lottieAnimations) anim.Stop();
+            isFading = false;
+        }));
     }
 
 

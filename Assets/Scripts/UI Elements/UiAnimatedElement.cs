@@ -4,8 +4,8 @@ public class UiAnimatedElement : UiAnimatedElementBase
 {
     public enum DOMAIN { STATE, RUNNING_STATE }
     [SerializeField] DOMAIN _domain;
-    [SerializeField] UiControllerBase.STATE _STATE;
-    [SerializeField] UiControllerBase.RUNNING_STATE _RUNNING_STATE;
+    [SerializeField] UiController.STATE _STATE;
+    [SerializeField] UiController.RUNNING_STATE _RUNNING_STATE;
 
     [SerializeField] bool _useAutoEnter = true;
     [SerializeField] bool _useAutoExit = true;
@@ -14,17 +14,17 @@ public class UiAnimatedElement : UiAnimatedElementBase
 
     private void OnEnable()
     {
-        UiControllerBase.UpdateAnimationsOnStateChange += StateChanged;
-        UiControllerBase.UpdateAnimationsOnRunningStateChange += RunningStateChanged;
+        UiController.UpdateAnimationsOnStateChange += StateChanged;
+        UiController.UpdateAnimationsOnRunningStateChange += RunningStateChanged;
     }
 
     private void OnDisable()
     {
-        UiControllerBase.UpdateAnimationsOnStateChange -= StateChanged;
-        UiControllerBase.UpdateAnimationsOnRunningStateChange -= RunningStateChanged;
+        UiController.UpdateAnimationsOnStateChange -= StateChanged;
+        UiController.UpdateAnimationsOnRunningStateChange -= RunningStateChanged;
     }
 
-    private void StateChanged(UiControllerBase.STATE state)
+    private void StateChanged(UiController.STATE state)
     {
         if (_domain == DOMAIN.STATE && state == _STATE)
         {
@@ -37,7 +37,7 @@ public class UiAnimatedElement : UiAnimatedElementBase
     }
 
 
-    private void RunningStateChanged(UiControllerBase.RUNNING_STATE runningState)
+    private void RunningStateChanged(UiController.RUNNING_STATE runningState)
     {
         if (_domain == DOMAIN.RUNNING_STATE && runningState == _RUNNING_STATE)
         {

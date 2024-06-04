@@ -63,7 +63,7 @@ public class PlayManager : NetworkManagerBase
 
             case PlayerController.RUNNING_STATE.THINKING:
 
-                if (playerId == _myPlayer.NetworkedPlayerId)
+                if (playerId == _myPlayer.NetworkedId)
                 {
                     GameManager.currentGamePageIndex++;
                     ProceedToNext();
@@ -72,7 +72,7 @@ public class PlayManager : NetworkManagerBase
 
 
             case PlayerController.RUNNING_STATE.CLICKED:
-                if (playerId == _myPlayer.NetworkedPlayerId)
+                if (playerId == _myPlayer.NetworkedId)
                 {
                     /// I have clicked on the answer
                     _uiControllers[0].Set_RUNNING_STATE_ANSWER_CLICKED(() => _myPlayer.Set_RUNNING_STATE_FINISHED());
@@ -82,7 +82,7 @@ public class PlayManager : NetworkManagerBase
 
             case PlayerController.RUNNING_STATE.FINISHED:
 
-                if (playerId == _myPlayer.NetworkedPlayerId)
+                if (playerId == _myPlayer.NetworkedId)
                 {
                     if (GameManager.gameSessionData.numberOfPlayersRunning == 1 ||
                          _otherPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
@@ -96,7 +96,7 @@ public class PlayManager : NetworkManagerBase
                         _uiControllers[0].Set_RUNNING_STATE_WAIT_OTHER_PLAYER();
                     }
                 }
-                else if (playerId == _otherPlayer.NetworkedPlayerId)
+                else if (playerId == _otherPlayer.NetworkedId)
                 {
                     if (_myPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
                     {
@@ -151,7 +151,7 @@ public class PlayManager : NetworkManagerBase
                 /// Some Player clicked on the Button
                 /// of "FINISHED FOR ALL" Panel
 
-                if (playerId == _myPlayer.NetworkedPlayerId)
+                if (playerId == _myPlayer.NetworkedId)
                 {
                     print("Rimetto in READY_TO_START il mio!!!!!!");
                     _uiControllers[0].Set_STATE_READY_TO_START();
@@ -173,14 +173,14 @@ public class PlayManager : NetworkManagerBase
             case PlayerController.STATE.RUNNING:
 
                 /// I'm starting the Game for my own Player
-                if (playerId == _myPlayer.NetworkedPlayerId)
+                if (playerId == _myPlayer.NetworkedId)
                 {
                     _uiControllers[0].Set_STATE_IN_GAME();
                     _myPlayer.Set_RUNNING_STATE_THINKING();
                     // ContinueInGame();
                 }
                 /// Other Player started the Game
-                else if (playerId == _otherPlayer.NetworkedPlayerId)
+                else if (playerId == _otherPlayer.NetworkedId)
                 {
                     if (_otherPlayer.NetworkedSessionRequestedPlayers == 1)
                     {
@@ -190,7 +190,7 @@ public class PlayManager : NetworkManagerBase
                     }
                     else if (_otherPlayer.NetworkedSessionRequestedPlayers == 2)
                     {
-                        print("SICCOME L'ALTRO PLAYER E' RUNNING, METTO IN RUNNING ANCHE IL MIO, CON id " + _myPlayer.NetworkedPlayerId);
+                        print("SICCOME L'ALTRO PLAYER E' RUNNING, METTO IN RUNNING ANCHE IL MIO, CON id " + _myPlayer.NetworkedId);
                         _myPlayer.Set_STATE_RUNNING(runningPlayersNumber: 2);
                     }
                 }
@@ -217,7 +217,7 @@ public class PlayManager : NetworkManagerBase
         print("-------------- OnPlayersCountChanged -----------------");
         foreach (var p in _players)
         {
-            print("Player n. " + i + " --- ID: " + p.NetworkedPlayerId);
+            print("Player n. " + i + " --- ID: " + p.NetworkedId);
             if (p.HasStateAuthority) _myPlayer = p;
             else _otherPlayer = p;
 
@@ -230,7 +230,7 @@ public class PlayManager : NetworkManagerBase
             print("<<<<<<<<<<< NON C'E' il NUMERO DI UTENTI RICHIESTO: " + _players.Count + "/" + GameManager.userData.requestedPlayers);
 
             /// Set UI
-            if (_uiControllers[0].state != UiControllerBase.STATE.WAITING_FOR_PLAYERS)
+            if (_uiControllers[0].state != UiController.STATE.WAITING_FOR_PLAYERS)
                 _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
         }
 
@@ -247,13 +247,13 @@ public class PlayManager : NetworkManagerBase
             /// Reset the other Player to null
             if (_players.Count == 1) _otherPlayer = null;
 
-            if (_myPlayer != null && _otherPlayer != null && _otherPlayer.NetworkedPlayerId == _myPlayer.NetworkedPlayerId)
+            if (_myPlayer != null && _otherPlayer != null && _otherPlayer.NetworkedId == _myPlayer.NetworkedId)
             {
                 GameManager.instance.ShowModal("ERRORE", "Ci sono due players con lo stesso ID", showConfigureButton: true, showRestartButton: false);
             }
             else
             {
-                print("IL MIO PLAYER ID E' : " + _myPlayer.NetworkedPlayerId);
+                print("IL MIO PLAYER ID E' : " + _myPlayer.NetworkedId);
 
                 /// If we changed something that require others to restart,
                 /// send message to restart!

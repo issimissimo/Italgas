@@ -4,7 +4,7 @@ using System.Collections;
 
 public abstract class GamePanelSubControllerBase : MonoBehaviour
 {
-    public UiControllerBase.STATE behaviour;
+    public UiController.STATE behaviour;
 
     private Coroutine _timerCoroutine;
 
@@ -17,7 +17,7 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
     {
         /// To override
     }
-    public virtual void SetUI_on_RUNNING_STATE(UiControllerBase.RUNNING_STATE runningState, Action callback = null)
+    public virtual void SetUI_on_RUNNING_STATE(UiController.RUNNING_STATE runningState, Action callback = null)
     {
         /// To override
     }

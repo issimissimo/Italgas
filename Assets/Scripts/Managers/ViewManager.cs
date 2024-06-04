@@ -36,7 +36,7 @@ public class ViewManager : NetworkManagerBase
                 // PlayerController runningPlayer = null;
                 // foreach(var p in players) if (p.NetworkedPlayerId == playerId) runningPlayer = p;
 
-                PlayerController runningPlayer = _players.Find(x => x.NetworkedPlayerId == playerId);
+                PlayerController runningPlayer = _players.Find(x => x.NetworkedId == playerId);
 
                 GameManager.gameSessionData = new Data.GameSessionData
                 {

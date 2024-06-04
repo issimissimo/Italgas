@@ -44,36 +44,36 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     }
 
 
-    public override void SetUI_on_RUNNING_STATE(UiControllerBase.RUNNING_STATE runningState, Action callback = null)
+    public override void SetUI_on_RUNNING_STATE(UiController.RUNNING_STATE runningState, Action callback = null)
     {
         switch (runningState)
         {
-            case UiControllerBase.RUNNING_STATE.OPEN_CHAPTER:
+            case UiController.RUNNING_STATE.OPEN_CHAPTER:
 
                 StartCoroutine(OpenChapter(callback));
                 break;
 
-            case UiControllerBase.RUNNING_STATE.OPEN_PAGE:
+            case UiController.RUNNING_STATE.OPEN_PAGE:
 
                 StartCoroutine(OpenPage());
                 break;
 
-            case UiControllerBase.RUNNING_STATE.ANSWER_CLICKED:
+            case UiController.RUNNING_STATE.ANSWER_CLICKED:
 
                 StartCoroutine(OnAnswerClicked(callback));
                 break;
 
-            case UiControllerBase.RUNNING_STATE.WAIT_OTHER_PLAYER:
+            case UiController.RUNNING_STATE.WAIT_OTHER_PLAYER:
 
                 ShowWaitOtherPlayer();
                 break;
 
-            case UiControllerBase.RUNNING_STATE.CLOSE_PAGE:
+            case UiController.RUNNING_STATE.CLOSE_PAGE:
 
                 StartCoroutine(ClosePage(callback));
                 break;
 
-            case UiControllerBase.RUNNING_STATE.FINAL_SCORE:
+            case UiController.RUNNING_STATE.FINAL_SCORE:
 
                 StartCoroutine(OpenFinalScore());
                 break;
@@ -137,7 +137,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         }
 
         /// Let's wait for all animation ENTER
-        while (AnimationsManager.instance.IsAnyAnimationPlaying(_answerListAnimations.ToArray(), "Enter"))
+        while (Animations.instance.IsAnyAnimationPlaying(_answerListAnimations.ToArray(), "Enter"))
             yield return null;
 
         /// Setup the Countdown
@@ -258,7 +258,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         _waitOtherPlayerAnimation.Exit();
 
         /// Let's wait for button animations EXIT
-        while (AnimationsManager.instance.IsAnyAnimationNotInEmptyState(_answerListAnimations.ToArray()))
+        while (Animations.instance.IsAnyAnimationNotInEmptyState(_answerListAnimations.ToArray()))
         {
             // print("SI CHIUDONO I TASTIIIIIIIIIIII");
             yield return null;

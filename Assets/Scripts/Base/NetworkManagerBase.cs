@@ -12,7 +12,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
     [SerializeField] GameObject PrototypeNetworkStartPrefab;
 
 
-    [SerializeField] protected UiControllerBase[] _uiControllers;
+    [SerializeField] protected UiController[] _uiControllers;
 
     protected List<PlayerController> _players = new List<PlayerController>();
     public PlayerController _myPlayer { get; protected set; } = null;
@@ -28,6 +28,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
 
             /// Subscribe to network events
             NetworkEventsDispatcher.OnConnectFailed += OnConnectFailed;
+            NetworkEventsDispatcher.OnPlayerJoined += OnPlayerJoined;
             NetworkEventsDispatcher.OnPlayerLeft += OnPlayerLeft;
 
             // /// Subscribe to GameManager
@@ -47,8 +48,8 @@ public abstract class NetworkManagerBase : MonoBehaviour
     private void OnDisable()
     {
         NetworkEventsDispatcher.OnConnectFailed -= OnConnectFailed;
+        NetworkEventsDispatcher.OnPlayerJoined -= OnPlayerJoined;
         NetworkEventsDispatcher.OnPlayerLeft -= OnPlayerLeft;
-        // GameManager.instance.OnTimeRunningFinished -= OnTimeFinished;
     }
 
     public virtual void Started()
@@ -67,9 +68,13 @@ public abstract class NetworkManagerBase : MonoBehaviour
         OnPlayersCountChanged();
     }
 
+    private void OnPlayerJoined()
+    {
+        
+    }
+
     public virtual void OnPlayersCountChanged()
     {
-        print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
         _players.Clear();
         PlayerController[] playersArray = FindObjectsOfType<PlayerController>();
         _players = playersArray.ToList();
@@ -139,15 +144,15 @@ public abstract class NetworkManagerBase : MonoBehaviour
 
                 print("------------ FINITO!!!!!!!!!!!");
 
-                
+
                 // _myPlayer.NetworkedState = PlayerController.STATE.FINISHED;
 
                 /// Player
                 if (_myPlayer != null) _myPlayer.Set_RUNNING_STATE_NONE();
 
                 /// Viewer
-                else foreach(var p in _players) p.Set_RUNNING_STATE_NONE();
-                
+                else foreach (var p in _players) p.Set_RUNNING_STATE_NONE();
+
 
                 // /// UI
                 // foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_FINAL_SCORE();

@@ -11,8 +11,8 @@ public class PlayerController : NetworkBehaviour
 
 
     //#region GENERAL
-    [Networked, OnChangedRender(nameof(OnIdChanged))]
-    public int NetworkedId { get; set; } = 999;
+    [Networked]
+    public int NetworkedId { get; set; }
     [Networked]
     public int NetworkedSessionRequestedPlayers { get; set; }
     //#endregion
@@ -45,42 +45,27 @@ public class PlayerController : NetworkBehaviour
         _networkManager = FindObjectOfType<NetworkManagerBase>();
     }
 
+    
 
-
-
-    [Networked, OnChangedRender(nameof(TestAAA))]
-    public int NetworkedPlayerId { get; set; } = 999;
-    public void TestAAA()
-    {
-
-    }
-
-    private void Start()
+    private IEnumerator Start()
     {
         if (HasStateAuthority)
         {
-            NetworkedState = STATE.IDLE;
-            NetworkedRunningState = RUNNING_STATE.NONE;
+            // NetworkedState = STATE.IDLE;
+            // NetworkedRunningState = RUNNING_STATE.NONE;
             NetworkedSessionRequestedPlayers = GameManager.userData.requestedPlayers;
             NetworkedId = GameManager.userData.playerId;
         }
 
-        // /// Let's wait a little, to try to solve the ID Player bug...
-        // yield return new WaitForSeconds(1f);
-
-        // print("YYYYYYYYYYYYYY------------- " + NetworkedPlayerId);
-
-        // _networkManager.OnPlayersCountChanged();
-    }
-
-    private void OnIdChanged()
-    {
+        /// Let's wait a little, to try to solve the ID Player bug...
+        yield return new WaitForSeconds(1f);
         _networkManager.OnPlayersCountChanged();
     }
 
+
     private void OnStateChanged()
     {
-        _networkManager.OnPlayerStateChanged(NetworkedPlayerId, NetworkedState);
+        _networkManager.OnPlayerStateChanged(NetworkedId, NetworkedState);
     }
 
     private void OnRunningStateChanged()
@@ -89,16 +74,16 @@ public class PlayerController : NetworkBehaviour
         if (NetworkedRunningState == RUNNING_STATE.CLICKED)
         {
             /// Initialize
-            if (GameManager.gameSessionData.scores[NetworkedPlayerId] == null)
+            if (GameManager.gameSessionData.scores[NetworkedId] == null)
             {
-                GameManager.gameSessionData.scores[NetworkedPlayerId] = new Data.TotalPlayerScore
+                GameManager.gameSessionData.scores[NetworkedId] = new Data.TotalPlayerScore
                 {
                     singlePlayerScoreList = new List<Data.SinglePlayerScore>()
                 };
             }
 
             /// Add the score
-            GameManager.gameSessionData.scores[NetworkedPlayerId].singlePlayerScoreList.Add(
+            GameManager.gameSessionData.scores[NetworkedId].singlePlayerScoreList.Add(
                 new Data.SinglePlayerScore
                 {
                     isCorrect = NetworkedAnswerResult,
@@ -107,7 +92,7 @@ public class PlayerController : NetworkBehaviour
                 });
 
 
-            print("******** SCORE PLAYER " + NetworkedPlayerId + " **********");
+            print("******** SCORE PLAYER " + NetworkedId + " **********");
             print("Tasto premuto n. " + NetworkedButtonPressedNumber);
             print("Tempo: " + NetworkedTimeSpent);
             print("Risposta giusta? " + NetworkedAnswerResult);
@@ -115,7 +100,7 @@ public class PlayerController : NetworkBehaviour
         }
 
         /// Callback
-        _networkManager.OnPlayerRunningStateChanged(NetworkedPlayerId, NetworkedRunningState);
+        _networkManager.OnPlayerRunningStateChanged(NetworkedId, NetworkedRunningState);
     }
 
 
