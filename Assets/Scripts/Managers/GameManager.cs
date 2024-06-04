@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
     //#region PUBLIC FUNCTIONS
     public void SetGameScene(Globals.GAMESCENE newGameScene)
     {
-        if (_spinnerManager.isOn) CloseSpinner();
+        CloseSpinner();
 
         _setupZone.gameObject.SetActive(newGameScene == Globals.GAMESCENE.CONFIG ? false : true);
 
@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
     }
     public void ShowModal(string title, string message, bool showConfigureButton, bool showRestartButton)
     {
-        if (_spinnerManager.isOn) CloseSpinner();
+        CloseSpinner();
         _modalWindowManager.OpenWindow(title, message, showConfigureButton, showRestartButton);
     }
     public void ShowNotification(string description)
@@ -197,7 +197,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            _spinnerManager.CloseSpinner();
+            if (_spinnerManager.isOn)
+                _spinnerManager.CloseSpinner();
         }
     }
     public void SetBackground(bool useDefault = false)

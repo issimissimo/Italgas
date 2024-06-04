@@ -73,7 +73,7 @@ public abstract class UiControllerBase : MonoBehaviour
 
             /// STOP all LOTTIE animations before to proceed to new state
             // yield return StopAllLottieAnimations();
-            yield return Lottie.instance.StopAll_Coroutine();
+            yield return Lottie.instance.Stop_All_Coroutine();
         }
 
         // /// Set new running state
