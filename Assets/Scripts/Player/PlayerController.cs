@@ -9,7 +9,7 @@ public class PlayerController : NetworkBehaviour
 
 
     //#region GENERAL
-    [Networked]
+    [Networked, OnChangedRender(nameof(OnIdChanged))]
     public int NetworkedPlayerId { get; set; }
     [Networked]
     public int NetworkedSessionRequestedPlayers { get; set; }
@@ -43,19 +43,24 @@ public class PlayerController : NetworkBehaviour
         _networkManager = FindObjectOfType<NetworkManagerBase>();
     }
 
-    private async void Start()
+    private void Start()
     {
         if (HasStateAuthority)
         {
-            NetworkedPlayerId = GameManager.userData.playerId;
             NetworkedState = STATE.IDLE;
             NetworkedRunningState = RUNNING_STATE.NONE;
             NetworkedSessionRequestedPlayers = GameManager.userData.requestedPlayers;
+            NetworkedPlayerId = GameManager.userData.playerId;
         }
 
-        /// Let's wait a little, to try to solve the ID Player bug...
-        await Task.Delay(500);
+        // /// Let's wait a little, to try to solve the ID Player bug...
+        // await Task.Delay(500);
 
+        // _networkManager.OnPlayersCountChanged();
+    }
+
+    private void OnIdChanged()
+    {
         _networkManager.OnPlayersCountChanged();
     }
 

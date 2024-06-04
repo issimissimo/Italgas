@@ -45,7 +45,7 @@ public class StartupManager : MonoBehaviour
                                         /// Start the Game
                                         print("NOW WE SHOULD START THE GAME...");
 
-                                        GameManager.instance.CloseSpinner();
+                                        // GameManager.instance.CloseSpinner();
 
                                         GameManager.instance.SetBackground();
 

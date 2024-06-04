@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
     //#region PUBLIC FUNCTIONS
     public void SetGameScene(Globals.GAMESCENE newGameScene)
     {
-        // if (_spinnerManager.isOn) CloseSpinner();
+        if (_spinnerManager.isOn) CloseSpinner();
 
         _setupZone.gameObject.SetActive(newGameScene == Globals.GAMESCENE.CONFIG ? false : true);
 
@@ -203,6 +203,9 @@ public class GameManager : MonoBehaviour
     public void SetBackground(bool useDefault = false)
     {
         print("SetBackground..........");
+
+        CloseSpinner();
+
         Sprite sp = null;
         if (useDefault) sp = _defaultBackgroundSprite;
         else

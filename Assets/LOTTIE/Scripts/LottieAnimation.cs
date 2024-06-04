@@ -5,21 +5,21 @@ using LottiePlugin.UI;
 public class LottieAnimation : MonoBehaviour
 {
     public string Name { get; private set; }
-    private AnimatedImage _lottie;
+    private AnimatedImage _lottieAsset;
 
     void Awake()
     {
-        _lottie = GetComponent<AnimatedImage>();
-        Name = _lottie.GetAssetName(); /// Not true! It work
+        _lottieAsset = GetComponent<AnimatedImage>();
+        Name = _lottieAsset.GetAssetName(); /// Not true! It work
 
     }
 
     public void Play()
     {
-        _lottie.Play();
+        _lottieAsset.Play();
     }
     public void Stop()
     {
-        _lottie.Stop();
+        _lottieAsset.Stop();
     }
 }
