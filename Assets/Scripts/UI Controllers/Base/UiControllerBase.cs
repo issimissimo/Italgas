@@ -43,9 +43,12 @@ public abstract class UiControllerBase : MonoBehaviour
         /// Set new state
         state = newState;
         print("========> STATE: " + state.ToString());
-        
+
         /// EXIT all animations before to proceed to new state
         yield return AnimationsManager.instance.ExitAllAnimationsAndWaitForFinish();
+
+        /// STOP all LOTTIE animations before to proceed to new state
+        // yield return StopAllLottieAnimations();
 
         /// Call the Method of the Classes that derive from this one
         StateChanged();
@@ -62,13 +65,16 @@ public abstract class UiControllerBase : MonoBehaviour
         /// Set new running state
         runningState = newRunningState;
         print("========> RUNNING_STATE: " + runningState.ToString());
-        
+
         if (closeAnimations)
         {
             /// EXIT all animations that are not in EMPTY state before to proceed to new state
             yield return AnimationsManager.instance.ExitAllAnimationsAndWaitForFinish();
+
+            /// STOP all LOTTIE animations before to proceed to new state
+            // yield return StopAllLottieAnimations();
+            yield return Lottie.instance.StopAll_Coroutine();
         }
-        else yield return null;
 
         // /// Set new running state
         // runningState = newRunningState;
@@ -112,4 +118,12 @@ public abstract class UiControllerBase : MonoBehaviour
                 panelController.SetUI_on_RUNNING_STATE(runningState, callback);
         }
     }
+
+
+    // private IEnumerator StopAllLottieAnimations()
+    // {
+    //     LottieAnimation[] _lottieAnimations = FindObjectsOfType<LottieAnimation>();
+    //     foreach (var anim in _lottieAnimations) anim.StopAnimation();
+    //     yield return null;
+    // }
 }

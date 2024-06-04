@@ -6,8 +6,6 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
 {
     [SerializeField] private List<Toggle> _sessionPlayersToggles;
     [SerializeField] private CanvasController _sessionPlayersCanvasController;
-    [SerializeField] private RiveAsset _riveAsset;
-   
 
 
     public override void SetUI_on_STATE()
@@ -22,8 +20,8 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
 
         _sessionPlayersCanvasController.Toggle(GameManager.userData.requestedPlayers == 1 ? false : true);
 
-        // /// Show RIVE animation
-        // _riveAsset.StartRiveAsset();
+        /// Play Lottie animation
+        Lottie.instance.PlayByName("Welcome", _lottieAnimations);
     }
 
 

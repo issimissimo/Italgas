@@ -1,24 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class UiPlayWaitingSubController : GamePanelSubControllerBase
 {
-    // [SerializeField] Image _backgroundImage;
-    // [SerializeField] Sprite[] _backgroundTextures;
+    [SerializeField] private TMP_Text _message;
 
-    // public override void SetUI_on_STATE()
-    // {
-    //     switch (GameManager.gameData.currentVersion)
-    //     {
-    //         case Data.VERSION_NAME.ADULTI:
-    //             _backgroundImage.sprite = _backgroundTextures[0];
-    //             break;
+    public override void SetUI_on_STATE()
+    {
+        if (GameManager.userData.requestedPlayers == 1)
+        {
+            /// Show Notification for SOLO mode
+            GameManager.instance.ShowNotification("Sei in modalità SOLO, quindi non possono collegarsi altri giocatori");
 
-    //         case Data.VERSION_NAME.BAMBINI:
-    //             _backgroundImage.sprite = _backgroundTextures[1];
-    //             break;
-    //     }
-    // }
+            _message.text = "Attendi un attimo...";
+        }
+        else
+        {
+            int otherTabletNumber = GameManager.userData.playerId == 0 ? 2 : 1;
+            _message.text = "In attesa di collegamento con il tablet " + otherTabletNumber.ToString();
+        }
+
+        /// Play Lottie animation
+        Lottie.instance.PlayByName("WaitingSmile", _lottieAnimations);
+    }
 }

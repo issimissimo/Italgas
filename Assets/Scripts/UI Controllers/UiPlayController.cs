@@ -1,6 +1,9 @@
+using UnityEngine;
 
 public class UiPlayController : UiControllerBase
 {
+    // [SerializeField] LottieAnimation[] _lottieAnimations;
+    
     private void Start()
     {
         Set_STATE_WAITING_FOR_PLAYERS();
@@ -19,10 +22,13 @@ public class UiPlayController : UiControllerBase
         {
             case STATE.WAITING_FOR_PLAYERS:
 
-                if (GameManager.userData.requestedPlayers == 1)
-                {
-                    GameManager.instance.ShowNotification("Sei in modalità SOLO, quindi non possono collegarsi altri giocatori");
-                }
+                // if (GameManager.userData.requestedPlayers == 1)
+                // {
+                //     GameManager.instance.ShowNotification("Sei in modalità SOLO, quindi non possono collegarsi altri giocatori");
+                // }
+
+                // Lottie.instance.PlayByName("WaitingSmile", _lottieAnimations);
+
                 break;
 
             case STATE.READY_TO_START:
@@ -38,43 +44,4 @@ public class UiPlayController : UiControllerBase
         }
     }
 
-
-    /// <summary>
-    /// THIS METHOD IS CALLED AFTER "Set_PanelsUI_on_RUNNING_STATE"
-    /// OF THE BASE CLASS
-    /// </summary>
-    /// <returns></returns>
-    // protected override async void RunningStateChanged()
-    // {
-    //     switch (runningState)
-    //     {
-    //         case RUNNING_STATE.OPEN_CHAPTER:
-
-    //             // await Task.Delay(3000);
-    //             // Set_RUNNING_STATE_OPEN_PAGE();
-    //             break;
-
-    //         case RUNNING_STATE.OPEN_PAGE:
-
-    //             // GameManager.instance.StartTimer(
-    //             //     seconds: GameManager.instance.maximumSeconds,
-    //             //     callback: () =>
-    //             //     {
-    //             //         print("TEMPO SCADUTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    //             //         var manager = FindObjectOfType<PlayManager>();
-    //             //         manager.OnAnswerButtonPressed(buttonNumber: -1, isTrue: false);
-    //             //     }
-    //             // );
-    //             break;
-
-    //         case RUNNING_STATE.WAIT_OTHER_PLAYER:
-    //             break;
-
-    //         case RUNNING_STATE.CLOSE_PAGE:
-    //             break;
-
-    //         case RUNNING_STATE.FINAL_SCORE:
-    //             break;
-    //     }
-    // }
 }
