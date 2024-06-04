@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Collections;
 using Fusion;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -10,7 +12,7 @@ public class PlayerController : NetworkBehaviour
 
     //#region GENERAL
     [Networked, OnChangedRender(nameof(OnIdChanged))]
-    public int NetworkedPlayerId { get; set; }
+    public int NetworkedId { get; set; } = 999;
     [Networked]
     public int NetworkedSessionRequestedPlayers { get; set; }
     //#endregion
@@ -43,6 +45,16 @@ public class PlayerController : NetworkBehaviour
         _networkManager = FindObjectOfType<NetworkManagerBase>();
     }
 
+
+
+
+    [Networked, OnChangedRender(nameof(TestAAA))]
+    public int NetworkedPlayerId { get; set; } = 999;
+    public void TestAAA()
+    {
+
+    }
+
     private void Start()
     {
         if (HasStateAuthority)
@@ -50,11 +62,13 @@ public class PlayerController : NetworkBehaviour
             NetworkedState = STATE.IDLE;
             NetworkedRunningState = RUNNING_STATE.NONE;
             NetworkedSessionRequestedPlayers = GameManager.userData.requestedPlayers;
-            NetworkedPlayerId = GameManager.userData.playerId;
+            NetworkedId = GameManager.userData.playerId;
         }
 
         // /// Let's wait a little, to try to solve the ID Player bug...
-        // await Task.Delay(500);
+        // yield return new WaitForSeconds(1f);
+
+        // print("YYYYYYYYYYYYYY------------- " + NetworkedPlayerId);
 
         // _networkManager.OnPlayersCountChanged();
     }

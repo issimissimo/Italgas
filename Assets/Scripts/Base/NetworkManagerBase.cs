@@ -69,6 +69,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
 
     public virtual void OnPlayersCountChanged()
     {
+        print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
         _players.Clear();
         PlayerController[] playersArray = FindObjectsOfType<PlayerController>();
         _players = playersArray.ToList();
