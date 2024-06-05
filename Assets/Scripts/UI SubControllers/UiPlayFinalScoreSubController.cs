@@ -5,6 +5,7 @@ using TMPro;
 
 public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
 {
+    [Header("UI ELEMENTS")]
     [SerializeField] private TMP_Text _totalTime;
     [SerializeField] private TMP_Text _rightAnswers;
     [SerializeField] private TMP_Text _winnerOrLooser;

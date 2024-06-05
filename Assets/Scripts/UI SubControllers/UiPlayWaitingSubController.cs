@@ -3,6 +3,7 @@ using TMPro;
 
 public class UiPlayWaitingSubController : GamePanelSubControllerBase
 {
+    [Header("UI ELEMENTS")]
     [SerializeField] private TMP_Text _message;
 
     public override void SetUI_on_STATE()
@@ -20,7 +21,7 @@ public class UiPlayWaitingSubController : GamePanelSubControllerBase
             _message.text = "In attesa di collegamento con il tablet " + otherTabletNumber.ToString();
         }
 
-        /// Play Lottie animation
-        Lottie.instance.FadeIn(_loopLottieAnimations, 1f);
+        Animations_EnterAll();
+        Lottie_FadeIn_All(time: 1f);
     }
 }

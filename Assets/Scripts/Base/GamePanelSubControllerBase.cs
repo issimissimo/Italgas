@@ -1,17 +1,21 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public abstract class GamePanelSubControllerBase : MonoBehaviour
 {
     public UiController.STATE STATE;
 
-    private Coroutine _timerCoroutine;
+
 
     protected float timer { get; private set; }
 
-    [Header("LOTTIE")]
-    public LottieAnimation[] _loopLottieAnimations;
+    [Header("LOTTIE ANIMATIONS")]
+    [SerializeField] protected LottieAnimation[] _lottieAnimations;
+
+    [Header("STANDARD ANIMATIONS")]
+    [SerializeField] protected UiAnimatedElement[] _standardAnimations;
 
     public virtual void SetUI_on_STATE()
     {
@@ -22,6 +26,173 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
         /// To override
     }
 
+
+
+
+
+    public virtual void SetupUI(UiController.STATE state, UiController.RUNNING_STATE runningState, Action callback = null)
+    {
+        /// To override
+    }
+
+
+
+
+
+    /// <summary>
+    /// CLOSE ALL ANIMATED ELEMENTS OF THIS UI CONTROLLER
+    /// </summary>
+    /// <returns></returns>
+    public virtual IEnumerator CloseAllAnimatedElements()
+    {
+        Animations_ExitAll();
+        Lottie_FadeOut_All(1f);
+
+        yield return null;
+
+        while (Animations_IsAnyNotInEmptyState() || _lottie_isFading)
+            yield return null;
+    }
+
+
+
+
+
+
+    //#region STANDARD ANIMATIONS MANAGER
+
+    protected void Animations_EnterAll()
+    {
+        foreach (var a in _standardAnimations) a.Enter();
+    }
+
+    protected void Animations_ExitAll()
+    {
+        foreach (var a in _standardAnimations) a.Exit();
+    }
+
+    protected bool Animations_IsAnyNotInEmptyState()
+    {
+        var firstMatch = Array.Find(_standardAnimations, elem => elem.IsOnEmptyState() == false);
+        return firstMatch == null ? false : true;
+    }
+
+
+    //#endregion
+
+
+
+
+
+
+
+    //#region LOTTIE ANIMATIONS MANAGER
+
+    protected bool _lottie_isFading;
+
+    private Coroutine _lottie_setMaterialOpacity;
+
+    protected void Lottie_PlayByName(string assetName)
+    {
+        foreach (var l in _lottieAnimations)
+        {
+            if (l.Name == assetName) l.Play();
+        }
+    }
+    protected void Lottie_StopByName(string assetName)
+    {
+        foreach (var l in _lottieAnimations)
+        {
+            if (l.Name == assetName) l.Stop();
+        }
+    }
+    protected IEnumerator Lottie_Stop_All_Coroutine()
+    {
+        foreach (var anim in _lottieAnimations) anim.Stop();
+        yield return null;
+    }
+
+
+    protected void Lottie_FadeIn_All(float? time = null)
+    {
+        _lottie_isFading = true;
+        float fadeTime = time != null ? time.Value : 0.5f;
+
+        if (_lottie_setMaterialOpacity != null)
+        {
+            StopCoroutine(_lottie_setMaterialOpacity);
+            _lottie_setMaterialOpacity = null;
+        }
+
+        foreach (var anim in _lottieAnimations) anim.Play();
+
+        _lottie_setMaterialOpacity = StartCoroutine(Lottie_SetMaterialsOpacityCoroutine(fadeTime, 0f, 1f, () =>
+        {
+            _lottie_isFading = false;
+        }));
+    }
+
+
+    protected void Lottie_FadeOut_All(float? time = null)
+    {
+        _lottie_isFading = true;
+        float fadeTime = time != null ? time.Value : 0.5f;
+
+        if (_lottie_setMaterialOpacity != null)
+        {
+            StopCoroutine(_lottie_setMaterialOpacity);
+            _lottie_setMaterialOpacity = null;
+        }
+
+        _lottie_setMaterialOpacity = StartCoroutine(Lottie_SetMaterialsOpacityCoroutine(fadeTime, 1f, 0f, () =>
+        {
+            foreach (var anim in _lottieAnimations) anim.Stop();
+            _lottie_isFading = false;
+        }));
+    }
+
+
+
+    private IEnumerator Lottie_SetMaterialsOpacityCoroutine(float time, float initOpacity, float endOpacity, Action callback)
+    {
+        List<Material> materials = new List<Material>();
+        Material oldMat = null;
+        foreach (var anim in _lottieAnimations)
+        {
+            if (anim.material != oldMat)
+            {
+                materials.Add(anim.material);
+                oldMat = anim.material;
+            }
+        }
+
+        float t = 0;
+        while (t <= time)
+        {
+            t += Time.deltaTime;
+            for (int i = 0; i < materials.Count; i++)
+            {
+                materials[i].SetFloat("_Opacity", Mathf.Lerp(initOpacity, endOpacity, t / time));
+            }
+            yield return null;
+        }
+
+        _lottie_setMaterialOpacity = null;
+
+        if (callback != null) callback.Invoke();
+    }
+
+    //#endregion
+
+
+    /// <summary>
+    /// ////////////// TIMER
+    /// </summary>
+    /// <param name="seconds"></param>
+    /// <param name="callback"></param>
+    /// 
+
+    private Coroutine _timerCoroutine;
 
 
     protected void StartTimer(float seconds, Action callback = null)

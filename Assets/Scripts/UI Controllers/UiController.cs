@@ -17,7 +17,6 @@ public class UiController : MonoBehaviour
 
 
 
-    // public enum DOMAIN { STATE, RUNNING_STATE }
     private GamePanelSubControllerBase _activePanel;
 
 
@@ -34,7 +33,7 @@ public class UiController : MonoBehaviour
     public void Set_RUNNING_STATE_ANSWER_CLICKED(Action callback) => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.ANSWER_CLICKED, closeAnimations: false, callback: callback));
     public void Set_RUNNING_STATE_WAIT_OTHER_PLAYER() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.WAIT_OTHER_PLAYER, closeAnimations: false));
     public void Set_RUNNING_STATE_CLOSE_PAGE(Action callback) => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.CLOSE_PAGE, closeAnimations: false, callback: callback));
-    // public void Set_RUNNING_STATE_FINAL_SCORE() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.FINAL_SCORE));
+    
 
 
     private void Start()
@@ -50,17 +49,17 @@ public class UiController : MonoBehaviour
         print("========> STATE: " + state.ToString());
 
 
-        Animations.instance.ExitAllAnimations();
 
 
-        if (_activePanel != null){
-            print("LOTTIE FADE OUT ---> " + _activePanel.gameObject.name);
-            Lottie.instance.FadeOut(_activePanel._loopLottieAnimations, 1f);
-        }
-            
+        if (_activePanel != null)
+            yield return _activePanel.CloseAllAnimatedElements();
 
-        while (Animations.instance.IsAnyAnimationNotInEmptyState() || Lottie.instance.isFading)
-            yield return null;
+
+        //  Animations.instance.ExitAllAnimations();
+        //     Lottie.instance.FadeOut(_activePanel._lottieAnimations, 1f);
+
+        // while (Animations.instance.IsAnyAnimationNotInEmptyState() || Lottie.instance.isFading)
+        //     yield return null;
 
         // /// EXIT all animations before to proceed to new state
         // yield return Animations.instance.ExitAllAnimationsAndWaitForFinish();
@@ -81,23 +80,31 @@ public class UiController : MonoBehaviour
         runningState = newRunningState;
         print("========> RUNNING_STATE: " + runningState.ToString());
 
-        if (closeAnimations)
-        {
-            Animations.instance.ExitAllAnimations();
+        if (closeAnimations && _activePanel != null)
+            yield return _activePanel.CloseAllAnimatedElements();
 
 
-            if (_activePanel != null)
-                Lottie.instance.FadeOut(_activePanel._loopLottieAnimations, 1f);
 
-            while (Animations.instance.IsAnyAnimationNotInEmptyState() || Lottie.instance.isFading)
-                yield return null;
+        // {
+        // if (_activePanel != null)
+        // {
+
+        // }
+
+        // Animations.instance.ExitAllAnimations();
+
+        // if (_activePanel != null)
+        //     Lottie.instance.FadeOut(_activePanel._lottieAnimations, 1f);
+
+        // while (Animations.instance.IsAnyAnimationNotInEmptyState() || Lottie.instance.isFading)
+        //     yield return null;
 
 
-            // /// EXIT all animations that are not in EMPTY state before to proceed to new state
-            // yield return Animations.instance.ExitAllAnimationsAndWaitForFinish();
+        // /// EXIT all animations that are not in EMPTY state before to proceed to new state
+        // yield return Animations.instance.ExitAllAnimationsAndWaitForFinish();
 
 
-        }
+        // }
 
 
         /// Setup the UI of the new panel

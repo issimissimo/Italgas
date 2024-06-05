@@ -7,11 +7,16 @@ public class UiAnimatedElementBase : MonoBehaviour
     public int _enterDelay = 0;
     public int _exitDelay = 0;
 
+    public string Name { get; private set; }
+
 
     public bool isAnimationFinished { get; private set; }
     protected bool _isActivated = false;
 
-
+    void Awake()
+    {
+        Name = _animator.runtimeAnimatorController.name;
+    }
 
     public async void Enter()
     {
