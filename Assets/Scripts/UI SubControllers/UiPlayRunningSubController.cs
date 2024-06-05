@@ -122,7 +122,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         }
 
         /// Let's wait for all animation ENTER
-        while (Animations.instance.IsAnyAnimationPlaying(_answerListAnimations.ToArray(), "Enter"))
+        while ( Animations_IsAnyPlaying(_answerListAnimations.ToArray(), "Enter"))
             yield return null;
 
         /// Setup the Countdown

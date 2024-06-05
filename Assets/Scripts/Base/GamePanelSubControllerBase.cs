@@ -114,6 +114,18 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
         return firstMatch == null ? false : true;
     }
 
+    protected bool Animations_IsAnyPlaying(string stateName)
+    {
+        var firstMatch = Array.Find(_standardAnimations, elem => elem.IsPlaying(stateName) == true);
+        return firstMatch == null ? true : false;
+    }
+
+    protected bool Animations_IsAnyPlaying(UiAnimatedElement[] animations, string stateName)
+    {
+        var firstMatch = Array.Find(animations, elem => elem.IsPlaying(stateName) == true);
+        return firstMatch == null ? true : false;
+    }
+
 
     //#endregion
 

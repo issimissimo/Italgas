@@ -1,28 +1,15 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.IO;
 
 public class StartupManager : MonoBehaviour
 {
-    [SerializeField] UiAnimatedElementBase _logoAnimation;
-
-
     /// <summary>
     /// START
     /// </summary>
     private void Start()
     {
-        // if (GameManager.instance.appJustStarted == true)
-        // {
-        //     GameManager.instance.appJustStarted = false;
-
-        //     /// Show Logo
-        //     _logoAnimation.Enter();
-        // }
-        // yield return null;
-        // yield return AnimationsManager.instance.WaitAnimationOnEmptyState(_logoAnimation);
         StartUp();
     }
 
@@ -31,7 +18,6 @@ public class StartupManager : MonoBehaviour
     {
         GameManager.instance.CloseSpinner();
         GameManager.instance.ShowSpinner(delayTime: 1f);
-        // yield return new WaitForSeconds(1);
 
         LoadUserData((success) =>
         {

@@ -24,9 +24,6 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
     public override void SetUI_on_STATE()
     {
         StartCoroutine(OpenFinalScore());
-
-        // /// Play Lottie animation
-        // Lottie.instance.PlayByName("Welcome", _lottieAnimations);
     }
 
 
@@ -60,13 +57,6 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
         }
 
         yield return new WaitForSeconds(7);
-
-        // _finalScoreAnimationCtrl.Exit();
-        //  Animations_ExitByName("FinalScore");
-        // yield return null;
-
-
-        // while (!_finalScoreAnimationCtrl.IsOnEmptyState()) yield return null;
 
         _playManager.Set_IDLE();
     }

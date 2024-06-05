@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayManager : NetworkManagerBase
 {
-    private PlayerController _otherPlayer = null;
+    public PlayerController otherPlayer { get; private set; } = null;
 
 
 
@@ -54,7 +54,7 @@ public class PlayManager : NetworkManagerBase
         switch (runningState)
         {
             case PlayerController.RUNNING_STATE.NONE:
-            
+
                 /// The game is finished
                 GameManager.currentGameChapterIndex = 0;
                 GameManager.currentGamePageIndex = -1;
@@ -85,7 +85,7 @@ public class PlayManager : NetworkManagerBase
                 if (playerId == _myPlayer.NetworkedId)
                 {
                     if (GameManager.gameSessionData.numberOfPlayersRunning == 1 ||
-                         _otherPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
+                         otherPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
                     {
                         /// I have finished too, now we can move on!
                         _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() => _myPlayer.Set_RUNNING_STATE_THINKING());
@@ -96,7 +96,7 @@ public class PlayManager : NetworkManagerBase
                         _uiControllers[0].Set_RUNNING_STATE_WAIT_OTHER_PLAYER();
                     }
                 }
-                else if (playerId == _otherPlayer.NetworkedId)
+                else if (playerId == otherPlayer.NetworkedId)
                 {
                     if (_myPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
                     {
@@ -156,18 +156,21 @@ public class PlayManager : NetworkManagerBase
                     print("Rimetto in READY_TO_START il mio!!!!!!");
                     _uiControllers[0].Set_STATE_READY_TO_START();
                 }
-                // else if (playerId == _otherPlayer.NetworkedPlayerId)
-                // {
-                //     print("L'altro PLAYER è in READY_TO_START, quindi metto anche il mio, che attualmente è in: " + _myPlayer.NetworkedState.ToString());
+                else if (playerId == otherPlayer.NetworkedId)
+                {
+                    print("L'altro PLAYER è tornato in READY_TO_START, quindi metto anche il mio, se non lo è già");
 
-                //     /// If we are in Game...
-                //     if (_myPlayer.NetworkedState != PlayerController.STATE.IDLE)
-                //         _myPlayer.Set_STATE_IDLE();
+                    if (_uiControllers[0].state != UiController.STATE.READY_TO_START)
+                        _uiControllers[0].Set_STATE_READY_TO_START();
 
-                //     /// I suppose we are waiting for other Player to finish...
-                //     else
-                //         _uiControllers[0].Set_STATE_READY_TO_START();
-                // }
+                    // /// If we are in Game...
+                    // if (_myPlayer.NetworkedState != PlayerController.STATE.IDLE)
+                    //     _myPlayer.Set_STATE_IDLE();
+
+                    // /// I suppose we are waiting for other Player to finish...
+                    // else
+                    //     _uiControllers[0].Set_STATE_READY_TO_START();
+                }
                 break;
 
             case PlayerController.STATE.RUNNING:
@@ -180,15 +183,15 @@ public class PlayManager : NetworkManagerBase
                     // ContinueInGame();
                 }
                 /// Other Player started the Game
-                else if (playerId == _otherPlayer.NetworkedId)
+                else if (playerId == otherPlayer.NetworkedId)
                 {
-                    if (_otherPlayer.NetworkedSessionRequestedPlayers == 1)
+                    if (otherPlayer.NetworkedSessionRequestedPlayers == 1)
                     {
                         print("L'ALTRO PLAYER VUOLE GIOCARE DA SOLO");
                         _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
-                        GameManager.instance.ShowNotification("L'altro Player gioca da solo! Attendi...");
+                        // GameManager.instance.ShowNotification("L'altro Player gioca da solo! Attendi...");
                     }
-                    else if (_otherPlayer.NetworkedSessionRequestedPlayers == 2)
+                    else if (otherPlayer.NetworkedSessionRequestedPlayers == 2)
                     {
                         print("SICCOME L'ALTRO PLAYER E' RUNNING, METTO IN RUNNING ANCHE IL MIO, CON id " + _myPlayer.NetworkedId);
                         _myPlayer.Set_STATE_RUNNING(runningPlayersNumber: 2);
@@ -219,7 +222,7 @@ public class PlayManager : NetworkManagerBase
         {
             print("Player n. " + i + " --- ID: " + p.NetworkedId);
             if (p.HasStateAuthority) _myPlayer = p;
-            else _otherPlayer = p;
+            else otherPlayer = p;
 
             i++;
         }
@@ -237,17 +240,17 @@ public class PlayManager : NetworkManagerBase
         /// Right number of Players!
         else if (_players.Count == GameManager.userData.requestedPlayers)
         {
-            if (_otherPlayer != null)
+            if (otherPlayer != null)
             {
-                if (_otherPlayer.NetworkedSessionRequestedPlayers == 1) return;
+                if (otherPlayer.NetworkedSessionRequestedPlayers == 1) return;
             }
 
             print(">>>>>>>>>>>>>>> C'E' IL NUMERO DI UTENTI RICHIESTO, VERIFICHIAMO I LORO ID...");
 
             /// Reset the other Player to null
-            if (_players.Count == 1) _otherPlayer = null;
+            if (_players.Count == 1) otherPlayer = null;
 
-            if (_myPlayer != null && _otherPlayer != null && _otherPlayer.NetworkedId == _myPlayer.NetworkedId)
+            if (_myPlayer != null && otherPlayer != null && otherPlayer.NetworkedId == _myPlayer.NetworkedId)
             {
                 GameManager.instance.ShowModal("ERRORE", "Ci sono due players con lo stesso ID", showConfigureButton: true, showRestartButton: false);
             }
