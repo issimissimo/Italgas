@@ -18,9 +18,9 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
     [Space]
     [SerializeField] private AnswerButtonComponent[] _answerList;
-    [SerializeField] private UiAnimatedElement _questionAnimation;
-    [SerializeField] private UiAnimatedElement _countdownAnimation;
-    [SerializeField] private UiAnimatedElement _waitOtherPlayerAnimation;
+    // [SerializeField] private UiAnimatedElement _questionAnimation;
+    // [SerializeField] private UiAnimatedElement _countdownAnimation;
+    // [SerializeField] private UiAnimatedElement _waitOtherPlayerAnimation;
 
 
 
@@ -103,7 +103,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         /// Setup the Question
         _questionText.text = GameManager.currentGamePage.question;
-        _questionAnimation.Enter();
+        // _questionAnimation.Enter();
+        Animations_EnterByName("Question");
 
         /// Setup the Answer Buttons
         for (int i = 0; i < _answerList.Length; i++)
@@ -128,7 +129,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         _countdownProgressBar.maxValue = GameManager.currentGameVersion.maxTimeInSeconds;
         yield return null;
         _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds - 0.1f; /// weird...
-        _countdownAnimation.Enter();
+        // _countdownAnimation.Enter();
+        Animations_EnterByName("Countdown");
 
         /// Start the Countdown
         StartTimer(
@@ -150,18 +152,17 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <summary>
     /// SHOW THE BUTTONS CLICKED / NOT CLICKED
     /// </summary>
-    /// <param name="callback"></param>
-    /// <returns></returns>
     private IEnumerator OnAnswerClicked(Action callback)
     {
         /// Stop Countdown
         StopTimer();
-        _countdownAnimation.Exit();
+        // _countdownAnimation.Exit();
+        Animations_ExitByName("Countdown");
 
         int buttonPressed = _playManager._myPlayer.NetworkedButtonPressedNumber;
         UiAnimatedElement buttonPressedAnimation = null;
 
-        /// Show button animations
+        /// Show clicked or not clicked button animations
         for (int i = 0; i < _answerListAnimations.Count; i++)
         {
             if (i == buttonPressed)
@@ -186,7 +187,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
     private void ShowWaitOtherPlayer()
     {
-        _waitOtherPlayerAnimation.Enter();
+        // _waitOtherPlayerAnimation.Enter();
+        Animations_EnterByName("WaitOtherPlayer");
     }
 
 
@@ -194,13 +196,12 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <summary>
     /// CLOSE THE PAGE
     /// </summary>
-    /// <param name="buttonPressed"></param>
-    /// <param name="isTrue"></param>
-    /// <param name="callback"></param>
-    /// <returns></returns>
     private IEnumerator ClosePage(Action callback)
     {
-
+        Animations_ExitByName("Question");
+        Animations_ExitByName("WaitOtherPlayer");
+        
+        
         int buttonPressed = _playManager._myPlayer.NetworkedButtonPressedNumber;
         bool isTrue = _playManager._myPlayer.NetworkedAnswerResult;
 
@@ -238,11 +239,11 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         }
 
 
-        _questionAnimation.Exit();
-        _waitOtherPlayerAnimation.Exit();
+        // _questionAnimation.Exit();
+        // _waitOtherPlayerAnimation.Exit();
 
         /// Let's wait for button animations EXIT
-        while (Animations.instance.IsAnyAnimationNotInEmptyState(_answerListAnimations.ToArray()))
+        while (Animations_IsAnyNotInEmptyState(_answerListAnimations.ToArray()))
         {
             // print("SI CHIUDONO I TASTIIIIIIIIIIII");
             yield return null;
@@ -261,75 +262,18 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     {
         /// Avoid other unwanted clicks
         _pageCanvasGroup.interactable = false;
-        // _pageCanvasGroupCtrl.Toggle(false);
-
-        // /// Stop Countdown
-        // GameManager.instance.StopTimer();
-
-        // /// Change animation state to CLICKED
-        // answerClicked.animationController.Clicked();
 
         /// Send the information to the PlayManager that
         /// the answer has been clicked
         _playManager.OnAnswerButtonPressed(buttonNumber: answerClicked.buttonNumber, isTrue: answerClicked.isTrue, time: timer);
     }
 
-
-
-    // private IEnumerator OpenFinalScore()
-    // {
-    //     GameManager.PlayerStats myPlayerStats = new GameManager.PlayerStats(GameManager.userData.playerId);
-    //     _totalTime.text = "Tempo totale: " + myPlayerStats.totalTime;
-    //     _rightAnswers.text = "Risposte giuste: " + myPlayerStats.rightQuestions + "/" + myPlayerStats.totalQuestions;
-
-    //     print("Tempo totale: " + myPlayerStats.totalTime);
-    //     print("Risposte giuste: " + myPlayerStats.rightQuestions + "/" + myPlayerStats.totalQuestions);
-
-    //     if (GameManager.gameSessionData.numberOfPlayersRunning == 1)
-    //     {
-    //         _winnerOrLooser.gameObject.SetActive(false);
-    //         _score.gameObject.SetActive(true);
-    //         _score.text = "Punteggio: " + myPlayerStats.score.ToString();
-    //     }
-    //     else if (GameManager.gameSessionData.numberOfPlayersRunning == 2)
-    //     {
-    //         int otherPlayerId = GameManager.userData.playerId == 0 ? 1 : 0;
-    //         GameManager.PlayerStats otherPlayerStats = new GameManager.PlayerStats(otherPlayerId);
-
-    //         _winnerOrLooser.gameObject.SetActive(true);
-    //         _score.gameObject.SetActive(false);
-    //         _winnerOrLooser.text = myPlayerStats.score > otherPlayerStats.score ? "HAI VINTO!!" : "HAI PERSO...";
-    //     }
-
-    //     yield return new WaitForSeconds(7);
-
-    //     _finalScoreAnimationCtrl.Exit();
-    //     yield return null;
-    //     while(!_finalScoreAnimationCtrl.IsOnEmptyState()) yield return null;
-
-    //     _playManager.Set_IDLE();
-    // }
-
-
-    // /// <summary>
-    // /// BUTTON
-    // /// </summary>
-    // public void BUTTON_ReturnToReady()
-    // {
-    //     print("CLICCATO SU BUTTON_ReturnToReady");
-
-    //     _finalScoreAnimationCtrl.Exit();
-
-    //     // await Task.Delay(2000);
-
-    //     _playManager.Set_IDLE();
-    // }
+   
 
 
 
     void Update()
     {
-        // _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds - Mathf.Floor(timer);
         _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds - timer;
     }
 

@@ -108,6 +108,12 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
         return firstMatch == null ? false : true;
     }
 
+    protected bool Animations_IsAnyNotInEmptyState(UiAnimatedElement[] animations)
+    {
+        var firstMatch = Array.Find(animations, elem => elem.IsOnEmptyState() == false);
+        return firstMatch == null ? false : true;
+    }
+
 
     //#endregion
 

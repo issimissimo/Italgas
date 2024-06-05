@@ -33,6 +33,9 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
 
     private IEnumerator OpenFinalScore()
     {
+        Animations_EnterByName("FinalScore");
+        
+        
         GameManager.PlayerStats myPlayerStats = new GameManager.PlayerStats(GameManager.userData.playerId);
         _totalTime.text = "Tempo totale: " + myPlayerStats.totalTime;
         _rightAnswers.text = "Risposte giuste: " + myPlayerStats.rightQuestions + "/" + myPlayerStats.totalQuestions;
@@ -58,9 +61,12 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
 
         yield return new WaitForSeconds(7);
 
-        _finalScoreAnimationCtrl.Exit();
-        yield return null;
-        while (!_finalScoreAnimationCtrl.IsOnEmptyState()) yield return null;
+        // _finalScoreAnimationCtrl.Exit();
+        //  Animations_ExitByName("FinalScore");
+        // yield return null;
+
+
+        // while (!_finalScoreAnimationCtrl.IsOnEmptyState()) yield return null;
 
         _playManager.Set_IDLE();
     }
