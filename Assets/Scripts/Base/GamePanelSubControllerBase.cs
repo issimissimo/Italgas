@@ -11,7 +11,7 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
     protected float timer { get; private set; }
 
     [Header("LOTTIE")]
-    [SerializeField] protected LottieAnimation[] _lottieAnimations;
+    public LottieAnimation[] _loopLottieAnimations;
 
     public virtual void SetUI_on_STATE()
     {

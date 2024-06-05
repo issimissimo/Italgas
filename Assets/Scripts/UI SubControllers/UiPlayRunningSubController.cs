@@ -23,12 +23,12 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     [SerializeField] private UiAnimatedElement _waitOtherPlayerAnimation;
 
 
-    [Header("FINAL_SCORE")]
-    [SerializeField] private TMP_Text _totalTime;
-    [SerializeField] private TMP_Text _rightAnswers;
-    [SerializeField] private TMP_Text _winnerOrLooser;
-    [SerializeField] private TMP_Text _score;
-    [SerializeField] private UiAnimatedElement _finalScoreAnimationCtrl;
+    // [Header("FINAL_SCORE")]
+    // [SerializeField] private TMP_Text _totalTime;
+    // [SerializeField] private TMP_Text _rightAnswers;
+    // [SerializeField] private TMP_Text _winnerOrLooser;
+    // [SerializeField] private TMP_Text _score;
+    // [SerializeField] private UiAnimatedElement _finalScoreAnimationCtrl;
 
 
     private PlayManager _playManager;
@@ -73,10 +73,10 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
                 StartCoroutine(ClosePage(callback));
                 break;
 
-            case UiController.RUNNING_STATE.FINAL_SCORE:
+            // case UiController.RUNNING_STATE.FINAL_SCORE:
 
-                StartCoroutine(OpenFinalScore());
-                break;
+            //     StartCoroutine(OpenFinalScore());
+            //     break;
         }
     }
 
@@ -292,54 +292,54 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
 
 
-    private IEnumerator OpenFinalScore()
-    {
-        GameManager.PlayerStats myPlayerStats = new GameManager.PlayerStats(GameManager.userData.playerId);
-        _totalTime.text = "Tempo totale: " + myPlayerStats.totalTime;
-        _rightAnswers.text = "Risposte giuste: " + myPlayerStats.rightQuestions + "/" + myPlayerStats.totalQuestions;
+    // private IEnumerator OpenFinalScore()
+    // {
+    //     GameManager.PlayerStats myPlayerStats = new GameManager.PlayerStats(GameManager.userData.playerId);
+    //     _totalTime.text = "Tempo totale: " + myPlayerStats.totalTime;
+    //     _rightAnswers.text = "Risposte giuste: " + myPlayerStats.rightQuestions + "/" + myPlayerStats.totalQuestions;
 
-        print("Tempo totale: " + myPlayerStats.totalTime);
-        print("Risposte giuste: " + myPlayerStats.rightQuestions + "/" + myPlayerStats.totalQuestions);
+    //     print("Tempo totale: " + myPlayerStats.totalTime);
+    //     print("Risposte giuste: " + myPlayerStats.rightQuestions + "/" + myPlayerStats.totalQuestions);
 
-        if (GameManager.gameSessionData.numberOfPlayersRunning == 1)
-        {
-            _winnerOrLooser.gameObject.SetActive(false);
-            _score.gameObject.SetActive(true);
-            _score.text = "Punteggio: " + myPlayerStats.score.ToString();
-        }
-        else if (GameManager.gameSessionData.numberOfPlayersRunning == 2)
-        {
-            int otherPlayerId = GameManager.userData.playerId == 0 ? 1 : 0;
-            GameManager.PlayerStats otherPlayerStats = new GameManager.PlayerStats(otherPlayerId);
+    //     if (GameManager.gameSessionData.numberOfPlayersRunning == 1)
+    //     {
+    //         _winnerOrLooser.gameObject.SetActive(false);
+    //         _score.gameObject.SetActive(true);
+    //         _score.text = "Punteggio: " + myPlayerStats.score.ToString();
+    //     }
+    //     else if (GameManager.gameSessionData.numberOfPlayersRunning == 2)
+    //     {
+    //         int otherPlayerId = GameManager.userData.playerId == 0 ? 1 : 0;
+    //         GameManager.PlayerStats otherPlayerStats = new GameManager.PlayerStats(otherPlayerId);
 
-            _winnerOrLooser.gameObject.SetActive(true);
-            _score.gameObject.SetActive(false);
-            _winnerOrLooser.text = myPlayerStats.score > otherPlayerStats.score ? "HAI VINTO!!" : "HAI PERSO...";
-        }
+    //         _winnerOrLooser.gameObject.SetActive(true);
+    //         _score.gameObject.SetActive(false);
+    //         _winnerOrLooser.text = myPlayerStats.score > otherPlayerStats.score ? "HAI VINTO!!" : "HAI PERSO...";
+    //     }
 
-        yield return new WaitForSeconds(7);
+    //     yield return new WaitForSeconds(7);
 
-        _finalScoreAnimationCtrl.Exit();
-        yield return null;
-        while(!_finalScoreAnimationCtrl.IsOnEmptyState()) yield return null;
+    //     _finalScoreAnimationCtrl.Exit();
+    //     yield return null;
+    //     while(!_finalScoreAnimationCtrl.IsOnEmptyState()) yield return null;
 
-        _playManager.Set_IDLE();
-    }
+    //     _playManager.Set_IDLE();
+    // }
 
 
-    /// <summary>
-    /// BUTTON
-    /// </summary>
-    public void BUTTON_ReturnToReady()
-    {
-        print("CLICCATO SU BUTTON_ReturnToReady");
+    // /// <summary>
+    // /// BUTTON
+    // /// </summary>
+    // public void BUTTON_ReturnToReady()
+    // {
+    //     print("CLICCATO SU BUTTON_ReturnToReady");
 
-        _finalScoreAnimationCtrl.Exit();
+    //     _finalScoreAnimationCtrl.Exit();
 
-        // await Task.Delay(2000);
+    //     // await Task.Delay(2000);
 
-        _playManager.Set_IDLE();
-    }
+    //     _playManager.Set_IDLE();
+    // }
 
 
 

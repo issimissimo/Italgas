@@ -75,7 +75,7 @@ public class Lottie : MonoBehaviour
             SetMaterialOpacity = null;
         }
 
-        SetMaterialOpacity = StartCoroutine(SetMaterialsOpacityCoroutine(lottieAnimations, fadeTime, 0f, 1f, () =>
+        SetMaterialOpacity = StartCoroutine(SetMaterialsOpacityCoroutine(lottieAnimations, fadeTime, 1f, 0f, () =>
         {
             foreach (var anim in lottieAnimations) anim.Stop();
             isFading = false;

@@ -58,7 +58,7 @@ public class PlayManager : NetworkManagerBase
                 /// The game is finished
                 GameManager.currentGameChapterIndex = 0;
                 GameManager.currentGamePageIndex = -1;
-                _uiControllers[0].Set_RUNNING_STATE_FINAL_SCORE();
+                _uiControllers[0].Set_STATE_FINAL_SCORE();
                 break;
 
             case PlayerController.RUNNING_STATE.THINKING:

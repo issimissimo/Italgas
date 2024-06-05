@@ -30,7 +30,7 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
         _sessionPlayersCanvasController.Toggle(GameManager.userData.requestedPlayers == 1 ? false : true);
 
         /// Play Lottie animation
-        Lottie.instance.PlayByName("Welcome", _lottieAnimations);
+        Lottie.instance.FadeIn(_loopLottieAnimations, 2f);
     }
 
 

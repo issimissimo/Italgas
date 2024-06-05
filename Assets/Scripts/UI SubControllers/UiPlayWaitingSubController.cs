@@ -21,7 +21,6 @@ public class UiPlayWaitingSubController : GamePanelSubControllerBase
         }
 
         /// Play Lottie animation
-        // Lottie.instance.PlayByName("WaitingSmile", _lottieAnimations);
-        Lottie.instance.FadeIn(_lottieAnimations);
+        Lottie.instance.FadeIn(_loopLottieAnimations, 1f);
     }
 }

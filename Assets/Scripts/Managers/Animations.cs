@@ -52,7 +52,14 @@ public class Animations : MonoBehaviour
     }
 
 
-    
+    public bool IsAnyAnimationNotInEmptyState()
+    {
+        var firstMatch = Array.Find(_animations, elem => elem.IsOnEmptyState() == false);
+        return firstMatch == null ? false : true;
+    }
+
+
+
     /// <summary>
     /// Check ANY "UiAnimatedElement" of the array is playing some state
     /// </summary>
@@ -64,6 +71,6 @@ public class Animations : MonoBehaviour
         var firstMatch = Array.Find(animations, elem => elem.IsPlaying(stateName) == true);
         return firstMatch == null ? true : false;
     }
-    
- 
+
+
 }

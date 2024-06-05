@@ -5,8 +5,8 @@ using System.Collections;
 
 public class UiController : MonoBehaviour
 {
-    public enum STATE { WAITING_FOR_PLAYERS, READY_TO_START, IN_GAME }
-    public enum RUNNING_STATE { OPEN_CHAPTER, OPEN_PAGE, ANSWER_CLICKED, WAIT_OTHER_PLAYER, CLOSE_PAGE, FINAL_SCORE }
+    public enum STATE { WAITING_FOR_PLAYERS, READY_TO_START, IN_GAME, FINAL_SCORE }
+    public enum RUNNING_STATE { OPEN_CHAPTER, OPEN_PAGE, ANSWER_CLICKED, WAIT_OTHER_PLAYER, CLOSE_PAGE }
     public STATE state { get; private set; }
     public RUNNING_STATE runningState { get; private set; }
 
@@ -17,14 +17,15 @@ public class UiController : MonoBehaviour
 
 
 
-    public enum DOMAIN { STATE, RUNNING_STATE }
-    private GamePanelSubControllerBase _oldPanel;
+    // public enum DOMAIN { STATE, RUNNING_STATE }
+    private GamePanelSubControllerBase _activePanel;
 
 
 
     public void Set_STATE_WAITING_FOR_PLAYERS() => StartCoroutine(SetStateCoroutine(STATE.WAITING_FOR_PLAYERS));
     public void Set_STATE_READY_TO_START() => StartCoroutine(SetStateCoroutine(STATE.READY_TO_START));
     public void Set_STATE_IN_GAME() => StartCoroutine(SetStateCoroutine(STATE.IN_GAME));
+    public void Set_STATE_FINAL_SCORE() => StartCoroutine(SetStateCoroutine(STATE.FINAL_SCORE));
 
 
 
@@ -33,18 +34,13 @@ public class UiController : MonoBehaviour
     public void Set_RUNNING_STATE_ANSWER_CLICKED(Action callback) => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.ANSWER_CLICKED, closeAnimations: false, callback: callback));
     public void Set_RUNNING_STATE_WAIT_OTHER_PLAYER() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.WAIT_OTHER_PLAYER, closeAnimations: false));
     public void Set_RUNNING_STATE_CLOSE_PAGE(Action callback) => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.CLOSE_PAGE, closeAnimations: false, callback: callback));
-    public void Set_RUNNING_STATE_FINAL_SCORE() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.FINAL_SCORE));
+    // public void Set_RUNNING_STATE_FINAL_SCORE() => StartCoroutine(SetRunningStateCoroutine(RUNNING_STATE.FINAL_SCORE));
 
 
     private void Start()
     {
         Set_STATE_WAITING_FOR_PLAYERS();
     }
-
-    // protected virtual void StateChanged()
-    // {
-    //     /// to override
-    // }
 
 
     private IEnumerator SetStateCoroutine(STATE newState)
@@ -53,11 +49,23 @@ public class UiController : MonoBehaviour
         state = newState;
         print("========> STATE: " + state.ToString());
 
-        /// EXIT all animations before to proceed to new state
-        yield return Animations.instance.ExitAllAnimationsAndWaitForFinish();
 
-        /// STOP all LOTTIE animations before to proceed to new state
-        // yield return StopAllLottieAnimations();
+        Animations.instance.ExitAllAnimations();
+
+
+        if (_activePanel != null){
+            print("LOTTIE FADE OUT ---> " + _activePanel.gameObject.name);
+            Lottie.instance.FadeOut(_activePanel._loopLottieAnimations, 1f);
+        }
+            
+
+        while (Animations.instance.IsAnyAnimationNotInEmptyState() || Lottie.instance.isFading)
+            yield return null;
+
+        // /// EXIT all animations before to proceed to new state
+        // yield return Animations.instance.ExitAllAnimationsAndWaitForFinish();
+
+
 
 
         Set_PanelsUI_on_STATE();
@@ -75,12 +83,19 @@ public class UiController : MonoBehaviour
 
         if (closeAnimations)
         {
-            /// EXIT all animations that are not in EMPTY state before to proceed to new state
-            yield return Animations.instance.ExitAllAnimationsAndWaitForFinish();
+            Animations.instance.ExitAllAnimations();
 
-            /// STOP all LOTTIE animations before to proceed to new state
-            // yield return StopAllLottieAnimations();
-            // yield return Lottie.instance.Stop_All_Coroutine();
+
+            if (_activePanel != null)
+                Lottie.instance.FadeOut(_activePanel._loopLottieAnimations, 1f);
+
+            while (Animations.instance.IsAnyAnimationNotInEmptyState() || Lottie.instance.isFading)
+                yield return null;
+
+
+            // /// EXIT all animations that are not in EMPTY state before to proceed to new state
+            // yield return Animations.instance.ExitAllAnimationsAndWaitForFinish();
+
 
         }
 
@@ -102,6 +117,7 @@ public class UiController : MonoBehaviour
 
             if (panelController.STATE == state)
             {
+                _activePanel = panelController;
                 panel.SetOn();
                 panelController.SetUI_on_STATE();
             }
@@ -119,7 +135,11 @@ public class UiController : MonoBehaviour
             var panelController = panel.GetComponent<GamePanelSubControllerBase>();
 
             if (panelController.STATE == state)
+            {
+                _activePanel = panelController;
                 panelController.SetUI_on_RUNNING_STATE(runningState, callback);
+            }
+
         }
     }
 
