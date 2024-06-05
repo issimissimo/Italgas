@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 1127
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Project
   m_RootView: {fileID: 3}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 242
+  controlID: 112
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 74
+  controlID: 113
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 50}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 75
+  controlID: 89
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -243,8 +243,8 @@ MonoBehaviour:
     y: 0
     width: 289
     height: 487
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 102, y: 121}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: InspectorWindow
+  m_Name: ConsoleWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -297,16 +297,16 @@ MonoBehaviour:
     y: 0
     width: 511
     height: 1077
-  m_MinSize: {x: 276, y: 71}
+  m_MinSize: {x: 101, y: 121}
   m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 21}
+  m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 21}
   - {fileID: 20}
   - {fileID: 22}
   - {fileID: 23}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -787,9 +787,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 0c800000
-      m_LastClickedID: 32780
-      m_ExpandedIDs: f6f0ffff96f6ffff90f9ffff30fbffff466b0000526b000044810000
+      m_SelectedIDs: 4a260000
+      m_LastClickedID: 0
+      m_ExpandedIDs: defaffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1327,7 +1327,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Scripts/UI Controllers
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1335,16 +1335,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Scripts/UI Controllers
   m_LastFoldersGridSize: 16
   m_LastProjectPath: E:\WORK\Italgas\Italgas_UnityProject
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 300}
-    m_SelectedIDs: c4680000
-    m_LastClickedID: 26820
-    m_ExpandedIDs: 0000000060680000626800006468000066680000686800006a6800006c6800006e68000070680000726800007468000076680000786800007a6800007c6800007e68000080680000826800008468000086680000886800008a680000ffffff7f
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 44680000
+    m_LastClickedID: 26692
+    m_ExpandedIDs: 00000000f8670000fa670000fc670000fe67000000680000026800000468000006680000086800000a6800000c6800000e68000010680000126800001468000016680000186800001a6800001c680000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1372,7 +1372,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000060680000626800006468000066680000686800006a6800006c6800006e68000070680000726800007468000076680000786800007a6800007c6800007e68000080680000826800008468000086680000886800008a680000
+    m_ExpandedIDs: 00000000f8670000fa670000fc670000fe67000000680000026800000468000006680000086800000a6800000c6800000e68000010680000126800001468000016680000186800001a6800001c680000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1403,15 +1403,15 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: c62300007e9c0000e488000022c80000cc880000bc8800008a8b0000d089000046160000847b0000b4600000887c0000d2940000a6850000365f0000d4a8000020b000004e67000010af00004c670000f868000000000000fa6800000a5c0000385f000058710000466f0000f664000002650000bc600000c0600000c27200009cea000084ae000048af0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: STARTUP
-      m_OriginalName: STARTUP
+      m_Name: UiController
+      m_OriginalName: UiController
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 26892
+      m_UserData: 9802
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
