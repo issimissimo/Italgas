@@ -71,6 +71,37 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
         foreach (var a in _standardAnimations) a.Exit();
     }
 
+    protected void Animations_EnterByName(string name)
+    {
+        foreach (var anim in _standardAnimations) if (anim.Name == name) anim.Enter();
+    }
+
+    protected void Animations_ExitByName(string name)
+    {
+        foreach (var anim in _standardAnimations) if (anim.Name == name) anim.Exit();
+    }
+
+    protected UiAnimatedElement Animations_GetByName(string name)
+    {
+        foreach (var anim in _standardAnimations)
+        {
+            if (anim.Name == name) return anim;
+        }
+        return null;
+    }
+
+    protected bool Animations_IsInEmptyState(string name)
+    {
+        UiAnimatedElement anim;
+        anim = Animations_GetByName(name);
+        if (anim == null)
+        {
+            Debug.LogError("Nome dell'animazione non trovata!");
+            return false;
+        }
+        else return anim.IsOnEmptyState();
+    }
+
     protected bool Animations_IsAnyNotInEmptyState()
     {
         var firstMatch = Array.Find(_standardAnimations, elem => elem.IsOnEmptyState() == false);
@@ -124,7 +155,11 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
             _lottie_setMaterialOpacity = null;
         }
 
-        foreach (var anim in _lottieAnimations) anim.Play();
+        foreach (var anim in _lottieAnimations)
+        {
+            anim.isFadedIn = true;
+            anim.Play();
+        }
 
         _lottie_setMaterialOpacity = StartCoroutine(Lottie_SetMaterialsOpacityCoroutine(fadeTime, 0f, 1f, () =>
         {
@@ -146,7 +181,12 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
 
         _lottie_setMaterialOpacity = StartCoroutine(Lottie_SetMaterialsOpacityCoroutine(fadeTime, 1f, 0f, () =>
         {
-            foreach (var anim in _lottieAnimations) anim.Stop();
+            foreach (var anim in _lottieAnimations)
+            {
+                anim.isFadedIn = false;
+                anim.Stop();
+            }
+
             _lottie_isFading = false;
         }));
     }

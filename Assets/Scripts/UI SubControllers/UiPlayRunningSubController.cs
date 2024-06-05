@@ -13,8 +13,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
     [Header("NEW_PAGE")]
     [SerializeField] CanvasGroup _pageCanvasGroup;
-    // [SerializeField] CanvasController _pageCanvasGroupCtrl;
-    // [SerializeField] private TMP_Text _countdownText;
     [SerializeField] private ProgressBar _countdownProgressBar;
     [SerializeField] private TMP_Text _questionText;
     [SerializeField] private AnswerButtonComponent[] _answerList;
@@ -23,12 +21,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     [SerializeField] private UiAnimatedElement _waitOtherPlayerAnimation;
 
 
-    // [Header("FINAL_SCORE")]
-    // [SerializeField] private TMP_Text _totalTime;
-    // [SerializeField] private TMP_Text _rightAnswers;
-    // [SerializeField] private TMP_Text _winnerOrLooser;
-    // [SerializeField] private TMP_Text _score;
-    // [SerializeField] private UiAnimatedElement _finalScoreAnimationCtrl;
+
 
 
     private PlayManager _playManager;
@@ -38,6 +31,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     void Awake()
     {
         _playManager = FindObjectOfType<PlayManager>();
+
         foreach (var a in _answerList) _answerListAnimations.Add(a.animationController);
         _pageCanvasGroup.interactable = false;
         // _pageCanvasGroupCtrl.Toggle(false);
@@ -73,10 +67,10 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
                 StartCoroutine(ClosePage(callback));
                 break;
 
-            // case UiController.RUNNING_STATE.FINAL_SCORE:
+                // case UiController.RUNNING_STATE.FINAL_SCORE:
 
-            //     StartCoroutine(OpenFinalScore());
-            //     break;
+                //     StartCoroutine(OpenFinalScore());
+                //     break;
         }
     }
 
@@ -86,21 +80,25 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         /// Setup the Chapter
         _chapterNameText.text = GameManager.currentGameChapter.chapterName;
 
-        // print("APRO CHAPTER: " + GameManager.currentGameChapter.chapterName);
+        
 
-        /// Play the "Enter" animation
-        _chapterAnimation.Enter();
+        Animations_EnterByName("ChapterName");
         yield return null;
+        while (!Animations_IsInEmptyState("ChapterName")) yield return null;
 
-        /// Wait for animation finished
-        while (!_chapterAnimation.IsOnEmptyState()) yield return null;
+        print("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+        // /// Play the "Enter" animation
+        // _chapterAnimation.Enter();
+        // yield return null;
 
-        // print("FINITO CHAPTER!");
 
-        // print("CHIUDO CHAPTER");
+        // /// Wait for animation finished
+        // while (!_chapterAnimation.IsOnEmptyState()) yield return null;
 
-        /// Callback
-        callback.Invoke();
+        
+
+        // /// Callback
+        // callback.Invoke();
     }
 
 

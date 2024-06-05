@@ -6,6 +6,7 @@ using LottiePlugin.UI;
 public class LottieAnimation : MonoBehaviour
 {
     public string Name { get; private set; }
+    public bool isFadedIn { get; set; }
     public RawImage rawImage { get; private set; }
     public Material material { get; private set; }
     private AnimatedImage _lottieAsset;
