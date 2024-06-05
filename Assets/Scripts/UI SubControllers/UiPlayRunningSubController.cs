@@ -9,7 +9,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 {
     [Header("UI ELEMENTS")]
     [SerializeField] private TMP_Text _chapterNameText;
-    // [SerializeField] private UiAnimatedElement _chapterAnimation;
 
     [Space]
     [SerializeField] CanvasGroup _pageCanvasGroup;
@@ -18,9 +17,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
     [Space]
     [SerializeField] private AnswerButtonComponent[] _answerList;
-    // [SerializeField] private UiAnimatedElement _questionAnimation;
-    // [SerializeField] private UiAnimatedElement _countdownAnimation;
-    // [SerializeField] private UiAnimatedElement _waitOtherPlayerAnimation;
 
 
 
@@ -78,12 +74,13 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <returns></returns>
     private IEnumerator OpenChapter(Action callback)
     {
+        print("OPEN CHAPTER....");
         _chapterNameText.text = GameManager.currentGameChapter.chapterName;
 
         Animations_EnterByName("ChapterName");
         yield return null;
         while (!Animations_IsInEmptyState("ChapterName")) yield return null;
-
+        print("...CLOSE CHAPTER");
         callback.Invoke();
     }
 
