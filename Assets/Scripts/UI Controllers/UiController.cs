@@ -7,17 +7,17 @@ public class UiController : MonoBehaviour
 {
     public enum STATE { WAITING_FOR_PLAYERS, READY_TO_START, IN_GAME }
     public enum RUNNING_STATE { OPEN_CHAPTER, OPEN_PAGE, ANSWER_CLICKED, WAIT_OTHER_PLAYER, CLOSE_PAGE, FINAL_SCORE }
-    public STATE state { get; protected set; }
-    public RUNNING_STATE runningState { get; protected set; }
+    public STATE state { get; private set; }
+    public RUNNING_STATE runningState { get; private set; }
 
     public static event Action<STATE> UpdateAnimationsOnStateChange; /// Event to subscribe, to update the UI animations
     public static event Action<RUNNING_STATE> UpdateAnimationsOnRunningStateChange; /// Event to subscribe, to update the UI animations
 
-    [SerializeField] protected List<CanvasController> _uiPanels;
+    [SerializeField] private List<CanvasController> _uiPanels;
 
 
 
-
+    public enum DOMAIN { STATE, RUNNING_STATE }
     private GamePanelSubControllerBase _oldPanel;
 
 
@@ -59,8 +59,6 @@ public class UiController : MonoBehaviour
         /// STOP all LOTTIE animations before to proceed to new state
         // yield return StopAllLottieAnimations();
 
-        // /// Call the Method of the Classes that derive from this one
-        // StateChanged();
 
         Set_PanelsUI_on_STATE();
 
@@ -83,30 +81,26 @@ public class UiController : MonoBehaviour
             /// STOP all LOTTIE animations before to proceed to new state
             // yield return StopAllLottieAnimations();
             // yield return Lottie.instance.Stop_All_Coroutine();
-            
+
         }
 
-        // /// Set new running state
-        // runningState = newRunningState;
 
         /// Setup the UI of the new panel
         Set_PanelsUI_on_RUNNING_STATE(callback);
 
-        // /// Call the Method of the Classes that derive from this one
-        // RunningStateChanged();
 
         /// ENTER new animations
         if (UpdateAnimationsOnRunningStateChange != null) UpdateAnimationsOnRunningStateChange(runningState);
     }
 
 
-    protected void Set_PanelsUI_on_STATE()
+    private void Set_PanelsUI_on_STATE()
     {
         foreach (var panel in _uiPanels)
         {
             var panelController = panel.gameObject.GetComponent<GamePanelSubControllerBase>();
 
-            if (panelController.behaviour == state)
+            if (panelController.STATE == state)
             {
                 panel.SetOn();
                 panelController.SetUI_on_STATE();
@@ -118,13 +112,13 @@ public class UiController : MonoBehaviour
         }
     }
 
-    protected void Set_PanelsUI_on_RUNNING_STATE(Action callback = null)
+    private void Set_PanelsUI_on_RUNNING_STATE(Action callback = null)
     {
         foreach (var panel in _uiPanels)
         {
             var panelController = panel.GetComponent<GamePanelSubControllerBase>();
 
-            if (panelController.behaviour == state)
+            if (panelController.STATE == state)
                 panelController.SetUI_on_RUNNING_STATE(runningState, callback);
         }
     }

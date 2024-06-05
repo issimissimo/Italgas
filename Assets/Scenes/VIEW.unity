@@ -212,7 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 75870438}
   - component: {fileID: 75870440}
-  - component: {fileID: 75870439}
+  - component: {fileID: 75870441}
   m_Layer: 5
   m_Name: Panel_Player2
   m_TagString: Untagged
@@ -243,23 +243,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &75870439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 75870437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7681b2dc417db2e4b9f09422bc70dd70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiPanels:
-  - {fileID: 623472609}
-  - {fileID: 280692156}
-  - {fileID: 1773552152}
-  - {fileID: 1083228790}
 --- !u!222 &75870440
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -268,6 +251,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 75870437}
   m_CullTransparentMesh: 1
+--- !u!114 &75870441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75870437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a647f22e600dfe4cb8251a45fb50288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiPanels: []
 --- !u!1 &76989658
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,8 +296,8 @@ MonoBehaviour:
   _gameSceneName: 3
   PrototypeNetworkStartPrefab: {fileID: 6408979213032872416, guid: 6074982e8e7a3f1439dc50e09ac49705, type: 3}
   _uiControllers:
-  - {fileID: 1771527328}
-  - {fileID: 75870439}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &76989660
 Transform:
   m_ObjectHideFlags: 0
@@ -448,6 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviour: 2
+  _lottieAnimations: []
 --- !u!114 &280692159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,6 +573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviour: 3
+  _lottieAnimations: []
 --- !u!1 &623472609
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,6 +626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviour: 1
+  _lottieAnimations: []
 --- !u!114 &623472612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -887,6 +886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviour: 4
+  _lottieAnimations: []
 --- !u!114 &1083228793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1331,6 +1331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviour: 1
+  _lottieAnimations: []
 --- !u!1 &1712850413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1603,14 +1604,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1771527324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7681b2dc417db2e4b9f09422bc70dd70, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a647f22e600dfe4cb8251a45fb50288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiPanels:
-  - {fileID: 1585340993}
-  - {fileID: 2038878613}
-  - {fileID: 297949763}
-  - {fileID: 1780718975}
+  _uiPanels: []
 --- !u!1 &1773552152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,6 +1660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviour: 3
+  _lottieAnimations: []
 --- !u!114 &1773552155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1791,6 +1789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviour: 4
+  _lottieAnimations: []
 --- !u!1 &1980957256
 GameObject:
   m_ObjectHideFlags: 0
@@ -1960,6 +1959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviour: 2
+  _lottieAnimations: []
 --- !u!1 &2127844513
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using System.Collections;
 
 public abstract class GamePanelSubControllerBase : MonoBehaviour
 {
-    public UiController.STATE behaviour;
+    public UiController.STATE STATE;
 
     private Coroutine _timerCoroutine;
 
