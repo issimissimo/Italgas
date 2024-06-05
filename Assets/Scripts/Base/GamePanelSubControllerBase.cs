@@ -17,20 +17,20 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
     [Header("STANDARD ANIMATIONS")]
     [SerializeField] protected UiAnimatedElement[] _standardAnimations;
 
-    public virtual void SetUI_on_STATE()
-    {
-        /// To override
-    }
-    public virtual void SetUI_on_RUNNING_STATE(UiController.RUNNING_STATE runningState, Action callback = null)
-    {
-        /// To override
-    }
+    // public virtual void SetUI_on_STATE()
+    // {
+    //     /// To override
+    // }
+    // public virtual void SetUI_on_RUNNING_STATE(UiController.RUNNING_STATE runningState, Action callback = null)
+    // {
+    //     /// To override
+    // }
 
 
 
 
 
-    public virtual void SetupUI(UiController.STATE state, UiController.RUNNING_STATE runningState, Action callback = null)
+    public virtual void SetupUI(UiController.STATE state, UiController.RUNNING_STATE runningState, Action callback)
     {
         /// To override
     }

@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "app.rive.rive-unity": {
-      "version": "https://github.com/rive-app/rive-unity.git?path=package#v0.1.146",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "830570362338d8e20f7bbb550dc575fc62036d88"
-    },
     "com.gindemit.rlottie": {
       "version": "https://github.com/gindemit/unity-rlottie.git?path=/unity/RLottieUnity/Assets/LottiePlugin/#0.2.2",
       "depth": 0,

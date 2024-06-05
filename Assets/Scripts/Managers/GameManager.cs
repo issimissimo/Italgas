@@ -203,8 +203,6 @@ public class GameManager : MonoBehaviour
     }
     public void SetBackground(bool useDefault = false)
     {
-        print("SetBackground..........");
-
         CloseSpinner();
 
         Sprite sp = null;
@@ -219,7 +217,6 @@ public class GameManager : MonoBehaviour
         }
         if (sp != null)
         {
-            print("OOOKKK..........");
             _backgroundImage.enabled = true;
             _backgroundImage.sprite = sp;
         }

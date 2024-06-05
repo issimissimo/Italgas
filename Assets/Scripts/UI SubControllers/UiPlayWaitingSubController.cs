@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class UiPlayWaitingSubController : GamePanelSubControllerBase
 {
@@ -13,7 +14,7 @@ public class UiPlayWaitingSubController : GamePanelSubControllerBase
         _playManager = FindObjectOfType<PlayManager>();
     }
 
-    public override void SetUI_on_STATE()
+    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE runningState, Action callback)
     {
         if (GameManager.userData.requestedPlayers == 1)
         {

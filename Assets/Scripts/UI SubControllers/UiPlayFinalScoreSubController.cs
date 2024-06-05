@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
 {
@@ -21,7 +22,7 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
     }
 
 
-    public override void SetUI_on_STATE()
+    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE runningState, Action callback)
     {
         StartCoroutine(OpenFinalScore());
     }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class UiPlayIdleSubController : GamePanelSubControllerBase
 {
@@ -10,7 +11,7 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
     
 
 
-    public override void SetUI_on_STATE()
+    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE runningState, Action callback)
     {
         /// Create a new gameSessionData
         GameManager.gameSessionData = new Data.GameSessionData

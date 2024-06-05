@@ -40,7 +40,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     }
 
 
-    public override void SetUI_on_RUNNING_STATE(UiController.RUNNING_STATE runningState, Action callback = null)
+    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE runningState, Action callback)
     {
         switch (runningState)
         {
