@@ -14,7 +14,7 @@ public class UiPlayWaitingSubController : GamePanelSubControllerBase
         _playManager = FindObjectOfType<PlayManager>();
     }
 
-    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE runningState, Action callback)
+    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE? runningState, Action callback)
     {
         if (GameManager.userData.requestedPlayers == 1)
         {

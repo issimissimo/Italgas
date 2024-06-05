@@ -30,7 +30,7 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
 
 
 
-    public virtual void SetupUI(UiController.STATE state, UiController.RUNNING_STATE runningState, Action callback)
+    public virtual void SetupUI(UiController.STATE state, UiController.RUNNING_STATE? runningState, Action callback)
     {
         /// To override
     }

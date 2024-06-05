@@ -22,7 +22,7 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
     }
 
 
-    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE runningState, Action callback)
+    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE? runningState, Action callback)
     {
         StartCoroutine(OpenFinalScore());
     }

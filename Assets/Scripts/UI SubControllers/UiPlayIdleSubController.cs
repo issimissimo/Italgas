@@ -11,7 +11,7 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
     
 
 
-    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE runningState, Action callback)
+    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE? runningState, Action callback)
     {
         /// Create a new gameSessionData
         GameManager.gameSessionData = new Data.GameSessionData

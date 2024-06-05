@@ -5,7 +5,7 @@ using System.Collections;
 public class UiController : MonoBehaviour
 {
     public enum STATE { WAITING_FOR_PLAYERS, READY_TO_START, IN_GAME, FINAL_SCORE }
-    public enum RUNNING_STATE { OPEN_CHAPTER, OPEN_PAGE, ANSWER_CLICKED, WAIT_OTHER_PLAYER, CLOSE_PAGE }
+    public enum RUNNING_STATE { NONE, OPEN_CHAPTER, OPEN_PAGE, ANSWER_CLICKED, WAIT_OTHER_PLAYER, CLOSE_PAGE }
     public STATE state { get; private set; }
     public RUNNING_STATE runningState { get; private set; }
 
@@ -46,10 +46,14 @@ public class UiController : MonoBehaviour
             print("========> RUNNING_STATE: " + runningState.ToString());
         }
 
-
-        if (_activePanel != null && closeAnimations)
+        /// <summary>
+        /// il problema è che viene chiamato Set a brevissima distanza, quindi entrano entrambe le chiamate nello yied, e vengono chiamati alla fine 2 volte...
+        /// </summary>
+        /// <value></value>
+        if (_activePanel != null && closeAnimations){
             yield return _activePanel.CloseAllAnimatedElements();
-
+        }
+            
 
         foreach (var p in _panels)
         {
@@ -60,8 +64,9 @@ public class UiController : MonoBehaviour
             }
             else p.GetComponent<CanvasController>().SetOff();
         }
-
-        _activePanel.SetupUI(state, runningState, callback);
+        
+        
+        _activePanel.SetupUI(state, newRunningState, callback);
     }
 
 
