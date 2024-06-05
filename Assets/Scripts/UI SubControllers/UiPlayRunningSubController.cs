@@ -7,14 +7,16 @@ using Michsky.UI.ModernUIPack;
 
 public class UiPlayRunningSubController : GamePanelSubControllerBase
 {
-    [Header("NEW_CHAPTER")]
+    [Header("UI ELEMENTS")]
     [SerializeField] private TMP_Text _chapterNameText;
-    [SerializeField] private UiAnimatedElement _chapterAnimation;
+    // [SerializeField] private UiAnimatedElement _chapterAnimation;
 
-    [Header("NEW_PAGE")]
+    [Space]
     [SerializeField] CanvasGroup _pageCanvasGroup;
     [SerializeField] private ProgressBar _countdownProgressBar;
     [SerializeField] private TMP_Text _questionText;
+
+    [Space]
     [SerializeField] private AnswerButtonComponent[] _answerList;
     [SerializeField] private UiAnimatedElement _questionAnimation;
     [SerializeField] private UiAnimatedElement _countdownAnimation;
@@ -66,39 +68,23 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
                 StartCoroutine(ClosePage(callback));
                 break;
-
-                // case UiController.RUNNING_STATE.FINAL_SCORE:
-
-                //     StartCoroutine(OpenFinalScore());
-                //     break;
         }
     }
 
 
+    /// <summary>
+    /// OPEN THE CHAPTER
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator OpenChapter(Action callback)
     {
-        /// Setup the Chapter
         _chapterNameText.text = GameManager.currentGameChapter.chapterName;
-
-        
 
         Animations_EnterByName("ChapterName");
         yield return null;
         while (!Animations_IsInEmptyState("ChapterName")) yield return null;
 
-        print("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-        // /// Play the "Enter" animation
-        // _chapterAnimation.Enter();
-        // yield return null;
-
-
-        // /// Wait for animation finished
-        // while (!_chapterAnimation.IsOnEmptyState()) yield return null;
-
-        
-
-        // /// Callback
-        // callback.Invoke();
+        callback.Invoke();
     }
 
 
