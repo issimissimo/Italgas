@@ -21,6 +21,8 @@ public class UiPlayIntroSubController : GamePanelSubControllerBase
             /// 
             print("INTROOOOOOOOOOOOOOOOOOOOOOOOOOO");
 
+            animationsController.Lottie_PlayByName("Intro");
+
             yield return new WaitForSeconds(5);
         }
 
