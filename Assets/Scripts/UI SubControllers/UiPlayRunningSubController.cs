@@ -28,7 +28,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     {
         _playManager = FindObjectOfType<PlayManager>();
 
-        foreach (var a in _answerList) _answerListAnimations.Add(a.animationController);
+        foreach (var a in _answerList) _answerListAnimations.Add(a.animatedElement);
         _pageCanvasGroup.interactable = false;
     }
 
@@ -111,11 +111,11 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             answerBttn.button.onClick.RemoveAllListeners();
             answerBttn.button.onClick.AddListener(() => AnswerButtonListener(answerBttn));
 
-            answerBttn.animationController.Enter();
+            answerBttn.animatedElement.Enter();
         }
 
         /// Let's wait for all animation ENTER
-        while ( Animations_IsAnyPlaying(_answerListAnimations.ToArray(), "Enter"))
+        while (Animations_IsAnyPlaying(_answerListAnimations.ToArray(), "Enter"))
             yield return null;
 
         /// Setup the Countdown
@@ -190,8 +190,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     {
         Animations_ExitByName("Question");
         Animations_ExitByName("WaitOtherPlayer");
-        
-        
+
+
         int buttonPressed = _playManager._myPlayer.NetworkedButtonPressedNumber;
         bool isTrue = _playManager._myPlayer.NetworkedAnswerResult;
 
@@ -230,13 +230,20 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         {
             if (i == buttonPressed)
             {
-                if (isTrue) _answerListAnimations[i].ExitTrue();
-                else _answerListAnimations[i].ExitFalse();
+                if (isTrue)
+                {
+                    _answerListAnimations[i].ExitTrue();
+                    _answerList[i].animationsController.Lottie_PlayByName("IsRight");
+                }
+                else
+                {
+                    _answerListAnimations[i].ExitFalse();
+                }
             }
             else _answerListAnimations[i].Exit();
         }
 
-       
+
         /// Let's wait for button animations EXIT
         while (Animations_IsAnyNotInEmptyState(_answerListAnimations.ToArray()))
             yield return null;
@@ -260,7 +267,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         _playManager.OnAnswerButtonPressed(buttonNumber: answerClicked.buttonNumber, isTrue: answerClicked.isTrue, time: timer);
     }
 
-   
+
 
 
 

@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a647f22e600dfe4cb8251a45fb50288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiPanels: []
+  _panels: []
 --- !u!1 &76989658
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,8 +296,8 @@ MonoBehaviour:
   _gameSceneName: 3
   PrototypeNetworkStartPrefab: {fileID: 6408979213032872416, guid: 6074982e8e7a3f1439dc50e09ac49705, type: 3}
   _uiControllers:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1771527328}
+  - {fileID: 75870441}
 --- !u!4 &76989660
 Transform:
   m_ObjectHideFlags: 0
@@ -443,8 +443,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e3c28cb5aae1f44a341866590ddb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviour: 2
+  STATE: 0
   _lottieAnimations: []
+  _standardAnimations: []
 --- !u!114 &280692159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,8 +626,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abce862ed6cab241bc92d6b51919263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviour: 1
+  STATE: 0
   _lottieAnimations: []
+  _standardAnimations: []
 --- !u!114 &623472612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,7 +702,7 @@ MonoBehaviour:
     GameObject: {fileID: 76989658}
     Ordinal: 0
     Priority: 0
-    IconType: 0
+    IconType: 1000
     IconTexture: {fileID: 0}
     IsIconRecursive: 0
     BackgroundType: 1000
@@ -1330,8 +1332,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abce862ed6cab241bc92d6b51919263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviour: 1
+  STATE: 0
   _lottieAnimations: []
+  _standardAnimations: []
 --- !u!1 &1712850413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1607,7 +1610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a647f22e600dfe4cb8251a45fb50288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiPanels: []
+  _panels: []
 --- !u!1 &1773552152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1958,8 +1961,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e3c28cb5aae1f44a341866590ddb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviour: 2
+  STATE: 0
   _lottieAnimations: []
+  _standardAnimations: []
 --- !u!1 &2127844513
 GameObject:
   m_ObjectHideFlags: 0

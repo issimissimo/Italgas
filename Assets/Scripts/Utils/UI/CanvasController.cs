@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
+[RequireComponent(typeof(CanvasGroup))]
 public class CanvasController : MonoBehaviour
 {
-    [SerializeField] CanvasGroup _canvasGroup;
+    private CanvasGroup _canvasGroup;
 
+    void Awake()
+    {
+        _canvasGroup = GetComponent<CanvasGroup>();
+    }
 
     public void Toggle(bool value)
     {
