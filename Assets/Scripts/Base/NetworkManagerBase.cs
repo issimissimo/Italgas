@@ -5,6 +5,8 @@ using Fusion;
 using System.Collections.Generic;
 using System.Linq;
 
+using System.Collections;
+
 
 public abstract class NetworkManagerBase : MonoBehaviour
 {
@@ -70,7 +72,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
 
     private void OnPlayerJoined()
     {
-        
+       
     }
 
     public virtual void OnPlayersCountChanged()

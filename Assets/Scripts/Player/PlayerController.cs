@@ -11,8 +11,8 @@ public class PlayerController : NetworkBehaviour
 
 
     //#region GENERAL
-    [Networked]
-    public int NetworkedId { get; set; }
+    [Networked, OnChangedRender(nameof(OnIdChanged))]
+    public int NetworkedId { get; set; } = 999;
     [Networked]
     public int NetworkedSessionRequestedPlayers { get; set; }
     //#endregion
@@ -45,23 +45,21 @@ public class PlayerController : NetworkBehaviour
         _networkManager = FindObjectOfType<NetworkManagerBase>();
     }
 
-    
 
     private IEnumerator Start()
     {
+        yield return new WaitForSeconds(1f);
         if (HasStateAuthority)
         {
-            // NetworkedState = STATE.IDLE;
-            // NetworkedRunningState = RUNNING_STATE.NONE;
             NetworkedSessionRequestedPlayers = GameManager.userData.requestedPlayers;
             NetworkedId = GameManager.userData.playerId;
         }
-
-        /// Let's wait a little, to try to solve the ID Player bug...
-        yield return new WaitForSeconds(1f);
-        _networkManager.OnPlayersCountChanged();
     }
 
+    private void OnIdChanged()
+    {
+        _networkManager.OnPlayersCountChanged();
+    }
 
     private void OnStateChanged()
     {

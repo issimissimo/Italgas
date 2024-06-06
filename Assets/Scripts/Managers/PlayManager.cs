@@ -221,11 +221,16 @@ public class PlayManager : NetworkManagerBase
         foreach (var p in _players)
         {
             print("Player n. " + i + " --- ID: " + p.NetworkedId);
+
+            if (p.NetworkedId < 0 || p.NetworkedId > 1)
+                GameManager.instance.ShowModal("ERRORE", "C'e stato un problema con gli ID...", showConfigureButton: false, showRestartButton: true);
+
             if (p.HasStateAuthority) _myPlayer = p;
             else otherPlayer = p;
 
             i++;
         }
+
 
         /// Too less Players
         if (_players.Count < GameManager.userData.requestedPlayers)
