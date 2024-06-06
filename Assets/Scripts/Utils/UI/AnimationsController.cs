@@ -11,7 +11,7 @@ public class AnimationsController : MonoBehaviour
     [Header("STANDARD ANIMATIONS")]
     [SerializeField] protected UiAnimatedElement[] _standardAnimations;
 
-    
+
 
     //#region STANDARD ANIMATIONS MANAGER
 
@@ -91,7 +91,7 @@ public class AnimationsController : MonoBehaviour
 
     //#region LOTTIE ANIMATIONS MANAGER
 
-    public bool _lottie_isFading;
+    public bool _lottie_isFading { get; private set; }
 
     private Coroutine _lottie_setMaterialOpacity;
 
@@ -190,7 +190,7 @@ public class AnimationsController : MonoBehaviour
                 materials[i].SetFloat("_Opacity", opacity);
 
                 /// For legacy UI unlit transparent shader
-                Color c = new Color(1f,1f, 1f, opacity);
+                Color c = new Color(1f, 1f, 1f, opacity);
                 materials[i].SetColor("_Color", c);
             }
             yield return null;

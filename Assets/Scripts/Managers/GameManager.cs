@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 {
     public bool isDevelopment;
     public bool sendMessageToRestart { get; set; } = false;
-    public bool appJustStarted { get; set; } = true;
+    public bool isAppJustStarted { get; set; } = true;
     public Globals.GAMESCENE gameScene { get; private set; }
     public static GameManager instance;
 

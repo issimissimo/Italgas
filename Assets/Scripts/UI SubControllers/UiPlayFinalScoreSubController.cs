@@ -31,7 +31,7 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
 
     private IEnumerator OpenFinalScore()
     {
-        Animations_EnterByName("FinalScore");
+        animationsController.Animations_EnterByName("FinalScore");
         
         
         GameManager.PlayerStats myPlayerStats = new GameManager.PlayerStats(GameManager.userData.playerId);

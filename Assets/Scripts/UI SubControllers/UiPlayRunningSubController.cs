@@ -74,9 +74,9 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         print("OPEN CHAPTER....");
         _chapterNameText.text = GameManager.currentGameChapter.chapterName;
 
-        Animations_EnterByName("ChapterName");
+        animationsController.Animations_EnterByName("ChapterName");
         yield return null;
-        while (!Animations_IsInEmptyState("ChapterName")) yield return null;
+        while (!animationsController.Animations_IsInEmptyState("ChapterName")) yield return null;
         print("...CLOSE CHAPTER");
         callback.Invoke();
     }
@@ -97,7 +97,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         /// Setup the Question
         _questionText.text = GameManager.currentGamePage.question;
-        Animations_EnterByName("Question");
+        animationsController.Animations_EnterByName("Question");
 
         /// Setup the Answer Buttons
         for (int i = 0; i < _answerList.Length; i++)
@@ -115,14 +115,14 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         }
 
         /// Let's wait for all animation ENTER
-        while (Animations_IsAnyPlaying(_answerListAnimations.ToArray(), "Enter"))
+        while (animationsController.Animations_IsAnyPlaying(_answerListAnimations.ToArray(), "Enter"))
             yield return null;
 
         /// Setup the Countdown
         _countdownProgressBar.maxValue = GameManager.currentGameVersion.maxTimeInSeconds;
         yield return null;
         _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds - 0.1f; /// weird...
-        Animations_EnterByName("Countdown");
+        animationsController.Animations_EnterByName("Countdown");
 
         /// Start the Countdown
         StartTimer(
@@ -148,7 +148,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     {
         /// Stop Countdown
         StopTimer();
-        Animations_ExitByName("Countdown");
+        animationsController.Animations_ExitByName("Countdown");
 
         int buttonPressed = _playManager._myPlayer.NetworkedButtonPressedNumber;
         UiAnimatedElement buttonPressedAnimation = null;
@@ -178,7 +178,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
     private void ShowWaitOtherPlayer()
     {
-        Animations_EnterByName("WaitOtherPlayer");
+        animationsController.Animations_EnterByName("WaitOtherPlayer");
     }
 
 
@@ -188,8 +188,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// </summary>
     private IEnumerator ClosePage(Action callback)
     {
-        Animations_ExitByName("Question");
-        Animations_ExitByName("WaitOtherPlayer");
+        animationsController.Animations_ExitByName("Question");
+        animationsController.Animations_ExitByName("WaitOtherPlayer");
 
 
         int buttonPressed = _playManager._myPlayer.NetworkedButtonPressedNumber;
@@ -245,7 +245,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
 
         /// Let's wait for button animations EXIT
-        while (Animations_IsAnyNotInEmptyState(_answerListAnimations.ToArray()))
+        while (animationsController.Animations_IsAnyNotInEmptyState(_answerListAnimations.ToArray()))
             yield return null;
 
         callback.Invoke();

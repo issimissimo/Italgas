@@ -208,7 +208,7 @@ public class PlayManager : NetworkManagerBase
 
     /// <summary>
     /// CHECK FOR PLAYERS (ONLY REAL PLAYERS) COUNT CHANGE
-    /// This happens only when someone shutdown or restart
+    /// This happens only when someone shutdown or start
     /// </summary>
     public override void OnPlayersCountChanged()
     {

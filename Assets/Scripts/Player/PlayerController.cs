@@ -45,10 +45,10 @@ public class PlayerController : NetworkBehaviour
         _networkManager = FindObjectOfType<NetworkManagerBase>();
     }
 
-
-    private IEnumerator Start()
+    public IEnumerator Startup(float delayTime)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(delayTime);
+
         if (HasStateAuthority)
         {
             NetworkedSessionRequestedPlayers = GameManager.userData.requestedPlayers;
@@ -56,6 +56,19 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+
+    // private IEnumerator Start()
+    // {
+    //     yield return new WaitForSeconds(1f);
+    //     if (HasStateAuthority)
+    //     {
+    //         NetworkedSessionRequestedPlayers = GameManager.userData.requestedPlayers;
+    //         NetworkedId = GameManager.userData.playerId;
+    //     }
+    // }
+    
+
+    /// This function is called when the network ID is set (on Startup)
     private void OnIdChanged()
     {
         _networkManager.OnPlayersCountChanged();

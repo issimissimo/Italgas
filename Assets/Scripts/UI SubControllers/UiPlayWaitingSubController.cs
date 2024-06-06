@@ -38,7 +38,7 @@ public class UiPlayWaitingSubController : GamePanelSubControllerBase
             }
         }
 
-        Animations_EnterAll();
-        Lottie_FadeIn_All(time: 1f);
+        animationsController.Animations_EnterAll();
+        animationsController.Lottie_FadeIn_All(time: 1f);
     }
 }
