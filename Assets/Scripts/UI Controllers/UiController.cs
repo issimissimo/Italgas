@@ -13,7 +13,7 @@ public class UiController : MonoBehaviour
     private GamePanelSubControllerBase _activePanel;
 
 
-    public void Set_STATE_INTRO() => StartCoroutine(Set(newState: STATE.INTRO));
+    public void Set_STATE_INTRO(Action callback) => StartCoroutine(Set(newState: STATE.INTRO, callback: callback));
     public void Set_STATE_WAITING_FOR_PLAYERS() => StartCoroutine(Set(newState: STATE.WAITING_FOR_PLAYERS));
     public void Set_STATE_READY_TO_START() => StartCoroutine(Set(newState: STATE.READY_TO_START));
     public void Set_STATE_IN_GAME() => StartCoroutine(Set(newState: STATE.IN_GAME));
@@ -25,12 +25,17 @@ public class UiController : MonoBehaviour
     public void Set_RUNNING_STATE_CLOSE_PAGE(Action callback) => StartCoroutine(Set(newRunningState: RUNNING_STATE.CLOSE_PAGE, closeAnimations: false, callback: callback));
 
 
-
-    private void Start()
+    private void Awake()
     {
-        // Set_STATE_WAITING_FOR_PLAYERS();
-        Set_STATE_INTRO();
+        foreach(var p in _panels) p.GetComponent<CanvasController>().SetOff();
     }
+
+
+    // private void Start()
+    // {
+    //     // Set_STATE_WAITING_FOR_PLAYERS();
+    //     // Set_STATE_INTRO();
+    // }
 
 
     private IEnumerator Set(STATE? newState = null, RUNNING_STATE? newRunningState = null, bool closeAnimations = true, Action callback = null)

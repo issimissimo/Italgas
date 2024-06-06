@@ -17,7 +17,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
     [SerializeField] protected UiController[] _uiControllers;
 
     protected List<PlayerController> _players = new List<PlayerController>();
-    public PlayerController _myPlayer { get; protected set; } = null;
+    public PlayerController myPlayer { get; protected set; } = null;
 
 
 
@@ -150,7 +150,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
                 // _myPlayer.NetworkedState = PlayerController.STATE.FINISHED;
 
                 /// Player
-                if (_myPlayer != null) _myPlayer.Set_RUNNING_STATE_NONE();
+                if (myPlayer != null) myPlayer.Set_RUNNING_STATE_NONE();
 
                 /// Viewer
                 else foreach (var p in _players) p.Set_RUNNING_STATE_NONE();

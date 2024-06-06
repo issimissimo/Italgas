@@ -150,7 +150,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         StopTimer();
         animationsController.Animations_ExitByName("Countdown");
 
-        int buttonPressed = _playManager._myPlayer.NetworkedButtonPressedNumber;
+        int buttonPressed = _playManager.myPlayer.NetworkedButtonPressedNumber;
         UiAnimatedElement buttonPressedAnimation = null;
 
         /// Show clicked or not clicked button animations
@@ -192,8 +192,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         animationsController.Animations_ExitByName("WaitOtherPlayer");
 
 
-        int buttonPressed = _playManager._myPlayer.NetworkedButtonPressedNumber;
-        bool isTrue = _playManager._myPlayer.NetworkedAnswerResult;
+        int buttonPressed = _playManager.myPlayer.NetworkedButtonPressedNumber;
+        bool isTrue = _playManager.myPlayer.NetworkedAnswerResult;
 
         // print("------------> CLOSE PAGE!!! ");
         // print("------------> buttonPressed: " + buttonPressed);

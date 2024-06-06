@@ -14,7 +14,7 @@ public class PlayManager : NetworkManagerBase
     /// <param name="buttonNumber"></param> <summary>
     public void OnAnswerButtonPressed(int buttonNumber, bool isTrue, float time)
     {
-        _myPlayer.Set_RUNNING_STATE_CLICKED(buttonNumber, isTrue, time);
+        myPlayer.Set_RUNNING_STATE_CLICKED(buttonNumber, isTrue, time);
     }
 
 
@@ -24,7 +24,7 @@ public class PlayManager : NetworkManagerBase
     /// </summary>
     public void Set_RUNNING()
     {
-        _myPlayer.Set_STATE_RUNNING();
+        myPlayer.Set_STATE_RUNNING();
     }
 
     /// <summary>
@@ -32,7 +32,7 @@ public class PlayManager : NetworkManagerBase
     /// </summary>
     public void Set_IDLE()
     {
-        _myPlayer.Set_STATE_IDLE();
+        myPlayer.Set_STATE_IDLE();
     }
 
 
@@ -47,7 +47,7 @@ public class PlayManager : NetworkManagerBase
     //#region GAME LOGICS
     public override void OnPlayerRunningStateChanged(int playerId, PlayerController.RUNNING_STATE runningState)
     {
-        if (_myPlayer.NetworkedState != PlayerController.STATE.RUNNING) return;
+        if (myPlayer.NetworkedState != PlayerController.STATE.RUNNING) return;
 
         print("************  RICEVUTO CHANGE RUNNING STATE DA PLAYER: " + playerId + " --> " + runningState.ToString());
 
@@ -63,7 +63,7 @@ public class PlayManager : NetworkManagerBase
 
             case PlayerController.RUNNING_STATE.THINKING:
 
-                if (playerId == _myPlayer.NetworkedId)
+                if (playerId == myPlayer.NetworkedId)
                 {
                     GameManager.currentGamePageIndex++;
                     ProceedToNext();
@@ -72,23 +72,23 @@ public class PlayManager : NetworkManagerBase
 
 
             case PlayerController.RUNNING_STATE.CLICKED:
-                if (playerId == _myPlayer.NetworkedId)
+                if (playerId == myPlayer.NetworkedId)
                 {
                     /// I have clicked on the answer
-                    _uiControllers[0].Set_RUNNING_STATE_ANSWER_CLICKED(() => _myPlayer.Set_RUNNING_STATE_FINISHED());
+                    _uiControllers[0].Set_RUNNING_STATE_ANSWER_CLICKED(() => myPlayer.Set_RUNNING_STATE_FINISHED());
                 }
                 break;
 
 
             case PlayerController.RUNNING_STATE.FINISHED:
 
-                if (playerId == _myPlayer.NetworkedId)
+                if (playerId == myPlayer.NetworkedId)
                 {
                     if (GameManager.gameSessionData.numberOfPlayersRunning == 1 ||
                          otherPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
                     {
                         /// I have finished too, now we can move on!
-                        _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() => _myPlayer.Set_RUNNING_STATE_THINKING());
+                        _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() => myPlayer.Set_RUNNING_STATE_THINKING());
                     }
                     else
                     {
@@ -98,10 +98,10 @@ public class PlayManager : NetworkManagerBase
                 }
                 else if (playerId == otherPlayer.NetworkedId)
                 {
-                    if (_myPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
+                    if (myPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
                     {
                         /// Other player have finished too, now we can move on!
-                        _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() => _myPlayer.Set_RUNNING_STATE_THINKING());
+                        _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() => myPlayer.Set_RUNNING_STATE_THINKING());
 
                     }
                     else
@@ -112,23 +112,6 @@ public class PlayManager : NetworkManagerBase
                 break;
         }
     }
-
-    /// <summary>
-    /// We use this Method, instead detecting the RUNNING_STATE_THINKING over the network,
-    /// because it would seem to work only with a delay...
-    /// </summary>
-    // private async void ContinueInGame()
-    // {
-    //     // await Task.Delay(500);
-    //     _myPlayer.Set_RUNNING_STATE_THINKING();
-    //     // GameManager.currentGamePageIndex++;
-    //     // ProceedToNext();
-    // }
-
-
-
-
-
 
 
 
@@ -151,7 +134,7 @@ public class PlayManager : NetworkManagerBase
                 /// Some Player clicked on the Button
                 /// of "FINISHED FOR ALL" Panel
 
-                if (playerId == _myPlayer.NetworkedId)
+                if (playerId == myPlayer.NetworkedId)
                 {
                     print("Rimetto in READY_TO_START il mio!!!!!!");
                     _uiControllers[0].Set_STATE_READY_TO_START();
@@ -176,10 +159,10 @@ public class PlayManager : NetworkManagerBase
             case PlayerController.STATE.RUNNING:
 
                 /// I'm starting the Game for my own Player
-                if (playerId == _myPlayer.NetworkedId)
+                if (playerId == myPlayer.NetworkedId)
                 {
                     _uiControllers[0].Set_STATE_IN_GAME();
-                    _myPlayer.Set_RUNNING_STATE_THINKING();
+                    myPlayer.Set_RUNNING_STATE_THINKING();
                     // ContinueInGame();
                 }
                 /// Other Player started the Game
@@ -193,8 +176,8 @@ public class PlayManager : NetworkManagerBase
                     }
                     else if (otherPlayer.NetworkedSessionRequestedPlayers == 2)
                     {
-                        print("SICCOME L'ALTRO PLAYER E' RUNNING, METTO IN RUNNING ANCHE IL MIO, CON id " + _myPlayer.NetworkedId);
-                        _myPlayer.Set_STATE_RUNNING(runningPlayersNumber: 2);
+                        print("SICCOME L'ALTRO PLAYER E' RUNNING, METTO IN RUNNING ANCHE IL MIO, CON id " + myPlayer.NetworkedId);
+                        myPlayer.Set_STATE_RUNNING(runningPlayersNumber: 2);
                     }
                 }
                 break;
@@ -207,31 +190,95 @@ public class PlayManager : NetworkManagerBase
     /// GENERAL APP LOGICS
 
     /// <summary>
-    /// CHECK FOR PLAYERS (ONLY REAL PLAYERS) COUNT CHANGE
+    /// CHECK FOR PLAYERS (ONLY REAL PLAYERS, NOT THE VIEWER) COUNT CHANGE
     /// This happens only when someone shutdown or start
     /// </summary>
     public override void OnPlayersCountChanged()
     {
-        /// don't forget to call the base in this function
+        /// Retrieve the list of actual connected Players
         base.OnPlayersCountChanged();
-
-        /// retrieve my and other player
-        int i = 0;
         print("-------------- OnPlayersCountChanged -----------------");
+
         foreach (var p in _players)
         {
-            print("Player n. " + i + " --- ID: " + p.NetworkedId);
-
+            /// Check if there's some weird error on ID assignment
+            /// This should NEVER happen!!!
             if (p.NetworkedId < 0 || p.NetworkedId > 1)
-                GameManager.instance.ShowModal("ERRORE", "C'e stato un problema con gli ID...", showConfigureButton: false, showRestartButton: true);
+            {
+                GameManager.instance.ShowModal("ERRORE", "C'e' stato un problema con l'assegnazione degli ID ID. Questo non dovrebbe succedere. Si prega di segnalare il problema agli sviluppatori",
+                showConfigureButton: false, showRestartButton: true);
+                return;
+            }
 
-            if (p.HasStateAuthority) _myPlayer = p;
-            else otherPlayer = p;
+            if (p.HasStateAuthority && myPlayer == null)
+            {
+                /// Set my player for the 1st time
+                print ("SETTO IL MIO PLAYER PER LA PRIMA VOLTA");
+                myPlayer = p;
 
-            i++;
+                /// Show INTRO
+                _uiControllers[0].Set_STATE_INTRO(() => CheckCurrentPlayers());
+            }
+            else
+            {
+                /// Set other player
+                print ("SETTO L'ALTRO PLAYER");
+                otherPlayer = p;
+                CheckCurrentPlayers();
+            }
         }
 
 
+
+
+        // /// Too less Players
+        // if (_players.Count < GameManager.userData.requestedPlayers)
+        // {
+        //     print("<<<<<<<<<<< NON C'E' il NUMERO DI UTENTI RICHIESTO: " + _players.Count + "/" + GameManager.userData.requestedPlayers);
+
+        //     /// Set UI
+        //     if (_uiControllers[0].state != UiController.STATE.WAITING_FOR_PLAYERS)
+        //         _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
+        // }
+
+        // /// Right number of Players!
+        // else if (_players.Count == GameManager.userData.requestedPlayers)
+        // {
+        //     if (otherPlayer != null)
+        //     {
+        //         if (otherPlayer.NetworkedSessionRequestedPlayers == 1) return;
+        //     }
+
+        //     print(">>>>>>>>>>>>>>> C'E' IL NUMERO DI UTENTI RICHIESTO, VERIFICHIAMO I LORO ID...");
+
+        //     /// Reset the other Player to null
+        //     if (_players.Count == 1) otherPlayer = null;
+
+        //     if (myPlayer != null && otherPlayer != null && otherPlayer.NetworkedId == myPlayer.NetworkedId)
+        //     {
+        //         GameManager.instance.ShowModal("ERRORE", "Ci sono due players con lo stesso ID", showConfigureButton: true, showRestartButton: false);
+        //     }
+        //     else
+        //     {
+        //         print("IL MIO PLAYER ID E' : " + myPlayer.NetworkedId);
+
+        //         /// If we changed something that require others to restart,
+        //         /// send message to restart!
+        //         if (GameManager.instance.sendMessageToRestart)
+        //         {
+        //             GameManager.instance.sendMessageToRestart = false;
+        //             myPlayer.SendMessageToRestart();
+        //         }
+
+        //         /// Set UI IDLE
+        //         _uiControllers[0].Set_STATE_READY_TO_START();
+        //     }
+        // }
+    }
+
+
+    private void CheckCurrentPlayers()
+    {
         /// Too less Players
         if (_players.Count < GameManager.userData.requestedPlayers)
         {
@@ -255,20 +302,20 @@ public class PlayManager : NetworkManagerBase
             /// Reset the other Player to null
             if (_players.Count == 1) otherPlayer = null;
 
-            if (_myPlayer != null && otherPlayer != null && otherPlayer.NetworkedId == _myPlayer.NetworkedId)
+            if (myPlayer != null && otherPlayer != null && otherPlayer.NetworkedId == myPlayer.NetworkedId)
             {
                 GameManager.instance.ShowModal("ERRORE", "Ci sono due players con lo stesso ID", showConfigureButton: true, showRestartButton: false);
             }
             else
             {
-                print("IL MIO PLAYER ID E' : " + _myPlayer.NetworkedId);
+                print("IL MIO PLAYER ID E' : " + myPlayer.NetworkedId);
 
                 /// If we changed something that require others to restart,
                 /// send message to restart!
                 if (GameManager.instance.sendMessageToRestart)
                 {
                     GameManager.instance.sendMessageToRestart = false;
-                    _myPlayer.SendMessageToRestart();
+                    myPlayer.SendMessageToRestart();
                 }
 
                 /// Set UI IDLE

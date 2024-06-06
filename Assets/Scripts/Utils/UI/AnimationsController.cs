@@ -97,16 +97,26 @@ public class AnimationsController : MonoBehaviour
 
     public void Lottie_PlayByName(string assetName)
     {
-        foreach (var l in _lottieAnimations)
+        foreach (var anim in _lottieAnimations)
         {
-            if (l.Name == assetName) l.Play();
+            if (anim.Name == assetName)
+            {
+                /// For additive shader
+                anim.material.SetFloat("_Opacity", 1f);
+
+                /// For legacy UI unlit transparent shader
+                Color c = new Color(1f, 1f, 1f, 1f);
+                anim.material.SetColor("_Color", c);
+
+                anim.Play();
+            }
         }
     }
     public void Lottie_StopByName(string assetName)
     {
-        foreach (var l in _lottieAnimations)
+        foreach (var anim in _lottieAnimations)
         {
-            if (l.Name == assetName) l.Stop();
+            if (anim.Name == assetName) anim.Stop();
         }
     }
     public IEnumerator Lottie_Stop_All_Coroutine()
