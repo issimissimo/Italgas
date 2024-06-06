@@ -23591,10 +23591,10 @@ MonoBehaviour:
     GameObject: {fileID: 147487353}
     Ordinal: 0
     Priority: 0
-    IconType: 0
+    IconType: 3000
     IconTexture: {fileID: 0}
-    IsIconRecursive: 0
-    BackgroundType: 1000
+    IsIconRecursive: 1
+    BackgroundType: 3000
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 1
     IsHidden: 0
@@ -24916,7 +24916,7 @@ GameObject:
   - component: {fileID: 1457499198}
   - component: {fileID: 1457499197}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: '[Ui_Config]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

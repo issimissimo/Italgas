@@ -19,11 +19,9 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     [SerializeField] private AnswerButtonComponent[] _answerList;
 
 
-
-
-
     private PlayManager _playManager;
     private List<UiAnimatedElement> _answerListAnimations = new List<UiAnimatedElement>();
+
 
 
     void Awake()
@@ -32,7 +30,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         foreach (var a in _answerList) _answerListAnimations.Add(a.animationController);
         _pageCanvasGroup.interactable = false;
-        // _pageCanvasGroupCtrl.Toggle(false);
     }
 
 
@@ -100,7 +97,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         /// Setup the Question
         _questionText.text = GameManager.currentGamePage.question;
-        // _questionAnimation.Enter();
         Animations_EnterByName("Question");
 
         /// Setup the Answer Buttons
@@ -126,7 +122,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         _countdownProgressBar.maxValue = GameManager.currentGameVersion.maxTimeInSeconds;
         yield return null;
         _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds - 0.1f; /// weird...
-        // _countdownAnimation.Enter();
         Animations_EnterByName("Countdown");
 
         /// Start the Countdown
@@ -153,7 +148,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     {
         /// Stop Countdown
         StopTimer();
-        // _countdownAnimation.Exit();
         Animations_ExitByName("Countdown");
 
         int buttonPressed = _playManager._myPlayer.NetworkedButtonPressedNumber;
@@ -184,7 +178,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
     private void ShowWaitOtherPlayer()
     {
-        // _waitOtherPlayerAnimation.Enter();
         Animations_EnterByName("WaitOtherPlayer");
     }
 
@@ -202,49 +195,51 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         int buttonPressed = _playManager._myPlayer.NetworkedButtonPressedNumber;
         bool isTrue = _playManager._myPlayer.NetworkedAnswerResult;
 
-        print("------------> CLOSE PAGE!!! ");
-        print("------------> buttonPressed: " + buttonPressed);
-        print("------------> isTrue: " + isTrue);
+        // print("------------> CLOSE PAGE!!! ");
+        // print("------------> buttonPressed: " + buttonPressed);
+        // print("------------> isTrue: " + isTrue);
+
+        // for (int i = 0; i < _answerListAnimations.Count; i++)
+        // {
+        //     print("(((((((((((((((  TASTO N. " + i + " )))))))))))))))");
+        //     if (i == buttonPressed)
+        //     {
+        //         if (isTrue)
+        //         {
+        //             print(_answerListAnimations[i].gameObject.name + " QUESTO E' CLICCATO ED ESCE TRUE");
+        //             _answerListAnimations[i].ExitTrue();
+        //         }
+
+        //         else
+        //         {
+        //             print(_answerListAnimations[i].gameObject.name + " QUESTO E' CLICCATO ED ESCE FALSE");
+        //             _answerListAnimations[i].ExitFalse();
+        //         }
+
+        //     }
+
+        //     else
+        //     {
+        //         print(_answerListAnimations[i].gameObject.name + " QUESTO NON E' CLICCATO ED ESCE E BASTA");
+        //         _answerListAnimations[i].Exit();
+
+        //     }
+        // }
 
         for (int i = 0; i < _answerListAnimations.Count; i++)
         {
-            print("(((((((((((((((  TASTO N. " + i + " )))))))))))))))");
             if (i == buttonPressed)
             {
-                if (isTrue)
-                {
-                    print(_answerListAnimations[i].gameObject.name + " QUESTO E' CLICCATO ED ESCE TRUE");
-                    _answerListAnimations[i].ExitTrue();
-                }
-
-                else
-                {
-                    print(_answerListAnimations[i].gameObject.name + " QUESTO E' CLICCATO ED ESCE FALSE");
-                    _answerListAnimations[i].ExitFalse();
-                }
-
+                if (isTrue) _answerListAnimations[i].ExitTrue();
+                else _answerListAnimations[i].ExitFalse();
             }
-
-            else
-            {
-                print(_answerListAnimations[i].gameObject.name + " QUESTO NON E' CLICCATO ED ESCE E BASTA");
-                _answerListAnimations[i].Exit();
-
-            }
-
-
+            else _answerListAnimations[i].Exit();
         }
 
-
-        // _questionAnimation.Exit();
-        // _waitOtherPlayerAnimation.Exit();
-
+       
         /// Let's wait for button animations EXIT
         while (Animations_IsAnyNotInEmptyState(_answerListAnimations.ToArray()))
-        {
-            // print("SI CHIUDONO I TASTIIIIIIIIIIII");
             yield return null;
-        }
 
         callback.Invoke();
     }
