@@ -71,33 +71,35 @@ public abstract class NetworkManagerBase : MonoBehaviour
     private async void OnPlayerLeft()
     {
         await Task.Delay(500);
-        OnPlayersCountChanged();
-       
+        OnRealPlayersCountChanged();
+
         /// Tell the GameManager how many connected users and real players
         NetworkRunner runner = FindObjectOfType<NetworkRunner>();
         GameManager.instance.OnUsersCountChanged(runner.ActivePlayers.Count(), _players.Count);
     }
 
-    private async void OnPlayerJoined()
+    private void OnPlayerJoined()
     {
-        await Task.Delay(1000);
-
         /// Tell the GameManager how many connected users and real players
         NetworkRunner runner = FindObjectOfType<NetworkRunner>();
         GameManager.instance.OnUsersCountChanged(runner.ActivePlayers.Count(), _players.Count);
     }
 
-    
+
 
     /// <summary>
     /// CHECK FOR PLAYERS (ONLY REAL PLAYERS, NOT THE VIEWER) COUNT CHANGE
     /// This happens only when someone shutdown or start
     /// </summary>
-    public virtual void OnPlayersCountChanged()
+    public virtual void OnRealPlayersCountChanged()
     {
         _players.Clear();
         PlayerController[] playersArray = FindObjectsOfType<PlayerController>();
         _players = playersArray.ToList();
+
+        /// Tell the GameManager how many connected users and real players
+        NetworkRunner runner = FindObjectOfType<NetworkRunner>();
+        GameManager.instance.OnUsersCountChanged(runner.ActivePlayers.Count(), _players.Count);
 
         /// to be implemented
     }

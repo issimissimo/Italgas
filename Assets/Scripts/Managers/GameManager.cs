@@ -20,11 +20,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] NotificationManager _notificationManager;
     [SerializeField] SpinnerManager _spinnerManager;
     [SerializeField] UiSetupZone _setupZone;
+    [SerializeField] UiConnectionZone _connectionZone;
 
+
+    [Space]
     [Header("Background images")]
     [SerializeField] Image _backgroundImage;
     [SerializeField] Sprite _defaultBackgroundSprite;
     [SerializeField] Background[] _backgrounds;
+
 
 
     //#region Game DATA
@@ -103,6 +107,14 @@ public class GameManager : MonoBehaviour
         public Data.VERSION_NAME gameVersion;
         public Sprite sprite;
     }
+
+    [Serializable]
+    private class Connection
+    {
+        public Sprite sprite;
+        public bool isActive;
+    }
+
 
     private Coroutine _showSpinnerWithDelay;
 
@@ -225,8 +237,11 @@ public class GameManager : MonoBehaviour
     public void OnUsersCountChanged(int users, int players)
     {
         print("-------------------------------");
-        print("USERS: " + users  + " --- PLAYERS: " + players);
+        print("USERS: " + users + " --- PLAYERS: " + players);
         print("-------------------------------");
+
+        if (userData.gameMode == Globals.GAMEMODE.PLAYER)
+            _connectionZone.SetupUi(users, players);
     }
 
 

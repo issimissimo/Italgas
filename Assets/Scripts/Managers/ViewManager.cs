@@ -148,10 +148,10 @@ public class ViewManager : NetworkManagerBase
     /// <summary>
     /// CHECK FOR PLAYERS (ONLY REAL PLAYERS) COUNT CHANGE
     /// </summary>
-    public override void OnPlayersCountChanged()
+    public override void OnRealPlayersCountChanged()
     {
         /// don't forget to call the base in this function
-        base.OnPlayersCountChanged();
+        base.OnRealPlayersCountChanged();
 
 
     }

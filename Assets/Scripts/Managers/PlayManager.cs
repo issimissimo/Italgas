@@ -187,10 +187,10 @@ public class PlayManager : NetworkManagerBase
     /// CHECK FOR PLAYERS (ONLY REAL PLAYERS, NOT THE VIEWER) COUNT CHANGE
     /// This happens only when someone shutdown or start
     /// </summary>
-    public override void OnPlayersCountChanged()
+    public override void OnRealPlayersCountChanged()
     {
         /// Retrieve the list of actual connected Players
-        base.OnPlayersCountChanged();
+        base.OnRealPlayersCountChanged();
         print("-------------- OnPlayersCountChanged -----------------");
 
         foreach (var p in _players)

@@ -80,7 +80,7 @@ public class PlayerController : NetworkBehaviour
     /// This function is called when the network ID is set (on Startup)
     private void OnIdChanged()
     {
-        _networkManager.OnPlayersCountChanged();
+        _networkManager.OnRealPlayersCountChanged();
     }
 
     private void OnStateChanged()
