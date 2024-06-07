@@ -26,7 +26,7 @@ public class ViewManager : NetworkManagerBase
 
         switch (playerState)
         {
-            case PlayerController.STATE.IDLE:
+            case PlayerController.STATE.READY:
 
                 _uiControllers[playerId].Set_STATE_READY_TO_START();
                 break;

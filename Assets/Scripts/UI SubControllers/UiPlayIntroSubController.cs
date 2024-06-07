@@ -17,11 +17,10 @@ public class UiPlayIntroSubController : GamePanelSubControllerBase
 
     private IEnumerator ShowIntro(Action callback)
     {
-        print("SHOW INTRO");
         animationsController.Lottie_PlayByName("Intro");
 
         /// Wait for the length of the intro file
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(animationsController.Lottie_GetDuration_ByName("Intro"));
 
         callback.Invoke();
     }

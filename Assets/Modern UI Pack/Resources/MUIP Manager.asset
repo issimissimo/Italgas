@@ -84,7 +84,7 @@ MonoBehaviour:
   sliderLabelColor: {r: 1, g: 1, b: 1, a: 1}
   sliderPopupLabelColor: {r: 0.37254903, g: 0.40784314, b: 0.4509804, a: 1}
   sliderHandleColor: {r: 1, g: 1, b: 1, a: 1}
-  switchBorderColor: {r: 0.26666668, g: 0.43529412, b: 0.6039216, a: 0.6745098}
+  switchBorderColor: {r: 0.32941177, g: 0.5647059, b: 0.53333336, a: 0.6745098}
   switchBackgroundColor: {r: 1, g: 0.41960785, b: 0.13725491, a: 1}
   switchHandleOnColor: {r: 1, g: 1, b: 1, a: 0.6666667}
   switchHandleOffColor: {r: 1, g: 1, b: 1, a: 0.29803923}

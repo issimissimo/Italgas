@@ -173,6 +173,12 @@ public class AnimationsController : MonoBehaviour
         }));
     }
 
+    public float Lottie_GetDuration_ByName(string assetName)
+    {
+        var anim = Array.Find(_lottieAnimations, elem => elem.Name == assetName);
+        return anim.GetDuration();
+    }
+
 
 
     private IEnumerator Lottie_SetMaterialsOpacityCoroutine(float time, float initOpacity, float endOpacity, Action callback)

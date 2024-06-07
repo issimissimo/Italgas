@@ -40,6 +40,8 @@ public class UiController : MonoBehaviour
 
     private IEnumerator Set(STATE? newState = null, RUNNING_STATE? newRunningState = null, bool closeAnimations = true, Action callback = null)
     {
+        print("Set STATE --> " + newState.ToString());
+        
         if (newState != null) state = newState.Value;
         if (newRunningState != null) runningState = newRunningState.Value;
        

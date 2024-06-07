@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : NetworkBehaviour
 {
-    public enum STATE { IDLE, RUNNING }
+    public enum STATE { NONE, READY, RUNNING }
     public enum RUNNING_STATE { NONE, THINKING, CLICKED, FINISHED }
 
 
@@ -152,7 +152,7 @@ public class PlayerController : NetworkBehaviour
     /// Set STATE
     /// </summary>
 
-    public void Set_STATE_IDLE() => NetworkedState = STATE.IDLE;
+    public void Set_STATE_IDLE() => NetworkedState = STATE.READY;
 
     public void Set_STATE_RUNNING(int? runningPlayersNumber = null)
     {
