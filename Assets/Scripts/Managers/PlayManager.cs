@@ -135,7 +135,7 @@ public class PlayManager : NetworkManagerBase
             case PlayerController.STATE.READY:
 
                 /// After the INTRO, and FINAL_SCORE
-                
+
                 if (otherPlayer != null)
                 {
                     if (myPlayer.NetworkedState == otherPlayer.NetworkedState)
@@ -146,22 +146,12 @@ public class PlayManager : NetworkManagerBase
                 }
                 else if (otherPlayer == null)
                 {
-                    /// I'm in "SOLO" mode, let's show the READY UI
-                    _uiControllers[0].Set_STATE_READY_TO_START();
+                    if (GameManager.userData.requestedPlayers == 1)
+                    {
+                        /// I'm in "SOLO" mode, let's show the READY UI
+                        _uiControllers[0].Set_STATE_READY_TO_START();
+                    }
                 }
-
-
-                // if (playerId == myPlayer.NetworkedId)
-                // {
-                //     print("Metto in READY_TO_START il mio!!!!!!");
-                //     _uiControllers[0].Set_STATE_READY_TO_START();
-                // }
-                // else if (otherPlayer != null && playerId == otherPlayer.NetworkedId)
-                // {
-                //     print("L'altro PLAYER è in READY_TO_START, quindi metto anche il mio, se non lo è già");
-
-                //     myPlayer.Set_STATE_IDLE();
-                // }
                 break;
 
             case PlayerController.STATE.RUNNING:
@@ -214,74 +204,43 @@ public class PlayManager : NetworkManagerBase
             /// This should NEVER happen!!!
             if (p.NetworkedId < 0 || p.NetworkedId > 1)
             {
-                GameManager.instance.ShowModal("ERRORE", "C'e' stato un problema con l'assegnazione degli ID ID. Questo non dovrebbe succedere. Si prega di segnalare il problema agli sviluppatori",
+                GameManager.instance.ShowModal("ERRORE DI SISTEMA", "C'e' stato un problema con l'assegnazione degli ID. Questo non dovrebbe succedere. Si prega di segnalare il problema agli sviluppatori",
                 showConfigureButton: false, showRestartButton: true);
                 return;
             }
 
-            if (p.HasStateAuthority)
+
+            if (myPlayer == null && p.HasStateAuthority)
             {
-                if (myPlayer == null)
+                // /// Get my Player
+                // myPlayer = p;
+
+                /// Show INTRO UI
+                _uiControllers[0].Set_STATE_INTRO(() =>
                 {
+                    /// Get my Player
                     myPlayer = p;
 
-                    /// Show INTRO
-                    _uiControllers[0].Set_STATE_INTRO(() => StartCoroutine(WaitTheRightPlayersNumber()));
-                }
+                    WaitForPlayers = StartCoroutine(WaitForPlayersCoroutine());
+                });
             }
         }
 
-
-
-
-        // /// Too less Players
-        // if (_players.Count < GameManager.userData.requestedPlayers)
-        // {
-        //     print("<<<<<<<<<<< NON C'E' il NUMERO DI UTENTI RICHIESTO: " + _players.Count + "/" + GameManager.userData.requestedPlayers);
-
-        //     /// Set UI
-        //     if (_uiControllers[0].state != UiController.STATE.WAITING_FOR_PLAYERS)
-        //         _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
-        // }
-
-        // /// Right number of Players!
-        // else if (_players.Count == GameManager.userData.requestedPlayers)
-        // {
-        //     if (otherPlayer != null)
-        //     {
-        //         if (otherPlayer.NetworkedSessionRequestedPlayers == 1) return;
-        //     }
-
-        //     print(">>>>>>>>>>>>>>> C'E' IL NUMERO DI UTENTI RICHIESTO, VERIFICHIAMO I LORO ID...");
-
-        //     /// Reset the other Player to null
-        //     if (_players.Count == 1) otherPlayer = null;
-
-        //     if (myPlayer != null && otherPlayer != null && otherPlayer.NetworkedId == myPlayer.NetworkedId)
-        //     {
-        //         GameManager.instance.ShowModal("ERRORE", "Ci sono due players con lo stesso ID", showConfigureButton: true, showRestartButton: false);
-        //     }
-        //     else
-        //     {
-        //         print("IL MIO PLAYER ID E' : " + myPlayer.NetworkedId);
-
-        //         /// If we changed something that require others to restart,
-        //         /// send message to restart!
-        //         if (GameManager.instance.sendMessageToRestart)
-        //         {
-        //             GameManager.instance.sendMessageToRestart = false;
-        //             myPlayer.SendMessageToRestart();
-        //         }
-
-        //         /// Set UI IDLE
-        //         _uiControllers[0].Set_STATE_READY_TO_START();
-        //     }
-        // }
+        /// After that I've set myPlayer, let's check if
+        /// other player leave
+        if (myPlayer != null && WaitForPlayers == null)
+        {
+            WaitForPlayers = StartCoroutine(WaitForPlayersCoroutine());
+        }
     }
 
-    private IEnumerator WaitTheRightPlayersNumber()
-    {
+    private Coroutine WaitForPlayers;
 
+    private IEnumerator WaitForPlayersCoroutine()
+    {
+        myPlayer.NetworkedState = PlayerController.STATE.NONE;
+        
+        /// Show WAITING UI
         _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
 
         /// Wait for the right number of players
@@ -298,61 +257,12 @@ public class PlayManager : NetworkManagerBase
             yield break;
         }
 
-        /// Set Player to READY
+        /// Set myPlayer to READY
         print("IL MIO PLAYER ID E' : " + myPlayer.NetworkedId);
-        if (otherPlayer == null) print("L'ALTRO PLAYER NON C?E'");
         myPlayer.NetworkedState = PlayerController.STATE.READY;
 
+        WaitForPlayers = null;
     }
-
-    // private void CheckCurrentPlayers()
-    // {
-    //     return;
-
-    //     /// Too less Players
-    //     if (_players.Count < GameManager.userData.requestedPlayers)
-    //     {
-    //         print("<<<<<<<<<<< NON C'E' il NUMERO DI UTENTI RICHIESTO: " + _players.Count + "/" + GameManager.userData.requestedPlayers);
-
-    //         /// Set UI
-    //         if (_uiControllers[0].state != UiController.STATE.WAITING_FOR_PLAYERS)
-    //             _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
-    //     }
-
-    //     /// Right number of Players!
-    //     else if (_players.Count == GameManager.userData.requestedPlayers)
-    //     {
-    //         if (otherPlayer != null)
-    //         {
-    //             if (otherPlayer.NetworkedSessionRequestedPlayers == 1) return;
-    //         }
-
-    //         print(">>>>>>>>>>>>>>> C'E' IL NUMERO DI UTENTI RICHIESTO, VERIFICHIAMO I LORO ID...");
-
-    //         /// Reset the other Player to null
-    //         if (_players.Count == 1) otherPlayer = null;
-
-    //         if (myPlayer != null && otherPlayer != null && otherPlayer.NetworkedId == myPlayer.NetworkedId)
-    //         {
-    //             GameManager.instance.ShowModal("ERRORE", "Ci sono due players con lo stesso ID", showConfigureButton: true, showRestartButton: false);
-    //         }
-    //         else
-    //         {
-    //             print("IL MIO PLAYER ID E' : " + myPlayer.NetworkedId);
-
-    //             /// If we changed something that require others to restart,
-    //             /// send message to restart!
-    //             if (GameManager.instance.sendMessageToRestart)
-    //             {
-    //                 GameManager.instance.sendMessageToRestart = false;
-    //                 myPlayer.SendMessageToRestart();
-    //             }
-
-    //             /// Set UI IDLE
-    //             _uiControllers[0].Set_STATE_READY_TO_START();
-    //         }
-    //     }
-    // }
 
 
 
