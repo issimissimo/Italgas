@@ -155,6 +155,7 @@ public class GameManager : MonoBehaviour
         CloseSpinner();
 
         _setupZone.gameObject.SetActive(newGameScene == Globals.GAMESCENE.CONFIG ? false : true);
+        _connectionZone.gameObject.SetActive(newGameScene == Globals.GAMESCENE.CONFIG ? false : true);
 
         if (FindObjectOfType<NetworkManagerBase>() != null)
         {
@@ -173,6 +174,7 @@ public class GameManager : MonoBehaviour
     {
         if (userData.gameMode == Globals.GAMEMODE.PLAYER) SetGameScene(Globals.GAMESCENE.PLAY);
         else if (userData.gameMode == Globals.GAMEMODE.VIEWER) SetGameScene(Globals.GAMESCENE.VIEW);
+
         InitializeSetupZone();
     }
     public void Restart()
@@ -234,14 +236,9 @@ public class GameManager : MonoBehaviour
         }
         else Debug.LogError("Non è stato inserito lo sprite per lo sfondo!");
     }
-    public void OnUsersCountChanged(int users, int players)
+    public void SetupConnectionZone(int users, int players)
     {
-        print("-------------------------------");
-        print("USERS: " + users + " --- PLAYERS: " + players);
-        print("-------------------------------");
-
-        if (userData.gameMode == Globals.GAMEMODE.PLAYER)
-            _connectionZone.SetupUi(users, players);
+        _connectionZone.SetupUi(userData.gameMode, users, players);
     }
 
 

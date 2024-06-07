@@ -24,8 +24,14 @@ public class UiSetupZone : MonoBehaviour
         /// playerNumberImages
         for (int i = 0; i < _playerNumberImages.Length; i++)
         {
+            float alpha = 0.3f;
+
+            if (GameManager.userData.gameMode == Globals.GAMEMODE.PLAYER)
+            {
+                alpha = i == GameManager.userData.playerId ? 1f : 0.3f;
+            }
+
             Image img = _playerNumberImages[i];
-            float alpha = i == GameManager.userData.playerId ? 1f : 0.3f;
             img.color = new Color(img.color.r, img.color.r, img.color.g, alpha);
         }
     }
@@ -33,6 +39,8 @@ public class UiSetupZone : MonoBehaviour
 
     public void OnPointerDown()
     {
+        print("DDDDDDDDDDDDDDDD");
+
         if (_openSetupCoroutine != null) StopCoroutine(_openSetupCoroutine);
         _openSetupCoroutine = StartCoroutine(OpenSetupCoroutine());
     }

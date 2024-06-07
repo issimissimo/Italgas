@@ -62,11 +62,9 @@ public class PlayManager : NetworkManagerBase
 
                 if (otherPlayer != null && myPlayer.NetworkedState == otherPlayer.NetworkedState)
                 {
-                    // if (myPlayer.NetworkedState == otherPlayer.NetworkedState)
-                    // {
-                        /// We both are in READY state, let's show the READY UI
-                        _uiControllers[0].Set_STATE_READY_TO_START();
-                    // }
+                    /// We both are in READY state, let's show the READY UI
+                    _uiControllers[0].Set_STATE_READY_TO_START();
+
                 }
                 else if (otherPlayer == null && GameManager.userData.requestedPlayers == 1)
                 {

@@ -75,14 +75,14 @@ public abstract class NetworkManagerBase : MonoBehaviour
 
         /// Tell the GameManager how many connected users and real players
         NetworkRunner runner = FindObjectOfType<NetworkRunner>();
-        GameManager.instance.OnUsersCountChanged(runner.ActivePlayers.Count(), _players.Count);
+        GameManager.instance.SetupConnectionZone(runner.ActivePlayers.Count(), _players.Count);
     }
 
     private void OnPlayerJoined()
     {
         /// Tell the GameManager how many connected users and real players
         NetworkRunner runner = FindObjectOfType<NetworkRunner>();
-        GameManager.instance.OnUsersCountChanged(runner.ActivePlayers.Count(), _players.Count);
+        GameManager.instance.SetupConnectionZone(runner.ActivePlayers.Count(), _players.Count);
     }
 
 
@@ -99,7 +99,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
 
         /// Tell the GameManager how many connected users and real players
         NetworkRunner runner = FindObjectOfType<NetworkRunner>();
-        GameManager.instance.OnUsersCountChanged(runner.ActivePlayers.Count(), _players.Count);
+        GameManager.instance.SetupConnectionZone(runner.ActivePlayers.Count(), _players.Count);
 
         /// to be implemented
     }

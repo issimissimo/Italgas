@@ -11,11 +11,11 @@ public class UiConnectionZone : MonoBehaviour
         _notConnectedImage.color = new Color(1, 1, 1, 0);
     }
 
-    public void SetupUi(int users, int players)
+    public void SetupUi(Globals.GAMEMODE gameMode, int users, int players)
     {
         bool isScreenConnected = users > players ? true : false;
 
-        if (isScreenConnected)
+        if (isScreenConnected || gameMode == Globals.GAMEMODE.VIEWER)
         {
             _notConnectedImage.color = new Color(1, 1, 1, 0);
         }
