@@ -136,6 +136,8 @@ public class PlayerController : NetworkBehaviour
             print("I'VE RECEIVED THE MESSAGE THAT I MUST RESTART");
             GameManager.instance.Restart();
         }
+
+        GameManager.instance.sendMessageToRestart = false;
     }
 
 

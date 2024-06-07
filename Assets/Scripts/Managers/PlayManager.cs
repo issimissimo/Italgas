@@ -239,9 +239,24 @@ public class PlayManager : NetworkManagerBase
     private IEnumerator WaitForPlayersCoroutine()
     {
         myPlayer.NetworkedState = PlayerController.STATE.NONE;
-        
+
         /// Show WAITING UI
         _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
+
+        /// If we changed something that require others to restart,
+        /// send message to restart!
+        if (GameManager.instance.sendMessageToRestart)
+        {
+            myPlayer.SendMessageToRestart();
+
+            /// Wait for the message is sent and received 
+            while (GameManager.instance.sendMessageToRestart == true)
+                yield return null;
+        }
+
+        /// Too many players
+        if (_players.Count > GameManager.userData.requestedPlayers)
+            GameManager.instance.ShowNotification("Si sono aggiunti troppi utenti. Il massimo consentito è " + GameManager.userData.requestedPlayers);
 
         /// Wait for the right number of players
         while (_players.Count != GameManager.userData.requestedPlayers)
@@ -262,6 +277,9 @@ public class PlayManager : NetworkManagerBase
         myPlayer.NetworkedState = PlayerController.STATE.READY;
 
         WaitForPlayers = null;
+
+
+
     }
 
 

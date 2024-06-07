@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 75870440}
   - component: {fileID: 75870441}
   m_Layer: 5
-  m_Name: Panel_Player2
+  m_Name: '[Ui_Controller] 2'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,6 +312,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &183328020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 183328021}
+  m_Layer: 0
+  m_Name: -----------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &183328021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183328020}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -350.5425, y: -467.38998, z: 0}
+  m_LocalScale: {x: 2.014612, y: 2.014612, z: 2.014612}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1771527325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &255356264
 GameObject:
@@ -444,8 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   STATE: 0
-  _lottieAnimations: []
-  _standardAnimations: []
+  animationsController: {fileID: 0}
 --- !u!114 &280692159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,7 +527,7 @@ GameObject:
   - component: {fileID: 297949765}
   - component: {fileID: 297949767}
   m_Layer: 5
-  m_Name: Panel_FINISHED_FOR_ME
+  m_Name: Ui_View_IN_GAME
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -570,11 +600,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 297949763}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60f7824eac4831d4286388f75d6f6072, type: 3}
+  m_Script: {fileID: 11500000, guid: 04e3c28cb5aae1f44a341866590ddb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviour: 3
-  _lottieAnimations: []
+  STATE: 3
+  animationsController: {fileID: 0}
+--- !u!1 &497641347
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 497641348}
+  m_Layer: 5
+  m_Name: -----------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &497641348
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497641347}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1771527325}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &623472609
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,8 +692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   STATE: 0
-  _lottieAnimations: []
-  _standardAnimations: []
+  animationsController: {fileID: 0}
 --- !u!114 &623472612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -717,7 +781,67 @@ MonoBehaviour:
     IconType: 333000
     IconTexture: {fileID: 0}
     IsIconRecursive: 1
+    BackgroundType: 0
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 0
+    Name: 
+    GameObject: {fileID: 1771527324}
+    Ordinal: 2
+    Priority: 0
+    IconType: 333000
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
     BackgroundType: 13000
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 0
+    Name: 
+    GameObject: {fileID: 1585340993}
+    Ordinal: 3
+    Priority: 0
+    IconType: 333000
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 1
+    BackgroundType: 17000
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 1
+    IsHidden: 0
+  - Type: 0
+    Name: 
+    GameObject: {fileID: 2038878613}
+    Ordinal: 4
+    Priority: 0
+    IconType: 333000
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 1
+    BackgroundType: 18000
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 1
+    IsHidden: 0
+  - Type: 0
+    Name: 
+    GameObject: {fileID: 297949763}
+    Ordinal: 5
+    Priority: 0
+    IconType: 333000
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 1
+    BackgroundType: 19000
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 1
+    IsHidden: 0
+  - Type: 0
+    Name: 
+    GameObject: {fileID: 1780718975}
+    Ordinal: 6
+    Priority: 0
+    IconType: 333000
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 1
+    BackgroundType: 20000
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 1
     IsHidden: 0
@@ -927,6 +1051,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083228790}
   m_CullTransparentMesh: 1
+--- !u!1 &1096666728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1096666729}
+  m_Layer: 5
+  m_Name: -----------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1096666729
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096666728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1771527325}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1167862370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1323,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1459551847}
   m_CullTransparentMesh: 1
+--- !u!1 &1554951293
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1554951294}
+  m_Layer: 5
+  m_Name: -----------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1554951294
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554951293}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1771527325}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1575828477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,7 +1450,7 @@ GameObject:
   - component: {fileID: 1585340995}
   - component: {fileID: 1585340997}
   m_Layer: 5
-  m_Name: Panel_IDLE
+  m_Name: Ui_View_INTRO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1329,12 +1523,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1585340993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4abce862ed6cab241bc92d6b51919263, type: 3}
+  m_Script: {fileID: 11500000, guid: 31e0add91e06261418a72ceb03f46fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   STATE: 0
-  _lottieAnimations: []
-  _standardAnimations: []
+  animationsController: {fileID: 0}
 --- !u!1 &1712850413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,7 +1754,7 @@ GameObject:
   - component: {fileID: 1771527327}
   - component: {fileID: 1771527328}
   m_Layer: 5
-  m_Name: Panel_Player1
+  m_Name: '[Ui_Controller] 1'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1579,10 +1772,15 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 183328021}
   - {fileID: 1585340994}
+  - {fileID: 1554951294}
   - {fileID: 2038878614}
+  - {fileID: 1096666729}
   - {fileID: 297949764}
+  - {fileID: 1939654571}
   - {fileID: 1780718976}
+  - {fileID: 497641348}
   m_Father: {fileID: 1733417132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1610,7 +1808,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a647f22e600dfe4cb8251a45fb50288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _panels: []
+  _panels:
+  - {fileID: 1585340997}
+  - {fileID: 2038878617}
+  - {fileID: 297949767}
+  - {fileID: 1780718979}
 --- !u!1 &1773552152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1715,7 +1917,7 @@ GameObject:
   - component: {fileID: 1780718977}
   - component: {fileID: 1780718979}
   m_Layer: 5
-  m_Name: Panel_FINISHED_FOR_ALL
+  m_Name: Ui_View_FINAL_SCORE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1788,11 +1990,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 1780718975}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9cf71d481c12c444a448753fe8a425a, type: 3}
+  m_Script: {fileID: 11500000, guid: e553d4e0f8d85314bbce8da888a85699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviour: 4
-  _lottieAnimations: []
+  STATE: 4
+  animationsController: {fileID: 0}
+--- !u!1 &1939654570
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1939654571}
+  m_Layer: 5
+  m_Name: -----------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1939654571
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939654570}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1771527325}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1980957256
 GameObject:
   m_ObjectHideFlags: 0
@@ -1885,7 +2122,7 @@ GameObject:
   - component: {fileID: 2038878615}
   - component: {fileID: 2038878617}
   m_Layer: 5
-  m_Name: Panel_RUNNING
+  m_Name: Ui_View_STAND_BY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1958,12 +2195,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2038878613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04e3c28cb5aae1f44a341866590ddb4d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4abce862ed6cab241bc92d6b51919263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  STATE: 0
-  _lottieAnimations: []
-  _standardAnimations: []
+  STATE: 1
+  animationsController: {fileID: 0}
 --- !u!1 &2127844513
 GameObject:
   m_ObjectHideFlags: 0
