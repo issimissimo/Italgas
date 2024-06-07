@@ -222,6 +222,12 @@ public class GameManager : MonoBehaviour
         }
         else Debug.LogError("Non è stato inserito lo sprite per lo sfondo!");
     }
+    public void OnUsersCountChanged(int users, int players)
+    {
+        print("-------------------------------");
+        print("USERS: " + users  + " --- PLAYERS: " + players);
+        print("-------------------------------");
+    }
 
 
 

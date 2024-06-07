@@ -38,8 +38,69 @@ public class PlayManager : NetworkManagerBase
         myPlayer.Set_STATE_IDLE();
     }
 
+    //#endregion
 
 
+
+
+
+    //#region APP LOGICS
+
+    /// <summary>
+    /// CHECK FOR PLAYERS "STATE" CHANGED
+    /// </summary>
+    /// <param name="playerId"></param>
+    /// <param name="state"></param>
+    public override void OnPlayerStateChanged(int playerId, PlayerController.STATE state)
+    {
+        Debug.Log(this.name + " RECEIVED STATE CHANGED FROM PLAYER " + playerId + " ---> " + state);
+
+        switch (state)
+        {
+            /// After the INTRO, and FINAL_SCORE
+            case PlayerController.STATE.READY:
+
+                if (otherPlayer != null && myPlayer.NetworkedState == otherPlayer.NetworkedState)
+                {
+                    /// We both are in READY state, let's show the READY UI
+                    _uiControllers[0].Set_STATE_READY_TO_START();
+                }
+                else if (otherPlayer == null)
+                {
+                    /// I'm in "SOLO" mode, let's show the READY UI
+                    _uiControllers[0].Set_STATE_READY_TO_START();
+                }
+                break;
+
+            case PlayerController.STATE.RUNNING:
+
+                /// I'm starting the Game for my own Player
+                if (playerId == myPlayer.NetworkedId)
+                {
+                    _uiControllers[0].Set_STATE_IN_GAME();
+                    myPlayer.Set_RUNNING_STATE_THINKING();
+                }
+                /// Other Player started the Game
+                else if (playerId == otherPlayer.NetworkedId)
+                {
+                    if (otherPlayer.NetworkedSessionRequestedPlayers == 1)
+                    {
+                        /// Other player want to play alone
+                        print("L'ALTRO PLAYER VUOLE GIOCARE DA SOLO");
+                        _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
+                    }
+                    else if (otherPlayer.NetworkedSessionRequestedPlayers == 2)
+                    {
+                        /// Other player want to play with me
+                        print("SICCOME L'ALTRO PLAYER E' RUNNING, METTO IN RUNNING ANCHE IL MIO, CON id " + myPlayer.NetworkedId);
+                        myPlayer.Set_STATE_RUNNING(runningPlayersNumber: 2);
+                    }
+                }
+                break;
+        }
+    }
+
+    //#endregion
 
 
 
@@ -115,73 +176,7 @@ public class PlayManager : NetworkManagerBase
                 break;
         }
     }
-
-
-
-
-    //#region APP LOGICS
-
-    /// <summary>
-    /// CHECK FOR PLAYERS "STATE" CHANGED
-    /// </summary>
-    /// <param name="playerId"></param>
-    /// <param name="state"></param>
-    public override void OnPlayerStateChanged(int playerId, PlayerController.STATE state)
-    {
-        Debug.Log(this.name + " RECEIVED STATE CHANGED FROM PLAYER " + playerId + " ---> " + state);
-
-        switch (state)
-        {
-            case PlayerController.STATE.READY:
-
-                /// After the INTRO, and FINAL_SCORE
-
-                if (otherPlayer != null)
-                {
-                    if (myPlayer.NetworkedState == otherPlayer.NetworkedState)
-                    {
-                        /// We both are in READY state, let's show the READY UI
-                        _uiControllers[0].Set_STATE_READY_TO_START();
-                    }
-                }
-                else if (otherPlayer == null)
-                {
-                    if (GameManager.userData.requestedPlayers == 1)
-                    {
-                        /// I'm in "SOLO" mode, let's show the READY UI
-                        _uiControllers[0].Set_STATE_READY_TO_START();
-                    }
-                }
-                break;
-
-            case PlayerController.STATE.RUNNING:
-
-                /// I'm starting the Game for my own Player
-                if (playerId == myPlayer.NetworkedId)
-                {
-                    _uiControllers[0].Set_STATE_IN_GAME();
-                    myPlayer.Set_RUNNING_STATE_THINKING();
-                    // ContinueInGame();
-                }
-                /// Other Player started the Game
-                else if (playerId == otherPlayer.NetworkedId)
-                {
-                    if (otherPlayer.NetworkedSessionRequestedPlayers == 1)
-                    {
-                        /// Other player want to play alone
-                        print("L'ALTRO PLAYER VUOLE GIOCARE DA SOLO");
-                        _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
-                    }
-                    else if (otherPlayer.NetworkedSessionRequestedPlayers == 2)
-                    {
-                        /// Other player want to play with me
-                        print("SICCOME L'ALTRO PLAYER E' RUNNING, METTO IN RUNNING ANCHE IL MIO, CON id " + myPlayer.NetworkedId);
-                        myPlayer.Set_STATE_RUNNING(runningPlayersNumber: 2);
-                    }
-                }
-                break;
-        }
-    }
+    //#endregion
 
 
 
@@ -239,6 +234,7 @@ public class PlayManager : NetworkManagerBase
     private IEnumerator WaitForPlayersCoroutine()
     {
         myPlayer.NetworkedState = PlayerController.STATE.NONE;
+        otherPlayer = null;
 
         /// Show WAITING UI
         _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
@@ -263,7 +259,8 @@ public class PlayManager : NetworkManagerBase
             yield return null;
 
         /// Get other Player
-        otherPlayer = _players.Find(elem => elem.HasStateAuthority == false);
+        if (GameManager.userData.requestedPlayers > 1)
+            otherPlayer = _players.Find(elem => elem.HasStateAuthority == false);
 
         /// Check for error due to the same player ID assignment
         if (otherPlayer != null && otherPlayer.NetworkedId == myPlayer.NetworkedId)

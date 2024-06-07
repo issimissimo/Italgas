@@ -4,21 +4,16 @@ using UnityEngine;
 
 public class ViewManager : NetworkManagerBase
 {
-    // [SerializeField] UiViewController[] _uiControllers;
-
-    // private enum GAMESTATE { IDLE, RUNNING, FINISHED }
-    // private GAMESTATE gameState;
-    // private PlayerController.PLAYERSTATE[] playerStateList = new PlayerController.PLAYERSTATE[2];
+    private List<PlayerController> _runningPlayers;
 
 
-    // public override void Started()
-    // {
+    //#region APP LOGICS
 
-
-    //     IdleGame();
-    // }
-
-
+    /// <summary>
+    /// CHECK FOR PLAYERS "STATE" CHANGED
+    /// </summary>
+    /// <param name="playerId"></param>
+    /// <param name="state"></param>
     public override void OnPlayerStateChanged(int playerId, PlayerController.STATE playerState)
     {
         Debug.Log(this.name + " RECEIVED STATE CHANGED FROM PLAYER " + playerId + " ---> " + playerState);
@@ -33,48 +28,122 @@ public class ViewManager : NetworkManagerBase
 
             case PlayerController.STATE.RUNNING:
 
-                // PlayerController runningPlayer = null;
-                // foreach(var p in players) if (p.NetworkedPlayerId == playerId) runningPlayer = p;
+                // // PlayerController runningPlayer = null;
+                // // foreach(var p in players) if (p.NetworkedPlayerId == playerId) runningPlayer = p;
 
-                PlayerController runningPlayer = _players.Find(x => x.NetworkedId == playerId);
+                _runningPlayers = new List<PlayerController>(_players.FindAll(x => x.NetworkedState == PlayerController.STATE.RUNNING));
+
+                // PlayerController runningPlayer = _players.Find(x => x.NetworkedId == playerId);
 
                 GameManager.gameSessionData = new Data.GameSessionData
                 {
-                    numberOfPlayersRunning = runningPlayer.NetworkedSessionRequestedPlayers
+                    numberOfPlayersRunning = _players[playerId].NetworkedSessionRequestedPlayers
                 };
 
                 _uiControllers[playerId].Set_STATE_IN_GAME();
                 break;
 
-            // case PlayerController.STATE.FINISHED:
-
-            //     if (GameManager.gameSessionData.numberOfPlayersRunning == 1)
-            //     {
-            //         _uiControllers[playerId].SetState(GamePanelControllerBase.STATE.FINISHED_FOR_ALL);
-            //     }
-            //     else
-            //     {
-            //         if (players[0].NetworkedState == players[1].NetworkedState)
-            //         {
-            //             foreach (var ctrl in _uiControllers)
-            //                 ctrl.SetState(GamePanelControllerBase.STATE.FINISHED_FOR_ALL);
-            //         }
-            //         else
-            //         {
-            //             _uiControllers[playerId].SetState(GamePanelControllerBase.STATE.FINISHED_FOR_ME);
-            //         }
-            //     }
-            //     break;
         }
     }
 
-
-    // public override void OnPlayerScoreChanged(int playerId, float value)
-    // {
-    //     Debug.Log(this.name + " RECEIVED SCORE CHANGED FROM PLAYER " + playerId + " ---> " + value);
-    // }
+    //#endregion
 
 
+
+
+
+    //#region GAME LOGICS
+    public override void OnPlayerRunningStateChanged(int playerId, PlayerController.RUNNING_STATE runningState)
+    {
+        if (_players[playerId].NetworkedState != PlayerController.STATE.RUNNING) return;
+
+        print("************  RICEVUTO CHANGE RUNNING STATE DA PLAYER: " + playerId + " --> " + runningState.ToString());
+
+        switch (runningState)
+        {
+            case PlayerController.RUNNING_STATE.NONE:
+
+                /// The game is finished
+                GameManager.currentGameChapterIndex = 0;
+                GameManager.currentGamePageIndex = -1;
+                _uiControllers[playerId].Set_STATE_FINAL_SCORE();
+                break;
+
+            case PlayerController.RUNNING_STATE.THINKING:
+
+                if (playerId == myPlayer.NetworkedId)
+                {
+                    GameManager.currentGamePageIndex++;
+                    ProceedToNext();
+                }
+                break;
+
+
+            case PlayerController.RUNNING_STATE.CLICKED:
+
+                /// Some player have clicked on the answer
+                _uiControllers[playerId].Set_RUNNING_STATE_ANSWER_CLICKED(() => { });
+
+                break;
+
+
+            case PlayerController.RUNNING_STATE.FINISHED:
+
+                var playerThatHasNotFinished = _runningPlayers.Find(x => x.NetworkedRunningState != PlayerController.RUNNING_STATE.FINISHED);
+
+                if (playerThatHasNotFinished == null)
+                {
+                    /// All running players have finished
+                    for (int i = 0; i < _runningPlayers.Count; i++)
+                        _uiControllers[_runningPlayers[i].NetworkedId].Set_RUNNING_STATE_CLOSE_PAGE(() => { });
+                }
+                else
+                {
+                    /// One player have finished, but it have to wait the other Player...
+                    _uiControllers[playerId].Set_RUNNING_STATE_WAIT_OTHER_PLAYER();
+                }
+
+
+
+
+
+                // if (playerId == myPlayer.NetworkedId)
+                // {
+                //     if (GameManager.gameSessionData.numberOfPlayersRunning == 1 ||
+                //          otherPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
+                //     {
+                //         /// I have finished too, now we can move on!
+                //         _uiControllers[playerId].Set_RUNNING_STATE_CLOSE_PAGE(() => { });
+                //     }
+                //     else
+                //     {
+                //         /// I have finished, but I have to wait the other Player...
+                //         _uiControllers[playerId].Set_RUNNING_STATE_WAIT_OTHER_PLAYER();
+                //     }
+                // }
+                // else if (playerId == otherPlayer.NetworkedId)
+                // {
+                //     if (myPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
+                //     {
+                //         /// Other player have finished too, now we can move on!
+                //         _uiControllers[playerId].Set_RUNNING_STATE_CLOSE_PAGE(() => { });
+
+                //     }
+                //     else
+                //     {
+                //         /// Other Player finished, but not me. He's waiting...
+                //     }
+                // }
+                break;
+        }
+    }
+    //#endregion
+
+
+
+
+    //#region
+    /// GENERAL APP LOGICS
 
     /// <summary>
     /// CHECK FOR PLAYERS (ONLY REAL PLAYERS) COUNT CHANGE
@@ -88,32 +157,6 @@ public class ViewManager : NetworkManagerBase
     }
 
 
-    // /// <summary>
-    // /// GAME IDLE
-    // /// </summary>
-    // private void IdleGame()
-    // {
-    //     // gameState = GAMESTATE.IDLE;
-    //     Debug.Log("GAME IS IDLE...");
-    // }
-
-    // /// <summary>
-    // /// GAME STARTED
-    // /// </summary>
-    // private void StartGame()
-    // {
-    //     // gameState = GAMESTATE.RUNNING;
-    //     Debug.Log("GAME STARTED!!!!!");
-    // }
-
-    // /// <summary>
-    // /// GAME FINISHED
-    // /// </summary>
-    // private void EndGame()
-    // {
-    //     // gameState = GAMESTATE.FINISHED;
-    //     Debug.Log("GAME FINISHED!!!!!");
-    // }
 
 
 }

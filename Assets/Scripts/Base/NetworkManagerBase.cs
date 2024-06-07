@@ -5,21 +5,25 @@ using Fusion;
 using System.Collections.Generic;
 using System.Linq;
 
-using System.Collections;
-
 
 public abstract class NetworkManagerBase : MonoBehaviour
 {
     [SerializeField] Globals.GAMESCENE _gameSceneName; /// set in inspector the name of this manager
     [SerializeField] GameObject PrototypeNetworkStartPrefab;
-
-
     [SerializeField] protected UiController[] _uiControllers;
 
+    // private NetworkRunner _runner;
+
     protected List<PlayerController> _players = new List<PlayerController>();
+
+
     public PlayerController myPlayer { get; protected set; } = null;
 
 
+    // void Awake()
+    // {
+    //     _runner = FindObjectOfType<NetworkRunner>();
+    // }
 
     protected async void Start()
     {
@@ -68,13 +72,27 @@ public abstract class NetworkManagerBase : MonoBehaviour
     {
         await Task.Delay(500);
         OnPlayersCountChanged();
-    }
-
-    private void OnPlayerJoined()
-    {
        
+        /// Tell the GameManager how many connected users and real players
+        NetworkRunner runner = FindObjectOfType<NetworkRunner>();
+        GameManager.instance.OnUsersCountChanged(runner.ActivePlayers.Count(), _players.Count);
     }
 
+    private async void OnPlayerJoined()
+    {
+        await Task.Delay(1000);
+
+        /// Tell the GameManager how many connected users and real players
+        NetworkRunner runner = FindObjectOfType<NetworkRunner>();
+        GameManager.instance.OnUsersCountChanged(runner.ActivePlayers.Count(), _players.Count);
+    }
+
+    
+
+    /// <summary>
+    /// CHECK FOR PLAYERS (ONLY REAL PLAYERS, NOT THE VIEWER) COUNT CHANGE
+    /// This happens only when someone shutdown or start
+    /// </summary>
     public virtual void OnPlayersCountChanged()
     {
         _players.Clear();
