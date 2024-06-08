@@ -9,13 +9,21 @@ public class ViewManager : NetworkManagerBase
 
     protected override void Started()
     {
-        // foreach (var ui in _uiControllers)
-        // {
-        //     // ui.Set_STATE_INTRO(()=> ui.Set_STATE_READY_TO_START());
-        //     ui.Set_STATE_INTRO(()=> {});
-        // }
-        _uiControllers[1].Set_STATE_INTRO(()=> {});
+        foreach (var ui in _uiControllers)
+        {
+            // ui.Set_STATE_INTRO(()=> ui.Set_STATE_READY_TO_START());
+            ui.Set_STATE_INTRO(()=> {});
+        }
+        // _uiControllers[0].Set_STATE_INTRO(() => { });
+        // StartCoroutine(test());
     }
+
+    // IEnumerator test()
+    // {
+    //     _uiControllers[1].Set_STATE_INTRO(() => { });
+    //     yield return new WaitForSeconds(3);
+    //      _uiControllers[0].Set_STATE_INTRO(() => { });
+    // }
 
 
     //#region APP LOGICS

@@ -13,7 +13,7 @@ public class UiController : MonoBehaviour
     private GamePanelSubControllerBase _activePanel;
 
 
-    public void Set_STATE_INTRO(Action callback) => StartCoroutine(Set(newState: STATE.INTRO, callback: callback));
+    public void Set_STATE_INTRO(Action callback) => StartCoroutine(Set(newState: STATE.INTRO, closeAnimations: false, callback: callback));
     public void Set_STATE_WAITING_FOR_PLAYERS() => StartCoroutine(Set(newState: STATE.WAITING_FOR_PLAYERS));
     public void Set_STATE_READY_TO_START() => StartCoroutine(Set(newState: STATE.READY_TO_START));
     public void Set_STATE_IN_GAME() => StartCoroutine(Set(newState: STATE.IN_GAME));
@@ -31,22 +31,25 @@ public class UiController : MonoBehaviour
     }
 
 
-    // private void Start()
-    // {
-    //     // Set_STATE_WAITING_FOR_PLAYERS();
-    //     // Set_STATE_INTRO();
-    // }
+    private void Start()
+    {
+        // Set_STATE_WAITING_FOR_PLAYERS();
+        // Set_STATE_INTRO();
+
+        // Set_STATE_INTRO(() => { });
+    }
 
 
     private IEnumerator Set(STATE? newState = null, RUNNING_STATE? newRunningState = null, bool closeAnimations = true, Action callback = null)
     {
         print("Set STATE --> " + newState.ToString());
-        
+
         if (newState != null) state = newState.Value;
         if (newRunningState != null) runningState = newRunningState.Value;
-       
 
-        if (_activePanel != null && closeAnimations){
+
+        if (_activePanel != null && closeAnimations)
+        {
             yield return _activePanel.CloseAllAnimatedElements();
         }
 
@@ -59,7 +62,7 @@ public class UiController : MonoBehaviour
             }
             else p.GetComponent<CanvasController>().SetOff();
         }
-        
+
         _activePanel.SetupUI(state, newRunningState, callback);
     }
 }
