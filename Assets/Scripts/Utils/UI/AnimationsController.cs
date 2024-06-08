@@ -20,9 +20,14 @@ public class AnimationsController : MonoBehaviour
         foreach (var a in _standardAnimations) a.Enter();
     }
 
-    public void Animations_ExitAll()
+    public IEnumerator Animations_ExitAll()
     {
         foreach (var a in _standardAnimations) a.Exit();
+
+        yield return null;
+
+        while (Animations_IsAnyNotInEmptyState())
+            yield return null;
     }
 
     public void Animations_EnterByName(string name)
@@ -93,7 +98,7 @@ public class AnimationsController : MonoBehaviour
 
     public bool _lottie_isFading { get; private set; }
 
-    private Coroutine _lottie_setMaterialOpacity;
+    // private Coroutine _lottie_setMaterialOpacity;
 
     public void Lottie_PlayByName(string assetName)
     {
@@ -119,59 +124,60 @@ public class AnimationsController : MonoBehaviour
             if (anim.Name == assetName) anim.Stop();
         }
     }
-    public IEnumerator Lottie_Stop_All_Coroutine()
+    public void Lottie_PlayAll()
+    {
+        foreach (var anim in _lottieAnimations) anim.Play();
+    }
+    public void Lottie_StopAll()
     {
         foreach (var anim in _lottieAnimations) anim.Stop();
-        yield return null;
     }
+    // public void Lottie_FadeIn_All(float? time = null)
+    // {
+    //     _lottie_isFading = true;
+    //     float fadeTime = time != null ? time.Value : 0.5f;
+
+    //     if (_lottie_setMaterialOpacity != null)
+    //     {
+    //         StopCoroutine(_lottie_setMaterialOpacity);
+    //         _lottie_setMaterialOpacity = null;
+    //     }
+
+    //     foreach (var anim in _lottieAnimations)
+    //     {
+    //         anim.isFadedIn = true;
+    //         anim.Play();
+    //     }
+
+    //     _lottie_setMaterialOpacity = StartCoroutine(Lottie_SetMaterialsOpacityCoroutine(fadeTime, 0f, 1f, () =>
+    //     {
+    //         _lottie_isFading = false;
+    //     }));
+    // }
 
 
-    public void Lottie_FadeIn_All(float? time = null)
-    {
-        _lottie_isFading = true;
-        float fadeTime = time != null ? time.Value : 0.5f;
+    // public void Lottie_FadeOut_All(float? time = null)
+    // {
+    //     _lottie_isFading = true;
+    //     float fadeTime = time != null ? time.Value : 0.5f;
 
-        if (_lottie_setMaterialOpacity != null)
-        {
-            StopCoroutine(_lottie_setMaterialOpacity);
-            _lottie_setMaterialOpacity = null;
-        }
+    //     if (_lottie_setMaterialOpacity != null)
+    //     {
+    //         StopCoroutine(_lottie_setMaterialOpacity);
+    //         _lottie_setMaterialOpacity = null;
+    //     }
 
-        foreach (var anim in _lottieAnimations)
-        {
-            anim.isFadedIn = true;
-            anim.Play();
-        }
+    //     _lottie_setMaterialOpacity = StartCoroutine(Lottie_SetMaterialsOpacityCoroutine(fadeTime, 1f, 0f, () =>
+    //     {
+    //         foreach (var anim in _lottieAnimations)
+    //         {
+    //             anim.isFadedIn = false;
+    //             anim.Stop();
+    //         }
 
-        _lottie_setMaterialOpacity = StartCoroutine(Lottie_SetMaterialsOpacityCoroutine(fadeTime, 0f, 1f, () =>
-        {
-            _lottie_isFading = false;
-        }));
-    }
-
-
-    public void Lottie_FadeOut_All(float? time = null)
-    {
-        _lottie_isFading = true;
-        float fadeTime = time != null ? time.Value : 0.5f;
-
-        if (_lottie_setMaterialOpacity != null)
-        {
-            StopCoroutine(_lottie_setMaterialOpacity);
-            _lottie_setMaterialOpacity = null;
-        }
-
-        _lottie_setMaterialOpacity = StartCoroutine(Lottie_SetMaterialsOpacityCoroutine(fadeTime, 1f, 0f, () =>
-        {
-            foreach (var anim in _lottieAnimations)
-            {
-                anim.isFadedIn = false;
-                anim.Stop();
-            }
-
-            _lottie_isFading = false;
-        }));
-    }
+    //         _lottie_isFading = false;
+    //     }));
+    // }
 
     public float Lottie_GetDuration_ByName(string assetName)
     {
@@ -181,41 +187,41 @@ public class AnimationsController : MonoBehaviour
 
 
 
-    private IEnumerator Lottie_SetMaterialsOpacityCoroutine(float time, float initOpacity, float endOpacity, Action callback)
-    {
-        List<Material> materials = new List<Material>();
-        Material oldMat = null;
-        foreach (var anim in _lottieAnimations)
-        {
-            if (anim.material != oldMat)
-            {
-                materials.Add(anim.material);
-                oldMat = anim.material;
-            }
-        }
+    // private IEnumerator Lottie_SetMaterialsOpacityCoroutine(float time, float initOpacity, float endOpacity, Action callback)
+    // {
+    //     List<Material> materials = new List<Material>();
+    //     Material oldMat = null;
+    //     foreach (var anim in _lottieAnimations)
+    //     {
+    //         if (anim.material != oldMat)
+    //         {
+    //             materials.Add(anim.material);
+    //             oldMat = anim.material;
+    //         }
+    //     }
 
-        float t = 0;
-        while (t <= time)
-        {
-            t += Time.deltaTime;
-            for (int i = 0; i < materials.Count; i++)
-            {
-                float opacity = Mathf.Lerp(initOpacity, endOpacity, t / time);
+    //     float t = 0;
+    //     while (t <= time)
+    //     {
+    //         t += Time.deltaTime;
+    //         for (int i = 0; i < materials.Count; i++)
+    //         {
+    //             float opacity = Mathf.Lerp(initOpacity, endOpacity, t / time);
 
-                /// For additive shader
-                materials[i].SetFloat("_Opacity", opacity);
+    //             /// For additive shader
+    //             materials[i].SetFloat("_Opacity", opacity);
 
-                /// For legacy UI unlit transparent shader
-                Color c = new Color(1f, 1f, 1f, opacity);
-                materials[i].SetColor("_Color", c);
-            }
-            yield return null;
-        }
+    //             /// For legacy UI unlit transparent shader
+    //             Color c = new Color(1f, 1f, 1f, opacity);
+    //             materials[i].SetColor("_Color", c);
+    //         }
+    //         yield return null;
+    //     }
 
-        _lottie_setMaterialOpacity = null;
+    //     _lottie_setMaterialOpacity = null;
 
-        if (callback != null) callback.Invoke();
-    }
+    //     if (callback != null) callback.Invoke();
+    // }
 
     //#endregion
 }

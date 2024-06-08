@@ -21,13 +21,19 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
     /// <returns></returns>
     public virtual IEnumerator CloseAllAnimatedElements()
     {
-        animationsController.Animations_ExitAll();
-        animationsController.Lottie_FadeOut_All(1f);
+        /// Exit all animations
+        yield return animationsController.Animations_ExitAll();
+        // animationsController.Lottie_FadeOut_All(1f);
+
+        // yield return null;
+
+        // while (animationsController.Animations_IsAnyNotInEmptyState())
+        //     yield return null;
+        
+        /// Stop all Lottie animations
+        animationsController.Lottie_StopAll();
 
         yield return null;
-
-        while (animationsController.Animations_IsAnyNotInEmptyState() || animationsController._lottie_isFading)
-            yield return null;
     }
 
 

@@ -27,7 +27,7 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
         _sessionPlayersCanvasController.Toggle(GameManager.userData.requestedPlayers == 1 ? false : true);
 
         animationsController.Animations_EnterAll();
-        animationsController.Lottie_FadeIn_All(time: 1f);
+        // animationsController.Lottie_FadeIn_All(time: 1f);
     }
 
 
