@@ -1,17 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class UiViewIdleSubController : GamePanelSubControllerBase
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE? runningState, Action callback)
     {
         
     }

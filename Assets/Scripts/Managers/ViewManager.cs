@@ -7,6 +7,17 @@ public class ViewManager : NetworkManagerBase
     private List<PlayerController> _runningPlayers;
 
 
+    protected override void Started()
+    {
+        // foreach (var ui in _uiControllers)
+        // {
+        //     // ui.Set_STATE_INTRO(()=> ui.Set_STATE_READY_TO_START());
+        //     ui.Set_STATE_INTRO(()=> {});
+        // }
+        _uiControllers[1].Set_STATE_INTRO(()=> {});
+    }
+
+
     //#region APP LOGICS
 
     /// <summary>

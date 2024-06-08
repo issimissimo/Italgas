@@ -37,9 +37,6 @@ public abstract class NetworkManagerBase : MonoBehaviour
             NetworkEventsDispatcher.OnPlayerJoined += OnPlayerJoined;
             NetworkEventsDispatcher.OnPlayerLeft += OnPlayerLeft;
 
-            // /// Subscribe to GameManager
-            // GameManager.instance.OnTimeRunningFinished += OnTimeFinished;
-
             /// Get the Runner
             await Task.Delay(500);
 
@@ -58,7 +55,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
         NetworkEventsDispatcher.OnPlayerLeft -= OnPlayerLeft;
     }
 
-    public virtual void Started()
+    protected virtual void Started()
     {
         /// to override
     }

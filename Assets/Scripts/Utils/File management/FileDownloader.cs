@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine.Networking;
 using System;
 using UnityEngine.UI;
+using System.IO;
+using UnityEngine;
+using System.Windows.Forms;
 
 public class FileDownloader
 {
@@ -49,6 +52,36 @@ public class FileDownloader
                 rawImage.texture = texture;
             }
         }
+        if (callback != null) callback(result);
+    }
+
+    public IEnumerator DownloadAndSave(string localFilePath, string remoteFilePath, Action<Result> callback)
+    {
+        Result result = new Result();
+        UnityWebRequest www = UnityWebRequest.Get(remoteFilePath);
+        www.SendWebRequest();
+
+        while (!www.isDone)
+        {
+            // downloadProgress = (int)(_www.downloadProgress * 100);
+            yield return null;
+        }
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("ERRORE " + www.error);
+            if (www.responseCode == 404) result.state = STATE.NOT_FOUND;
+            else result.state = STATE.NETWORK_ERROR;
+        }
+        else
+        {
+            result.state = STATE.SUCCESS;
+            File.WriteAllBytes(Path.Combine(localFilePath), www.downloadHandler.data);
+            Debug.Log("Download saved to: " + localFilePath.Replace("/", "\\") + "\r\n" + www.error);
+        }
+
+        www.Dispose();
+
         if (callback != null) callback(result);
     }
 

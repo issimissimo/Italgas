@@ -83,6 +83,18 @@ public static class Data
             }
             return null;
         }
+        public List<string> GetAllImages()
+        {
+            List<string> imageList = new List<string>();
+            foreach (var v in versions)
+            {
+                foreach (var c in v.chapters)
+                {
+                    imageList.Add(c.backgroundImageName);
+                }
+            }
+            return imageList;
+        }
     }
     [Serializable]
     public class GameVersion

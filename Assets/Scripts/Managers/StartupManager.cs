@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using System;
 using System.IO;
 
@@ -30,8 +31,6 @@ public class StartupManager : MonoBehaviour
                                     {
                                         /// Start the Game
                                         print("NOW WE SHOULD START THE GAME...");
-
-                                        // GameManager.instance.CloseSpinner();
 
                                         GameManager.instance.SetBackground();
 
@@ -129,7 +128,22 @@ public class StartupManager : MonoBehaviour
             {
                 case FileDownloader.STATE.SUCCESS:
                     GameManager.gameData = JsonUtility.FromJson<Data.GameDataRoot>(result.downloadedText);
-                    callback(true);
+
+                    if (GameManager.userData.gameMode == Globals.GAMEMODE.VIEWER)
+                    {
+                        StartCoroutine(LoadImages((result) =>
+                        {
+                            if (!result)
+                            {
+                                GameManager.instance.ShowModal("ERRORE", "Non sono state trovate le immagini da scaricare o si è verificato un problema di rete", false, true);
+                            }
+                            callback(result);
+                        }));
+                    }
+                    else if (GameManager.userData.gameMode == Globals.GAMEMODE.PLAYER)
+                    {
+                        callback(true);
+                    }
                     break;
 
                 case FileDownloader.STATE.NOT_FOUND:
@@ -182,6 +196,31 @@ public class StartupManager : MonoBehaviour
                     break;
             }
         }));
+    }
+
+    private IEnumerator LoadImages(Action<bool> callback)
+    {
+        FileDownloader fileDownloader = new FileDownloader();
+        List<string> imageList = GameManager.gameData.GetAllImages();
+        bool success = true;
+        foreach (var st in imageList)
+        {
+            string localFilePath = Path.Combine(Application.persistentDataPath, st);
+            if (!string.IsNullOrEmpty(st) && !File.Exists(localFilePath))
+            {
+                string remotePath = GameManager.userData.dataUrl + "/" + st;
+                print("DEVO SCARICARE: " + remotePath);
+                yield return fileDownloader.DownloadAndSave(localFilePath, remotePath, (result) =>
+                {
+                    if (result.state != FileDownloader.STATE.SUCCESS)
+                    {
+                        success = false;
+                    }
+                });
+
+            }
+        }
+        callback(success);
     }
 }
 
