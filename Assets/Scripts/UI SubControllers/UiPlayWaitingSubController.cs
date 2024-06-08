@@ -38,8 +38,8 @@ public class UiPlayWaitingSubController : GamePanelSubControllerBase
             }
         }
 
+        /// Play animations
         animationsController.Animations_EnterAll();
-        // animationsController.Lottie_FadeIn_All(time: 1f);
         animationsController.Lottie_PlayAll();
     }
 }

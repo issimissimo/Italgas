@@ -26,8 +26,9 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
         /// if we are in SOLO mode
         _sessionPlayersCanvasController.Toggle(GameManager.userData.requestedPlayers == 1 ? false : true);
 
+        /// Play animations
         animationsController.Animations_EnterAll();
-        // animationsController.Lottie_FadeIn_All(time: 1f);
+        animationsController.Lottie_PlayAll();
     }
 
 
