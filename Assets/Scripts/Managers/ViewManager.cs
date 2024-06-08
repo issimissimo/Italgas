@@ -11,8 +11,7 @@ public class ViewManager : NetworkManagerBase
     {
         foreach (var ui in _uiControllers)
         {
-            // ui.Set_STATE_INTRO(()=> ui.Set_STATE_READY_TO_START());
-            ui.Set_STATE_INTRO(()=> {});
+            ui.Set_STATE_INTRO(()=> ui.Set_STATE_READY_TO_START());
         }
         // _uiControllers[0].Set_STATE_INTRO(() => { });
         // StartCoroutine(test());
