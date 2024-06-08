@@ -28,6 +28,7 @@ public class UiViewIntroSubController : GamePanelSubControllerBase
 
         /// Wait for the length of the intro file
         yield return new WaitForSeconds(animationsController.Lottie_GetDuration_ByName("Intro"));
+        print("FINITO");
 
         callback.Invoke();
     }
