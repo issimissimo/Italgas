@@ -1093,6 +1093,7 @@ GameObject:
   - component: {fileID: 4425925777109240838}
   - component: {fileID: 2528937748965662173}
   - component: {fileID: 539832477959718226}
+  - component: {fileID: 7606254100822388777}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1215,6 +1216,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!225 &7606254100822388777
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3444276593481755411}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3642630720037183852
 GameObject:
   m_ObjectHideFlags: 0

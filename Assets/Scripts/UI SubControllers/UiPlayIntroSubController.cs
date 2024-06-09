@@ -7,7 +7,7 @@ public class UiPlayIntroSubController : GamePanelSubControllerBase
     public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE? runningState, Action callback)
     {
         // // if (!GameManager.instance.isDevelopment && GameManager.instance.isAppJustStarted)
-        if (GameManager.instance.isAppJustStarted)
+        if (!GameManager.instance.isDevelopment && GameManager.instance.isAppJustStarted)
         {
             GameManager.instance.isAppJustStarted = false;
             StartCoroutine(ShowIntro(callback));
