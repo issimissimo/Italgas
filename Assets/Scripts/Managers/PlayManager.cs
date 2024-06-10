@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -51,7 +52,7 @@ public class PlayManager : NetworkManagerBase
     /// </summary>
     /// <param name="playerId"></param>
     /// <param name="state"></param>
-    public override void OnPlayerStateChanged(int playerId, PlayerController.STATE state)
+    public override async void OnPlayerStateChanged(int playerId, PlayerController.STATE state)
     {
         Debug.Log(this.name + " RECEIVED STATE CHANGED FROM PLAYER " + playerId + " ---> " + state);
 
@@ -79,6 +80,10 @@ public class PlayManager : NetworkManagerBase
                 if (playerId == myPlayer.NetworkedId)
                 {
                     _uiControllers[0].Set_STATE_IN_GAME();
+                    
+                    /// Here we must wait for some time, I think because we have just received
+                    /// the State change... If we not wait on VIEWER version will be called 3 times!!!
+                    await Task.Delay(500);
                     myPlayer.Set_RUNNING_STATE_THINKING();
                 }
                 /// Other Player started the Game

@@ -37,8 +37,8 @@ public class PlayerController : NetworkBehaviour
 
 
     private NetworkManagerBase _networkManager;
-    private STATE _oldState; /// Just to be sure
-    private RUNNING_STATE _oldRunningState; /// For the bug on the Viewer
+    // private STATE _oldState; /// Just to be sure
+    // private RUNNING_STATE _oldRunningState; /// For the bug on the Viewer
 
 
     private void Awake()
@@ -67,8 +67,10 @@ public class PlayerController : NetworkBehaviour
 
     private void OnStateChanged()
     {
-        if (_oldState == NetworkedState) return;
-        _oldState = NetworkedState;
+        // if (_oldState == NetworkedState) return;
+        // _oldState = NetworkedState;
+
+        print(gameObject.name + " - OnStateChanged: " + NetworkedState.ToString());
 
         _networkManager.OnPlayerStateChanged(NetworkedId, NetworkedState);
     }
@@ -80,8 +82,8 @@ public class PlayerController : NetworkBehaviour
         // if (_oldRunningState == NetworkedRunningState) return;
         // _oldRunningState = NetworkedRunningState;
 
-        print(gameObject.name + " - OnRunningStateChanged");
-        return;
+        print(gameObject.name + " - OnRunningStateChanged: " + NetworkedRunningState.ToString());
+        
 
         /// ADD HERE THE SCORE OF THE PLAYER
         if (NetworkedRunningState == RUNNING_STATE.CLICKED)

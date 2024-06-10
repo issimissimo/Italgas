@@ -72,9 +72,10 @@ public class ViewManager : NetworkManagerBase
 
 
     //#region GAME LOGICS
+    private int _playersInThinking = 0;
     public override void OnPlayerRunningStateChanged(int playerId, PlayerController.RUNNING_STATE runningState)
     {
-        if (_players[playerId].NetworkedState != PlayerController.STATE.RUNNING) return;
+        // if (_players[playerId].NetworkedState != PlayerController.STATE.RUNNING) return;
 
         print("************  RICEVUTO CHANGE RUNNING STATE DA PLAYER: " + playerId + " --> " + runningState.ToString());
 
@@ -90,26 +91,63 @@ public class ViewManager : NetworkManagerBase
 
             case PlayerController.RUNNING_STATE.THINKING:
 
-                // /// Since both players will send this state, we must avoid a double call
-                // if (GameManager.gameSessionData.numberOfPlayersRunning == 2)
-                // {
-                if (_runningPlayers.Count == 1)
+                _playersInThinking++;
+
+                if (_playersInThinking == 1)
                 {
-                    print("AVANZO DI UNA PAGINA PERCHE' SONO DA SOLO");
+                    print("AVANZO DI UNA PAGINA");
                     GameManager.currentGamePageIndex++;
+
+                    if (_runningPlayers.Count == 1)
+                    {
+                        print("RESETTO X' c'è uno solo running player");
+                        _playersInThinking = 0;
+                    }
                 }
-                else
+                else if (_playersInThinking == 2)
                 {
-                    if (_players[0].NetworkedRunningState != _players[1].NetworkedRunningState)
-                    {
-                        print("AVANZO DI UNA PAGINA PERCHE' SONO IL PRIMO");
-                        GameManager.currentGamePageIndex++;
-                    }
-                    else
-                    {
-                        print("NON AVANZO!!!!");
-                    }
+                    print("RESETTO X' anche l'altro è in thinking");
+                    _playersInThinking = 0;
                 }
+
+                GameManager.instance.GetNewGameState((gameState) =>
+                {
+                    switch (gameState)
+                    {
+                        case GameManager.GAME_STATE.CHAPTER:
+                            _uiControllers[playerId].Set_RUNNING_STATE_OPEN_CHAPTER(() => _uiControllers[playerId].Set_RUNNING_STATE_OPEN_PAGE());
+                            break;
+
+                        case GameManager.GAME_STATE.PAGE:
+                            _uiControllers[playerId].Set_RUNNING_STATE_OPEN_PAGE();
+                            break;
+
+                            // case GameManager.GAME_STATE.FINISHED:
+                            //     break;
+                    }
+                });
+
+                // // /// Since both players will send this state, we must avoid a double call
+                // // if (GameManager.gameSessionData.numberOfPlayersRunning == 2)
+                // // {
+                // if (_runningPlayers.Count == 1)
+                // {
+                //     print("AVANZO DI UNA PAGINA PERCHE' SONO DA SOLO");
+                //     GameManager.currentGamePageIndex++;
+                // }
+                // else
+                // {
+                //     if (_players[0].NetworkedRunningState != _players[1].NetworkedRunningState)
+                //     {
+                //         print(_players[0].NetworkedRunningState + " ---- " + _players[1].NetworkedRunningState);
+                //         print("AVANZO DI UNA PAGINA PERCHE' SONO IL PRIMO");
+                //         GameManager.currentGamePageIndex++;
+                //     }
+                //     else
+                //     {
+                //         print("NON AVANZO!!!!");
+                //     }
+                // }
 
 
                 // }
