@@ -37,8 +37,7 @@ public class PlayerController : NetworkBehaviour
 
 
     private NetworkManagerBase _networkManager;
-    // private STATE _oldState; /// Just to be sure
-    // private RUNNING_STATE _oldRunningState; /// For the bug on the Viewer
+   
 
 
     private void Awake()
@@ -67,24 +66,11 @@ public class PlayerController : NetworkBehaviour
 
     private void OnStateChanged()
     {
-        // if (_oldState == NetworkedState) return;
-        // _oldState = NetworkedState;
-
-        print(gameObject.name + " - OnStateChanged: " + NetworkedState.ToString());
-
         _networkManager.OnPlayerStateChanged(NetworkedId, NetworkedState);
     }
 
     private void OnRunningStateChanged()
     {
-        /// Why I have to do that????
-        /// (On the Viewer this method is called 3 times...)
-        // if (_oldRunningState == NetworkedRunningState) return;
-        // _oldRunningState = NetworkedRunningState;
-
-        print(gameObject.name + " - OnRunningStateChanged: " + NetworkedRunningState.ToString());
-        
-
         /// ADD HERE THE SCORE OF THE PLAYER
         if (NetworkedRunningState == RUNNING_STATE.CLICKED)
         {
@@ -175,18 +161,5 @@ public class PlayerController : NetworkBehaviour
     }
 
     public void Set_RUNNING_STATE_FINISHED() => NetworkedRunningState = RUNNING_STATE.FINISHED;
-
-
-
-
-
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            NetworkedRunningState = RUNNING_STATE.THINKING;
-        }
-    }
 }
 

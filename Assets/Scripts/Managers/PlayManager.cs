@@ -80,7 +80,7 @@ public class PlayManager : NetworkManagerBase
                 if (playerId == myPlayer.NetworkedId)
                 {
                     _uiControllers[0].Set_STATE_IN_GAME();
-                    
+
                     /// Here we must wait for some time, I think because we have just received
                     /// the State change... If we not wait on VIEWER version will be called 3 times!!!
                     await Task.Delay(500);
@@ -136,7 +136,26 @@ public class PlayManager : NetworkManagerBase
                 if (playerId == myPlayer.NetworkedId)
                 {
                     GameManager.currentGamePageIndex++;
-                    ProceedToNext();
+                    // ProceedToNext();
+
+
+                    GameManager.instance.GetNewGameState((gameState) =>
+                    {
+                        switch (gameState)
+                        {
+                            case GameManager.GAME_STATE.CHAPTER:
+                                _uiControllers[0].Set_RUNNING_STATE_OPEN_CHAPTER(() => _uiControllers[0].Set_RUNNING_STATE_OPEN_PAGE());
+                                break;
+
+                            case GameManager.GAME_STATE.PAGE:
+                                _uiControllers[0].Set_RUNNING_STATE_OPEN_PAGE();
+                                break;
+
+                            case GameManager.GAME_STATE.FINISHED:
+                                myPlayer.Set_RUNNING_STATE_NONE();
+                                break;
+                        }
+                    });
                 }
                 break;
 
