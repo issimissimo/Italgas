@@ -1,20 +1,54 @@
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Collections;
 
 [RequireComponent(typeof(Animator))]
 public class UiAnimatedElement : MonoBehaviour
 {
-    [SerializeField] protected Animator _animator;
+    private Animator _animator;
+    // {
+    //     get
+    //     {
+    //         if (__animator == null) __animator = 
+    //         return __animator;
+    //     }
+    //     set { __animator = value; }
+    // }
+    private Animator __animator;
     public int _enterDelay = 0;
     public int _exitDelay = 0;
-    public string Name { get; private set; }
+    public string animatorName { get; private set; }
     public bool isActivated { get; private set; }
-    
+
+
+
+    public string animationNameRunning { get; private set; }
+
+
+
 
     void Awake()
     {
-        Name = _animator.runtimeAnimatorController.name;
+        _animator = GetComponent<Animator>();
+        animatorName = _animator.runtimeAnimatorController.name;
     }
+
+
+    public void Play(string animationName, float delayTime = 0f)
+    {
+        if (_PlayAnimation != null) StopCoroutine(_PlayAnimation);
+        _PlayAnimation = StartCoroutine(_PlayAnimationCoroutine(animationName, delayTime));
+    }
+    private Coroutine _PlayAnimation;
+    private IEnumerator _PlayAnimationCoroutine(string _animationName, float _delayTime)
+    {
+        animationNameRunning = _animationName;
+        yield return new WaitForSeconds(_delayTime);
+        _animator.Play(_animationName);
+    }
+
+
+
 
     public async void Enter()
     {

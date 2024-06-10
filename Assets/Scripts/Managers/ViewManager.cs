@@ -11,7 +11,7 @@ public class ViewManager : NetworkManagerBase
     {
         foreach (var ui in _uiControllers)
         {
-            ui.Set_STATE_INTRO(()=> ui.Set_STATE_READY_TO_START());
+            ui.Set_STATE_INTRO(() => ui.Set_STATE_READY_TO_START());
         }
         // _uiControllers[0].Set_STATE_INTRO(() => { });
         // StartCoroutine(test());
@@ -36,12 +36,15 @@ public class ViewManager : NetworkManagerBase
     {
         Debug.Log(this.name + " RECEIVED STATE CHANGED FROM PLAYER " + playerId + " ---> " + playerState);
 
+        /// Refresh the list of real Players (this is necessary if the Viewer start up after the Player)
+        OnRealPlayersCountChanged();
 
         switch (playerState)
         {
             case PlayerController.STATE.READY:
 
-                _uiControllers[playerId].Set_STATE_READY_TO_START();
+                if (_uiControllers[playerId].state != UiController.STATE.READY_TO_START)
+                    _uiControllers[playerId].Set_STATE_READY_TO_START();
                 break;
 
             case PlayerController.STATE.RUNNING:
@@ -51,11 +54,16 @@ public class ViewManager : NetworkManagerBase
 
                 _runningPlayers = new List<PlayerController>(_players.FindAll(x => x.NetworkedState == PlayerController.STATE.RUNNING));
 
+                print("I players sono: " + _players.Count);
+
+
+
                 // PlayerController runningPlayer = _players.Find(x => x.NetworkedId == playerId);
 
                 GameManager.gameSessionData = new Data.GameSessionData
                 {
-                    numberOfPlayersRunning = _players[playerId].NetworkedSessionRequestedPlayers
+                    // numberOfPlayersRunning = _players[playerId].NetworkedSessionRequestedPlayers
+                    numberOfPlayersRunning = _runningPlayers.Count
                 };
 
                 _uiControllers[playerId].Set_STATE_IN_GAME();
@@ -89,11 +97,11 @@ public class ViewManager : NetworkManagerBase
 
             case PlayerController.RUNNING_STATE.THINKING:
 
-                if (playerId == myPlayer.NetworkedId)
-                {
-                    GameManager.currentGamePageIndex++;
-                    ProceedToNext();
-                }
+                // if (playerId == myPlayer.NetworkedId)
+                // {
+                //     GameManager.currentGamePageIndex++;
+                //     ProceedToNext();
+                // }
                 break;
 
 
@@ -171,7 +179,7 @@ public class ViewManager : NetworkManagerBase
         /// don't forget to call the base in this function
         base.OnRealPlayersCountChanged();
 
-
+        print("ADESSO CE NE SONO: " + _players.Count);
     }
 
 

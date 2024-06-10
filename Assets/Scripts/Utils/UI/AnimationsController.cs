@@ -32,19 +32,19 @@ public class AnimationsController : MonoBehaviour
 
     public void Animations_EnterByName(string name)
     {
-        foreach (var anim in _standardAnimations) if (anim.Name == name) anim.Enter();
+        foreach (var anim in _standardAnimations) if (anim.animatorName == name) anim.Enter();
     }
 
     public void Animations_ExitByName(string name)
     {
-        foreach (var anim in _standardAnimations) if (anim.Name == name) anim.Exit();
+        foreach (var anim in _standardAnimations) if (anim.animatorName == name) anim.Exit();
     }
 
     public UiAnimatedElement Animations_GetByName(string name)
     {
         foreach (var anim in _standardAnimations)
         {
-            if (anim.Name == name) return anim;
+            if (anim.animatorName == name) return anim;
         }
         return null;
     }
