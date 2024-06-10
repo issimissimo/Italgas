@@ -13,8 +13,7 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
         {
             case UiController.RUNNING_STATE.OPEN_CHAPTER:
 
-                // StartCoroutine(OpenChapter(callback));
-                print(gameObject.name + " - Open Chapter");
+                StartCoroutine(OpenChapter(callback));
                 break;
 
             case UiController.RUNNING_STATE.OPEN_PAGE:
@@ -37,5 +36,23 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
                 // StartCoroutine(ClosePage(callback));
                 break;
         }
+    }
+
+
+     /// <summary>
+    /// OPEN THE CHAPTER
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator OpenChapter(Action callback)
+    {
+        print(gameObject.name + " - OpenChapter - " + GameManager.currentGameChapter.chapterName);
+        yield return null;
+        // _chapterNameText.text = GameManager.currentGameChapter.chapterName;
+
+        // animationsController.Animations_EnterByName("ChapterName");
+        // yield return null;
+        // while (!animationsController.Animations_IsInEmptyState("ChapterName")) yield return null;
+        // print("...CLOSE CHAPTER");
+        // callback.Invoke();
     }
 }

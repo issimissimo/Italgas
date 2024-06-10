@@ -221,10 +221,10 @@ public class PlayManager : NetworkManagerBase
         foreach (var p in _players)
         {
             /// Check if there's some weird error on ID assignment
-            /// This should NEVER happen!!!
+            /// This should NEVER happen!!! (But happened!!!!)
             if (p.NetworkedId < 0 || p.NetworkedId > 1)
             {
-                GameManager.instance.ShowModal("ERRORE DI SISTEMA", "C'e' stato un problema con l'assegnazione degli ID. Questo non dovrebbe succedere. Si prega di segnalare il problema agli sviluppatori",
+                GameManager.instance.ShowModal("ERRORE DI SISTEMA", "C'e' stato un problema con l'assegnazione degli ID. Questo non dovrebbe succedere. Si prega di riavviare tutto e segnalare il problema agli sviluppatori",
                 showConfigureButton: false, showRestartButton: true);
                 return;
             }

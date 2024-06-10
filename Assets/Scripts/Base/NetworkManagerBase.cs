@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
 using Fusion;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 
 
@@ -12,20 +13,13 @@ public abstract class NetworkManagerBase : MonoBehaviour
     [SerializeField] GameObject PrototypeNetworkStartPrefab;
     [SerializeField] protected UiController[] _uiControllers;
 
-    // private NetworkRunner _runner;
-
     protected List<PlayerController> _players = new List<PlayerController>();
 
 
     public PlayerController myPlayer { get; protected set; } = null;
 
 
-    // void Awake()
-    // {
-    //     _runner = FindObjectOfType<NetworkRunner>();
-    // }
-
-    protected async void Start()
+    IEnumerator Start()
     {
         if (GameManager.instance.gameScene == _gameSceneName)
         {
@@ -38,7 +32,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
             NetworkEventsDispatcher.OnPlayerLeft += OnPlayerLeft;
 
             /// Get the Runner
-            await Task.Delay(500);
+            yield return new WaitForSeconds(0.5f);
 
             Started();
         }
@@ -129,43 +123,43 @@ public abstract class NetworkManagerBase : MonoBehaviour
 
 
 
-    /// <summary>
-    /// 
-    /// </summary>
-    protected void ProceedToNext()
-    {
-        if (GameManager.currentGamePageIndex <= GameManager.currentGameChapter.pages.Count - 1)
-        {
-            if (GameManager.currentGamePageIndex == 0)
-            {
-                /// Open a Chapter, and next open a Page
-                foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_OPEN_CHAPTER(() => ui.Set_RUNNING_STATE_OPEN_PAGE());
-            }
-            else
-            {
-                /// Open a Page
-                foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_OPEN_PAGE();
-            }
-        }
-        else
-        {
-            if (GameManager.currentGameChapterIndex < GameManager.currentGameVersion.chapters.Count - 1)
-            {
-                /// Iterate
-                GameManager.currentGameChapterIndex++;
-                GameManager.currentGamePageIndex = 0;
-                ProceedToNext();
-            }
-            else
-            {
-                /// Player
-                if (myPlayer != null) myPlayer.Set_RUNNING_STATE_NONE();
+    // /// <summary>
+    // /// 
+    // /// </summary>
+    // protected void ProceedToNext()
+    // {
+    //     if (GameManager.currentGamePageIndex <= GameManager.currentGameChapter.pages.Count - 1)
+    //     {
+    //         if (GameManager.currentGamePageIndex == 0)
+    //         {
+    //             /// Open a Chapter, and next open a Page
+    //             foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_OPEN_CHAPTER(() => ui.Set_RUNNING_STATE_OPEN_PAGE());
+    //         }
+    //         else
+    //         {
+    //             /// Open a Page
+    //             foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_OPEN_PAGE();
+    //         }
+    //     }
+    //     else
+    //     {
+    //         if (GameManager.currentGameChapterIndex < GameManager.currentGameVersion.chapters.Count - 1)
+    //         {
+    //             /// Iterate
+    //             GameManager.currentGameChapterIndex++;
+    //             GameManager.currentGamePageIndex = 0;
+    //             ProceedToNext();
+    //         }
+    //         else
+    //         {
+    //             /// Player
+    //             if (myPlayer != null) myPlayer.Set_RUNNING_STATE_NONE();
 
-                /// Viewer
-                else foreach (var p in _players) p.Set_RUNNING_STATE_NONE();
-            }
-        }
-    }
+    //             /// Viewer
+    //             else foreach (var p in _players) p.Set_RUNNING_STATE_NONE();
+    //         }
+    //     }
+    // }
 
     /// <summary>
     /// /////////////////////////////// TESTTTTTTTTT
