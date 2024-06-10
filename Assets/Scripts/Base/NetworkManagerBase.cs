@@ -94,6 +94,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
         PlayerController[] playersArray = FindObjectsOfType<PlayerController>();
         _players = playersArray.ToList();
 
+
         /// Tell the GameManager how many connected users and real players
         NetworkRunner runner = FindObjectOfType<NetworkRunner>();
         GameManager.instance.SetupConnectionZone(runner.ActivePlayers.Count(), _players.Count);
@@ -157,24 +158,11 @@ public abstract class NetworkManagerBase : MonoBehaviour
             }
             else
             {
-                /// Finished
-                // GameManager.currentGameChapterIndex = 0;
-                // GameManager.currentGamePageIndex = -1;
-
-                print("------------ FINITO!!!!!!!!!!!");
-
-
-                // _myPlayer.NetworkedState = PlayerController.STATE.FINISHED;
-
                 /// Player
                 if (myPlayer != null) myPlayer.Set_RUNNING_STATE_NONE();
 
                 /// Viewer
                 else foreach (var p in _players) p.Set_RUNNING_STATE_NONE();
-
-
-                // /// UI
-                // foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_FINAL_SCORE();
             }
         }
     }

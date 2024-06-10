@@ -49,16 +49,9 @@ public class ViewManager : NetworkManagerBase
 
             case PlayerController.STATE.RUNNING:
 
-                // // PlayerController runningPlayer = null;
-                // // foreach(var p in players) if (p.NetworkedPlayerId == playerId) runningPlayer = p;
-
                 _runningPlayers = new List<PlayerController>(_players.FindAll(x => x.NetworkedState == PlayerController.STATE.RUNNING));
 
-                print("I players sono: " + _players.Count);
-
-
-
-                // PlayerController runningPlayer = _players.Find(x => x.NetworkedId == playerId);
+                // print("I players sono: " + _players.Count);
 
                 GameManager.gameSessionData = new Data.GameSessionData
                 {
@@ -97,11 +90,70 @@ public class ViewManager : NetworkManagerBase
 
             case PlayerController.RUNNING_STATE.THINKING:
 
-                // if (playerId == myPlayer.NetworkedId)
+                // /// Since both players will send this state, we must avoid a double call
+                // if (GameManager.gameSessionData.numberOfPlayersRunning == 2)
                 // {
-                //     GameManager.currentGamePageIndex++;
-                //     ProceedToNext();
+                if (_runningPlayers.Count == 1)
+                {
+                    print("AVANZO DI UNA PAGINA PERCHE' SONO DA SOLO");
+                    GameManager.currentGamePageIndex++;
+                }
+                else
+                {
+                    if (_players[0].NetworkedRunningState != _players[1].NetworkedRunningState)
+                    {
+                        print("AVANZO DI UNA PAGINA PERCHE' SONO IL PRIMO");
+                        GameManager.currentGamePageIndex++;
+                    }
+                    else
+                    {
+                        print("NON AVANZO!!!!");
+                    }
+                }
+
+
                 // }
+
+
+                // ProceedToNext();
+
+
+
+
+
+                // ///
+                // /// ////////////////////////////////////
+                // if (GameManager.currentGamePageIndex <= GameManager.currentGameChapter.pages.Count - 1)
+                // {
+                //     if (GameManager.currentGamePageIndex == 0)
+                //         _uiControllers[playerId].Set_RUNNING_STATE_OPEN_CHAPTER(() => _uiControllers[playerId].Set_RUNNING_STATE_OPEN_PAGE());
+                //     else
+                //         _uiControllers[playerId].Set_RUNNING_STATE_OPEN_PAGE();
+                // }
+                // else
+                // {
+                //     if (GameManager.currentGameChapterIndex < GameManager.currentGameVersion.chapters.Count - 1)
+                //     {
+                //         /// Iterate
+                //         GameManager.currentGameChapterIndex++;
+                //         GameManager.currentGamePageIndex = 0;
+
+                //         ProceedToNext();
+                //     }
+                //     // else
+                //     // {
+                //     //     /// Player
+                //     //     if (myPlayer != null) myPlayer.Set_RUNNING_STATE_NONE();
+
+                //     //     /// Viewer
+                //     //     else foreach (var p in _players) p.Set_RUNNING_STATE_NONE();
+                //     // }
+                // }
+
+                /// <summary>
+                /// ///////////////////////////
+                /// </summary>
+
                 break;
 
 

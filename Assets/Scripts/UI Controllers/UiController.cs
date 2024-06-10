@@ -8,6 +8,7 @@ public class UiController : MonoBehaviour
     public enum RUNNING_STATE { OPEN_CHAPTER, OPEN_PAGE, ANSWER_CLICKED, WAIT_OTHER_PLAYER, CLOSE_PAGE }
     public STATE state { get; private set; }
     public RUNNING_STATE runningState { get; private set; }
+    // public int uiPlayerId = 999;
 
     [SerializeField] private GamePanelSubControllerBase[] _panels;
     private GamePanelSubControllerBase _activePanel;
@@ -42,7 +43,8 @@ public class UiController : MonoBehaviour
 
     private IEnumerator Set(STATE? newState = null, RUNNING_STATE? newRunningState = null, bool closeAnimations = true, Action callback = null)
     {
-        print("Set STATE --> " + newState.ToString());
+        if (newState != null) print(gameObject.name +  " - Set STATE --> " + newState.ToString());
+        if (newRunningState != null) print(gameObject.name +  " - Set RUNNING_STATE --> " + newRunningState.ToString());
 
         if (newState != null) state = newState.Value;
         if (newRunningState != null) runningState = newRunningState.Value;

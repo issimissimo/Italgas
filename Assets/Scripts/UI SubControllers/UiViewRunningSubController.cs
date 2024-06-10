@@ -14,7 +14,7 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
             case UiController.RUNNING_STATE.OPEN_CHAPTER:
 
                 // StartCoroutine(OpenChapter(callback));
-                print("OPEN CHAPTER!!!!");
+                print(gameObject.name + " - Open Chapter");
                 break;
 
             case UiController.RUNNING_STATE.OPEN_PAGE:
