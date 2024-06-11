@@ -14,6 +14,8 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
 
     public override void Enter(UiController.STATE? state, UiController.RUNNING_STATE? runningState, Action callback)
     {
+        print("SONO UiPlayIdleSubController e sto ENTRANDO!!!!!!!!!!");
+        
         /// Don't forget to call the BASE at the init of Enter method
         base.Enter(state, runningState, callback);
         
@@ -40,6 +42,7 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
 
     public override IEnumerator Exit()
     {
+        print("SONO UiPlayIdleSubController e sto uscendo!!!!!!!!!!");
         StartCoroutine(animationsController.CloseAll());
         
         /// Don't forget to call the BASE at the end of Exit coroutine

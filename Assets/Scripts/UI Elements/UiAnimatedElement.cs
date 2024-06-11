@@ -22,12 +22,6 @@ public class UiAnimatedElement : MonoBehaviour
     
 
 
-
-    public string animationNameRunning { get; private set; }
-
-
-
-
     void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -35,38 +29,14 @@ public class UiAnimatedElement : MonoBehaviour
     }
 
 
-    public void Play(string animationName, float delayTime = 0f)
-    {
-        if (_PlayAnimation != null) StopCoroutine(_PlayAnimation);
-        _PlayAnimation = StartCoroutine(_PlayAnimationCoroutine(animationName, delayTime));
-    }
-    private Coroutine _PlayAnimation;
-    private IEnumerator _PlayAnimationCoroutine(string _animationName, float _delayTime)
-    {
-        animationNameRunning = _animationName;
-        yield return new WaitForSeconds(_delayTime);
-        _animator.Play(_animationName);
-    }
-
-
-
-
     public async void Enter()
     {
-        // if (isActivated){
-
-        //     print ("NOOPN POSSOOOOO CAZZZZOOOOO..");
-        //     return;
-        // } 
-        // isActivated = true;
         await Task.Delay(_enterDelay);
         _animator.SetTrigger("ENTER");
     }
 
     public async void Exit()
     {
-        // if (!isActivated) return;
-        // isActivated = false;
         await Task.Delay(_exitDelay);
         _animator.SetTrigger("EXIT");
         // print(gameObject.name + " ===> EXIT");
@@ -74,18 +44,14 @@ public class UiAnimatedElement : MonoBehaviour
 
     public async void ExitTrue()
     {
-        // if (!isActivated) return;
         await Task.Delay(_exitDelay);
-        // isActivated = false;
         _animator.SetTrigger("EXIT_TRUE");
         // print(gameObject.name + " ===> EXIT_TRUE");
     }
 
     public async void ExitFalse()
     {
-        // if (!isActivated) return;
         await Task.Delay(_exitDelay);
-        // isActivated = false;
         _animator.SetTrigger("EXIT_FALSE");
         // print(gameObject.name + " ===> EXIT_FALSE");
     }
@@ -123,6 +89,12 @@ public class UiAnimatedElement : MonoBehaviour
     {
         var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
         return clipInfo[0].clip.length;
+    }
+
+    public string GetRunningAnimationName()
+    {
+        var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
+        return clipInfo[0].clip.name;
     }
 
 }

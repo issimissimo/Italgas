@@ -29,7 +29,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         _playManager = FindObjectOfType<PlayManager>();
 
         foreach (var a in _answerList) _answerListAnimations.Add(a.animatedElement);
-        _pageCanvasGroup.interactable = false;
+        // _pageCanvasGroup.interactable = false;
     }
 
 
@@ -37,6 +37,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     {
         /// Don't forget to call the BASE at the init of Enter method
         base.Enter(state, runningState, callback);
+
+        _pageCanvasGroup.interactable = false;
         
         switch (runningState)
         {

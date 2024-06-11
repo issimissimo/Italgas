@@ -75,17 +75,17 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
     }
 
 
-    /// <summary>
-    /// BUTTON
-    /// </summary>
-    public void BUTTON_ReturnToReady()
-    {
-        print("CLICCATO SU BUTTON_ReturnToReady");
+    // /// <summary>
+    // /// BUTTON
+    // /// </summary>
+    // public void BUTTON_ReturnToReady()
+    // {
+    //     print("CLICCATO SU BUTTON_ReturnToReady");
 
-        _finalScoreAnimationCtrl.Exit();
+    //     _finalScoreAnimationCtrl.Exit();
 
-        // await Task.Delay(2000);
+    //     // await Task.Delay(2000);
 
-        _playManager.Set_IDLE();
-    }
+    //     _playManager.Set_IDLE();
+    // }
 }
