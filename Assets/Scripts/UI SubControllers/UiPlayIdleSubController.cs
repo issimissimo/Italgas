@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Collections;
 
 public class UiPlayIdleSubController : GamePanelSubControllerBase
 {
@@ -11,8 +12,11 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
     
 
 
-    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE? runningState, Action callback)
+    public override void Enter(UiController.STATE? state, UiController.RUNNING_STATE? runningState, Action callback)
     {
+        /// Don't forget to call the BASE at the init of Enter method
+        base.Enter(state, runningState, callback);
+        
         /// Create a new gameSessionData
         GameManager.gameSessionData = new Data.GameSessionData
         {
@@ -30,6 +34,18 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
         animationsController.Animations_EnterAll();
         animationsController.Lottie_PlayAll();
     }
+
+
+
+
+    public override IEnumerator Exit()
+    {
+        StartCoroutine(animationsController.CloseAll());
+        
+        /// Don't forget to call the BASE at the end of Exit coroutine
+        return base.Exit();
+    }
+
 
 
 

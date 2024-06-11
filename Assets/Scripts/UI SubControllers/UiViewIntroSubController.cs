@@ -5,7 +5,7 @@ using System;
 
 public class UiViewIntroSubController : GamePanelSubControllerBase
 {
-    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE? runningState, Action callback)
+    public override void Enter(UiController.STATE? state, UiController.RUNNING_STATE? runningState, Action callback)
     {
         // // if (!GameManager.instance.isDevelopment && GameManager.instance.isAppJustStarted)
         if (GameManager.instance.isAppJustStarted)
@@ -13,6 +13,14 @@ public class UiViewIntroSubController : GamePanelSubControllerBase
             StartCoroutine(ShowIntro(callback));
         }
         else callback.Invoke();
+    }
+
+
+    public override IEnumerator Exit()
+    {
+        /// We don't need to call the Base,
+        /// because we don't have exit time for this!
+        yield return null;
     }
 
     private IEnumerator ShowIntro(Action callback)

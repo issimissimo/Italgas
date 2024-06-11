@@ -12,6 +12,29 @@ public class AnimationsController : MonoBehaviour
     [SerializeField] protected UiAnimatedElement[] _standardAnimations;
 
 
+    //#region COMMONS
+
+    
+    /// <summary>
+    /// Close all animations and stop Lottie files at the end
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator CloseAll()
+    {
+        /// Exit all animations
+        yield return Animations_ExitAll();
+        
+        /// Stop all Lottie animations
+        Lottie_StopAll();
+
+        yield return null;
+    }
+
+
+    //#endregion
+
+
+
 
     //#region STANDARD ANIMATIONS MANAGER
 

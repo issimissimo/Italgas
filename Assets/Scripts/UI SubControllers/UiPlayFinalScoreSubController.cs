@@ -22,9 +22,21 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
     }
 
 
-    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE? runningState, Action callback)
+    public override void Enter(UiController.STATE? state, UiController.RUNNING_STATE? runningState, Action callback)
     {
+        /// Don't forget to call the BASE at the init of Enter method
+        base.Enter(state, runningState, callback);
+        
         StartCoroutine(OpenFinalScore());
+    }
+
+
+    public override IEnumerator Exit()
+    {
+        StartCoroutine(animationsController.CloseAll());
+        
+        /// Don't forget to call the BASE at the end of Exit coroutine
+        return base.Exit();
     }
 
 

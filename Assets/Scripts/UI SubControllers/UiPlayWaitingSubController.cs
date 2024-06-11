@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System;
+using System.Collections;
 
 public class UiPlayWaitingSubController : GamePanelSubControllerBase
 {
@@ -14,8 +15,11 @@ public class UiPlayWaitingSubController : GamePanelSubControllerBase
         _playManager = FindObjectOfType<PlayManager>();
     }
 
-    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE? runningState, Action callback)
+    public override void Enter(UiController.STATE? state, UiController.RUNNING_STATE? runningState, Action callback)
     {
+        /// Don't forget to call the BASE at the init of Enter method
+        base.Enter(state, runningState, callback);
+        
         if (GameManager.userData.requestedPlayers == 1)
         {
             GameManager.instance.ShowNotification("Sei in modalità SOLO, quindi non possono collegarsi altri giocatori");
@@ -41,5 +45,14 @@ public class UiPlayWaitingSubController : GamePanelSubControllerBase
         /// Play animations
         animationsController.Animations_EnterAll();
         animationsController.Lottie_PlayAll();
+    }
+
+
+    public override IEnumerator Exit()
+    {
+        yield return StartCoroutine(animationsController.CloseAll());
+        
+        /// We don't need to call the Base,
+        /// because we don't have exit time for this!
     }
 }

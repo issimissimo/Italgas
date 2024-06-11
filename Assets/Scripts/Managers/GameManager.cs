@@ -265,4 +265,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //#endregion
+
+
+
+    [Serializable]
+    public struct ExitTime
+    {
+        public string stateName;
+        public float exitTime;
+    }
+    [Space]
+    [Header("Shared Exit times (Tablet/PC)")]
+    public ExitTime[] exitTimes;
+
+
+
+    public float GetStateExitTime(string stateName)
+    {
+        foreach (var xt in exitTimes)
+            if (xt.stateName == stateName)
+            {
+                if (xt.exitTime == 0f)
+                {
+                    Debug.LogError("Exit Time for state - " + stateName + " - is Zero!");
+                    return 999;
+                }
+                return xt.exitTime;
+            }
+        return 0;
+    }
+
 }

@@ -3,38 +3,54 @@ using System;
 using System.Collections;
 
 
+[RequireComponent(typeof(AnimationsController))]
 public abstract class GamePanelSubControllerBase : MonoBehaviour
 {
     public UiController.STATE STATE;
     [SerializeField] protected AnimationsController animationsController;
 
+    protected UiController.STATE? _currentState;
+    protected UiController.RUNNING_STATE? _currentRunningState;
 
-    public virtual void SetupUI(UiController.STATE state, UiController.RUNNING_STATE? runningState, Action callback)
+   
+
+    public virtual void Enter(UiController.STATE? state, UiController.RUNNING_STATE? runningState, Action callback)
     {
-        /// To override
-    }
+        _currentState = state;
+        _currentRunningState = runningState;
 
+        string stateName = _currentRunningState != null ? _currentRunningState.ToString() : _currentState.ToString();
 
-    /// <summary>
-    /// CLOSE ALL ANIMATED ELEMENTS OF THIS UI CONTROLLER
-    /// </summary>
-    /// <returns></returns>
-    public virtual IEnumerator CloseAllAnimatedElements()
-    {
-        /// Exit all animations
-        yield return animationsController.Animations_ExitAll();
-        // animationsController.Lottie_FadeOut_All(1f);
-
-        // yield return null;
-
-        // while (animationsController.Animations_IsAnyNotInEmptyState())
-        //     yield return null;
+        print ("<<<<<<<<<<<<<<<< entro in: " + stateName.ToString());
         
-        /// Stop all Lottie animations
-        animationsController.Lottie_StopAll();
-
-        yield return null;
+        /// To be implemented
     }
+
+    public virtual IEnumerator Exit()
+    {
+        /// To be implemented
+        
+        string stateName = _currentRunningState != null ? _currentRunningState.ToString() : _currentState.ToString();
+        float exitTime = GameManager.instance.GetStateExitTime(stateName);
+        print (">>>>>>>>>>>>> esco da: " + stateName + " >>>> exit time: " + exitTime);
+        yield return new WaitForSeconds(exitTime);
+    }
+
+
+    // /// <summary>
+    // /// CLOSE ALL ANIMATED ELEMENTS OF THIS UI CONTROLLER
+    // /// </summary>
+    // /// <returns></returns>
+    // public virtual IEnumerator CloseAllAnimatedElements()
+    // {
+    //     /// Exit all animations
+    //     yield return animationsController.Animations_ExitAll();
+        
+    //     /// Stop all Lottie animations
+    //     animationsController.Lottie_StopAll();
+
+    //     yield return null;
+    // }
 
 
 

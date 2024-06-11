@@ -33,13 +33,16 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     }
 
 
-    public override void SetupUI(UiController.STATE state, UiController.RUNNING_STATE? runningState, Action callback)
+    public override void Enter(UiController.STATE? state, UiController.RUNNING_STATE? runningState, Action callback)
     {
+        /// Don't forget to call the BASE at the init of Enter method
+        base.Enter(state, runningState, callback);
+        
         switch (runningState)
         {
             case UiController.RUNNING_STATE.OPEN_CHAPTER:
 
-                StartCoroutine(OpenChapter(callback));
+                OpenChapter(callback);
                 break;
 
             case UiController.RUNNING_STATE.OPEN_PAGE:
@@ -65,19 +68,55 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     }
 
 
+    public override IEnumerator Exit()
+    {
+        // StartCoroutine(animationsController.CloseAll());
+        switch (_currentRunningState)
+        {
+            case UiController.RUNNING_STATE.OPEN_CHAPTER:
+
+                
+                break;
+
+            case UiController.RUNNING_STATE.OPEN_PAGE:
+
+                
+                break;
+
+            case UiController.RUNNING_STATE.ANSWER_CLICKED:
+
+                
+                break;
+
+            case UiController.RUNNING_STATE.WAIT_OTHER_PLAYER:
+
+                
+                break;
+
+            case UiController.RUNNING_STATE.CLOSE_PAGE:
+
+                
+                break;
+        }
+        
+        /// Don't forget to call the BASE at the end of Exit coroutine
+        return base.Exit();
+    }
+
+
     /// <summary>
     /// OPEN THE CHAPTER
     /// </summary>
     /// <returns></returns>
-    private IEnumerator OpenChapter(Action callback)
+    private void OpenChapter(Action callback)
     {
         print("OPEN CHAPTER....");
         _chapterNameText.text = GameManager.currentGameChapter.chapterName;
 
         animationsController.Animations_EnterByName("ChapterName");
-        yield return null;
-        while (!animationsController.Animations_IsInEmptyState("ChapterName")) yield return null;
-        print("...CLOSE CHAPTER");
+        // yield return null;
+        // while (!animationsController.Animations_IsInEmptyState("ChapterName")) yield return null;
+        // print("...CLOSE CHAPTER");
         callback.Invoke();
     }
 
