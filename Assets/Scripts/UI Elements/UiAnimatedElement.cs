@@ -19,6 +19,7 @@ public class UiAnimatedElement : MonoBehaviour
     public int _exitDelay = 0;
     public string animatorName { get; private set; }
     public bool isActivated { get; private set; }
+    
 
 
 
@@ -52,16 +53,20 @@ public class UiAnimatedElement : MonoBehaviour
 
     public async void Enter()
     {
-        if (isActivated) return;
-        isActivated = true;
+        // if (isActivated){
+
+        //     print ("NOOPN POSSOOOOO CAZZZZOOOOO..");
+        //     return;
+        // } 
+        // isActivated = true;
         await Task.Delay(_enterDelay);
         _animator.SetTrigger("ENTER");
     }
 
     public async void Exit()
     {
-        if (!isActivated) return;
-        isActivated = false;
+        // if (!isActivated) return;
+        // isActivated = false;
         await Task.Delay(_exitDelay);
         _animator.SetTrigger("EXIT");
         // print(gameObject.name + " ===> EXIT");
@@ -69,18 +74,18 @@ public class UiAnimatedElement : MonoBehaviour
 
     public async void ExitTrue()
     {
-        if (!isActivated) return;
+        // if (!isActivated) return;
         await Task.Delay(_exitDelay);
-        isActivated = false;
+        // isActivated = false;
         _animator.SetTrigger("EXIT_TRUE");
         // print(gameObject.name + " ===> EXIT_TRUE");
     }
 
     public async void ExitFalse()
     {
-        if (!isActivated) return;
+        // if (!isActivated) return;
         await Task.Delay(_exitDelay);
-        isActivated = false;
+        // isActivated = false;
         _animator.SetTrigger("EXIT_FALSE");
         // print(gameObject.name + " ===> EXIT_FALSE");
     }
@@ -112,6 +117,12 @@ public class UiAnimatedElement : MonoBehaviour
                 _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
             return true;
         else return false;
+    }
+
+    public float GetRunningAnimationTime()
+    {
+        var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
+        return clipInfo[0].clip.length;
     }
 
 }

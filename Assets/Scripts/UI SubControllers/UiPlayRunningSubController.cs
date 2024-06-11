@@ -62,7 +62,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
             case UiController.RUNNING_STATE.CLOSE_PAGE:
 
-                StartCoroutine(ClosePage(callback));
+                ClosePage(callback);
                 break;
         }
     }
@@ -110,13 +110,10 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <returns></returns>
     private void OpenChapter(Action callback)
     {
-        print("OPEN CHAPTER....");
+        print("OPEN CHAPTER.... " + GameManager.currentGameChapter.chapterName );
         _chapterNameText.text = GameManager.currentGameChapter.chapterName;
-
         animationsController.Animations_EnterByName("ChapterName");
-        // yield return null;
-        // while (!animationsController.Animations_IsInEmptyState("ChapterName")) yield return null;
-        // print("...CLOSE CHAPTER");
+
         callback.Invoke();
     }
 
@@ -190,24 +187,17 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         animationsController.Animations_ExitByName("Countdown");
 
         int buttonPressed = _playManager.myPlayer.NetworkedButtonPressedNumber;
-        UiAnimatedElement buttonPressedAnimation = null;
 
         /// Show clicked or not clicked button animations
         for (int i = 0; i < _answerListAnimations.Count; i++)
         {
-            if (i == buttonPressed)
-            {
-                _answerListAnimations[i].Clicked();
-                buttonPressedAnimation = _answerListAnimations[i];
-            }
+            if (i == buttonPressed) _answerListAnimations[i].Clicked();
             else _answerListAnimations[i].NotClicked();
         }
 
-        /// Wait for animation finished
-        yield return null;
-        if (buttonPressedAnimation != null)
-            while (buttonPressedAnimation.IsPlaying("Clicked")) yield return null;
-        else yield return new WaitForSeconds(1);
+        /// We must wait for animation finished
+        /// before to send the callback!
+        yield return new WaitForSeconds(_answerListAnimations[0].GetRunningAnimationTime());
 
         /// Callback
         callback.Invoke();
@@ -225,7 +215,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <summary>
     /// CLOSE THE PAGE
     /// </summary>
-    private IEnumerator ClosePage(Action callback)
+    private void ClosePage(Action callback)
     {
         animationsController.Animations_ExitByName("Question");
         animationsController.Animations_ExitByName("WaitOtherPlayer");
@@ -234,36 +224,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         int buttonPressed = _playManager.myPlayer.NetworkedButtonPressedNumber;
         bool isTrue = _playManager.myPlayer.NetworkedAnswerResult;
 
-        // print("------------> CLOSE PAGE!!! ");
-        // print("------------> buttonPressed: " + buttonPressed);
-        // print("------------> isTrue: " + isTrue);
-
-        // for (int i = 0; i < _answerListAnimations.Count; i++)
-        // {
-        //     print("(((((((((((((((  TASTO N. " + i + " )))))))))))))))");
-        //     if (i == buttonPressed)
-        //     {
-        //         if (isTrue)
-        //         {
-        //             print(_answerListAnimations[i].gameObject.name + " QUESTO E' CLICCATO ED ESCE TRUE");
-        //             _answerListAnimations[i].ExitTrue();
-        //         }
-
-        //         else
-        //         {
-        //             print(_answerListAnimations[i].gameObject.name + " QUESTO E' CLICCATO ED ESCE FALSE");
-        //             _answerListAnimations[i].ExitFalse();
-        //         }
-
-        //     }
-
-        //     else
-        //     {
-        //         print(_answerListAnimations[i].gameObject.name + " QUESTO NON E' CLICCATO ED ESCE E BASTA");
-        //         _answerListAnimations[i].Exit();
-
-        //     }
-        // }
 
         for (int i = 0; i < _answerListAnimations.Count; i++)
         {
@@ -283,9 +243,9 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         }
 
 
-        /// Let's wait for button animations EXIT
-        while (animationsController.Animations_IsAnyNotInEmptyState(_answerListAnimations.ToArray()))
-            yield return null;
+        // /// Let's wait for button animations EXIT
+        // while (animationsController.Animations_IsAnyNotInEmptyState(_answerListAnimations.ToArray()))
+        //     yield return null;
 
         callback.Invoke();
     }

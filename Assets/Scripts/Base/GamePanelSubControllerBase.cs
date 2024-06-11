@@ -21,7 +21,7 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
 
         string stateName = _currentRunningState != null ? _currentRunningState.ToString() : _currentState.ToString();
 
-        print ("<<<<<<<<<<<<<<<< entro in: " + stateName.ToString());
+        print (">>>>>>>>>>>>> entro in: " + stateName.ToString());
         
         /// To be implemented
     }
@@ -32,7 +32,7 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
         
         string stateName = _currentRunningState != null ? _currentRunningState.ToString() : _currentState.ToString();
         float exitTime = GameManager.instance.GetStateExitTime(stateName);
-        print (">>>>>>>>>>>>> esco da: " + stateName + " >>>> exit time: " + exitTime);
+        print ("<<<<<<<<<<<<< esco da: " + stateName + " ---- exit time: " + exitTime);
         yield return new WaitForSeconds(exitTime);
     }
 
