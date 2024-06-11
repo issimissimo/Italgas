@@ -695,7 +695,7 @@ MonoBehaviour:
   - stateName: OPEN_CHAPTER
     exitTime: 5
   - stateName: CLOSE_PAGE
-    exitTime: 0
+    exitTime: 1.5
   - stateName: CLOSE_CHAPTER
     exitTime: 0
   - stateName: FINAL_SCORE

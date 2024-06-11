@@ -51,36 +51,16 @@ public class UiController : MonoBehaviour
         // if (newRunningState != null) runningState = newRunningState.Value;
 
 
-        while(_ExitOldPanelAndEnterTheNewOne != null) yield return null;
+        // while(_ExitOldPanelAndEnterTheNewOne != null) yield return null;
 
-        _ExitOldPanelAndEnterTheNewOne = StartCoroutine(ExitOldPanelAndEnterTheNewOneCoroutine(newState, newRunningState, callback));
+        // _ExitOldPanelAndEnterTheNewOne = StartCoroutine(ExitOldPanelAndEnterTheNewOneCoroutine(newState, newRunningState, callback));
 
-        // if (_activePanel != null)
-        //     yield return _activePanel.Exit();
-
-        // foreach (var p in _panels)
-        // {
-        //     if (p.STATE == state)
-        //     {
-        //         p.GetComponent<CanvasController>().SetOn();
-        //         _activePanel = p;
-        //     }
-        //     else p.GetComponent<CanvasController>().SetOff();
-        // }
-
-        // _activePanel.Enter(state, newRunningState, callback);
-    }
-
-
-    private Coroutine _ExitOldPanelAndEnterTheNewOne = null;
-    private IEnumerator ExitOldPanelAndEnterTheNewOneCoroutine(STATE? newState = null, RUNNING_STATE? newRunningState = null, Action callback = null)
-    {
         if (_activePanel != null)
             yield return _activePanel.Exit();
 
         foreach (var p in _panels)
         {
-            if (p.STATE == newState)
+            if (p.STATE == state)
             {
                 p.GetComponent<CanvasController>().SetOn();
                 _activePanel = p;
@@ -88,8 +68,28 @@ public class UiController : MonoBehaviour
             else p.GetComponent<CanvasController>().SetOff();
         }
 
-        _activePanel.Enter(newState, newRunningState, callback);
-
-        _ExitOldPanelAndEnterTheNewOne = null;
+        _activePanel.Enter(state, newRunningState, callback);
     }
+
+
+    // private Coroutine _ExitOldPanelAndEnterTheNewOne = null;
+    // private IEnumerator ExitOldPanelAndEnterTheNewOneCoroutine(STATE? newState = null, RUNNING_STATE? newRunningState = null, Action callback = null)
+    // {
+    //     if (_activePanel != null)
+    //         yield return _activePanel.Exit();
+
+    //     foreach (var p in _panels)
+    //     {
+    //         if (p.STATE == newState)
+    //         {
+    //             p.GetComponent<CanvasController>().SetOn();
+    //             _activePanel = p;
+    //         }
+    //         else p.GetComponent<CanvasController>().SetOff();
+    //     }
+
+    //     _activePanel.Enter(newState, newRunningState, callback);
+
+    //     _ExitOldPanelAndEnterTheNewOne = null;
+    // }
 }
