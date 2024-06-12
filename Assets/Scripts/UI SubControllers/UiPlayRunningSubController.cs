@@ -77,27 +77,27 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         {
             case UiController.RUNNING_STATE.OPEN_CHAPTER:
 
-                
+                print("ESCO DA 'OPEN_CHAPTER'");
                 break;
 
             case UiController.RUNNING_STATE.OPEN_PAGE:
 
-                print("ESCO DALLA PAGINA");
+                print("ESCO DA 'OPEN_PAGE'");
                 break;
 
             case UiController.RUNNING_STATE.ANSWER_CLICKED:
 
-                
+                print("ESCO DA 'ANSWER_CLICKED'");
                 break;
 
             case UiController.RUNNING_STATE.WAIT_OTHER_PLAYER:
 
-                
+                print("ESCO DA 'WAIT_OTHER_PLAYER'");
                 break;
 
             case UiController.RUNNING_STATE.CLOSE_PAGE:
 
-                
+                print("ESCO DA 'CLOSE_PAGE'");
                 break;
         }
         
@@ -200,7 +200,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         /// We must wait for animation finished
         /// before to send the callback!
         // yield return new WaitForSeconds(_answerListAnimations[0].GetRunningAnimationTime());
-        yield return new WaitForSeconds(5F);
+        yield return new WaitForSeconds(1f);
 
         /// callback is "myPlayer.Set_RUNNING_STATE_FINISHED"
         callback.Invoke();

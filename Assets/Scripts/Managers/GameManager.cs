@@ -244,14 +244,14 @@ public class GameManager : MonoBehaviour
 
     //#region GAME LOGICS
 
-    public enum GAME_STATE { CHAPTER, PAGE, FINISHED }
+    public enum GAME_STATE { CHAPTER, PAGE, END }
     public void GetNewGameState(Action<GAME_STATE> callback)
     {
         if (currentGamePageIndex <= currentGameChapter.pages.Count - 1)
         {
             if (currentGamePageIndex == 0) callback(GAME_STATE.CHAPTER);
             // else callback(GAME_STATE.PAGE);
-            else callback(GAME_STATE.FINISHED);
+            else callback(GAME_STATE.END); /// PER DEBUG!
         }
         else
         {
@@ -262,7 +262,7 @@ public class GameManager : MonoBehaviour
                 currentGamePageIndex = 0;
                 GetNewGameState(callback);
             }
-            else callback(GAME_STATE.FINISHED);
+            else callback(GAME_STATE.END);
         }
     }
 

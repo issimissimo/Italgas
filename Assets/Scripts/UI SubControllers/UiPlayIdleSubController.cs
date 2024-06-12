@@ -38,11 +38,6 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
         animationsController.Lottie_PlayAll();
     }
 
-    public void AAAAAA()
-    {
-        print ("CLICKKKKK");
-    }
-
 
     public override IEnumerator Exit()
     {
