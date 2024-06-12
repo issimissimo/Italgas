@@ -69,7 +69,7 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
             _winnerOrLooser.text = myPlayerStats.score > otherPlayerStats.score ? "HAI VINTO!!" : "HAI PERSO...";
         }
 
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(3);
 
         _playManager.Set_IDLE();
     }

@@ -701,7 +701,7 @@ MonoBehaviour:
   - stateName: CLOSE_CHAPTER
     exitTime: 0
   - stateName: FINAL_SCORE
-    exitTime: 5
+    exitTime: 2
 --- !u!4 &298900380
 Transform:
   m_ObjectHideFlags: 0
