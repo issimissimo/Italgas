@@ -11,22 +11,22 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
     {
         switch (runningState)
         {
-            case UiController.RUNNING_STATE.OPEN_CHAPTER:
+            case UiController.RUNNING_STATE.CHAPTER:
 
                 StartCoroutine(OpenChapter(callback));
                 break;
 
-            case UiController.RUNNING_STATE.OPEN_PAGE:
+            case UiController.RUNNING_STATE.PAGE:
 
                 // StartCoroutine(OpenPage());
                 break;
 
-            case UiController.RUNNING_STATE.ANSWER_CLICKED:
+            case UiController.RUNNING_STATE.CLICKED:
 
                 // StartCoroutine(OnAnswerClicked(callback));
                 break;
 
-            case UiController.RUNNING_STATE.WAIT_OTHER_PLAYER:
+            case UiController.RUNNING_STATE.WAITING:
 
                 // ShowWaitOtherPlayer();
                 break;

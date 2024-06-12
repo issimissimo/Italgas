@@ -42,30 +42,32 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         
         switch (runningState)
         {
-            case UiController.RUNNING_STATE.OPEN_CHAPTER:
+            case UiController.RUNNING_STATE.CHAPTER:
 
                 OpenChapter(callback);
                 break;
 
-            case UiController.RUNNING_STATE.OPEN_PAGE:
+            case UiController.RUNNING_STATE.PAGE:
 
                 StartCoroutine(OpenPage());
                 break;
 
-            case UiController.RUNNING_STATE.ANSWER_CLICKED:
+            case UiController.RUNNING_STATE.CLICKED:
 
+                _currentRunningState = UiController.RUNNING_STATE.PAGE;
                 StartCoroutine(OnAnswerClicked(callback));
                 break;
 
-            case UiController.RUNNING_STATE.WAIT_OTHER_PLAYER:
+            case UiController.RUNNING_STATE.WAITING:
 
+                _currentRunningState = UiController.RUNNING_STATE.PAGE;
                 ShowWaitOtherPlayer();
                 break;
 
-            case UiController.RUNNING_STATE.CLOSE_PAGE:
+            // case UiController.RUNNING_STATE.CLOSE_PAGE:
 
-                ClosePage(callback);
-                break;
+            //     ClosePage(callback);
+            //     break;
         }
     }
 
@@ -75,22 +77,23 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         // StartCoroutine(animationsController.CloseAll());
         switch (_currentRunningState)
         {
-            case UiController.RUNNING_STATE.OPEN_CHAPTER:
+            case UiController.RUNNING_STATE.CHAPTER:
 
                 print("ESCO DA 'OPEN_CHAPTER'");
                 break;
 
-            case UiController.RUNNING_STATE.OPEN_PAGE:
+            case UiController.RUNNING_STATE.PAGE:
 
                 print("ESCO DA 'OPEN_PAGE'");
+                ClosePage();
                 break;
 
-            case UiController.RUNNING_STATE.ANSWER_CLICKED:
+            case UiController.RUNNING_STATE.CLICKED:
 
                 print("ESCO DA 'ANSWER_CLICKED'");
                 break;
 
-            case UiController.RUNNING_STATE.WAIT_OTHER_PLAYER:
+            case UiController.RUNNING_STATE.WAITING:
 
                 print("ESCO DA 'WAIT_OTHER_PLAYER'");
                 break;
@@ -197,10 +200,10 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             else _answerListAnimations[i].NotClicked();
         }
 
-        /// We must wait for animation finished
-        /// before to send the callback!
-        // yield return new WaitForSeconds(_answerListAnimations[0].GetRunningAnimationTime());
-        yield return new WaitForSeconds(1f);
+        /// We must wait for animation finished,
+        /// for aesthetic reasons, but mainly because we can't call
+        /// immediately another state change
+        yield return new WaitForSeconds(2f);
 
         /// callback is "myPlayer.Set_RUNNING_STATE_FINISHED"
         callback.Invoke();
@@ -218,7 +221,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <summary>
     /// CLOSE THE PAGE
     /// </summary>
-    private void ClosePage(Action callback)
+    private void ClosePage()
     {
         animationsController.Animations_ExitByName("Question");
         animationsController.Animations_ExitByName("WaitOtherPlayer");
@@ -250,7 +253,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         // while (animationsController.Animations_IsAnyNotInEmptyState(_answerListAnimations.ToArray()))
         //     yield return null;
 
-        callback.Invoke();
+        // callback.Invoke();
     }
 
 

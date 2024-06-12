@@ -694,9 +694,9 @@ MonoBehaviour:
     exitTime: 0.5
   - stateName: READY_TO_START
     exitTime: 2.5
-  - stateName: OPEN_CHAPTER
+  - stateName: CHAPTER
     exitTime: 5
-  - stateName: CLOSE_PAGE
+  - stateName: PAGE
     exitTime: 3
   - stateName: CLOSE_CHAPTER
     exitTime: 0
@@ -5186,9 +5186,9 @@ RectTransform:
   - {fileID: 5833135874738065722}
   m_Father: {fileID: 8587842188516174965}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 701.0849, y: -432.38995}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 826, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &5487829601446621205
@@ -5348,10 +5348,10 @@ RectTransform:
   - {fileID: 4918264698282920707}
   m_Father: {fileID: 5430337555578395146}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 413, y: -140}
-  m_SizeDelta: {x: 786, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5853343825282759873
 CanvasRenderer:
