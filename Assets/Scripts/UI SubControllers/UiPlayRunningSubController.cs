@@ -199,9 +199,10 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         /// We must wait for animation finished
         /// before to send the callback!
-        yield return new WaitForSeconds(_answerListAnimations[0].GetRunningAnimationTime());
+        // yield return new WaitForSeconds(_answerListAnimations[0].GetRunningAnimationTime());
+        yield return new WaitForSeconds(5F);
 
-        /// Callback
+        /// callback is "myPlayer.Set_RUNNING_STATE_FINISHED"
         callback.Invoke();
     }
 

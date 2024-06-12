@@ -46,7 +46,6 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
 
     public override IEnumerator Exit()
     {
-        print("SONO UiPlayIdleSubController e sto uscendo!!!!!!!!!!");
         StartCoroutine(animationsController.CloseAll());
 
         /// Don't forget to call the BASE at the end of Exit coroutine

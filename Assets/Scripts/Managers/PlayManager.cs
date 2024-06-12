@@ -123,13 +123,13 @@ public class PlayManager : NetworkManagerBase
 
         switch (runningState)
         {
-            case PlayerController.RUNNING_STATE.NONE:
+            // case PlayerController.RUNNING_STATE.NONE:
 
-                /// The game is finished
-                GameManager.currentGameChapterIndex = 0;
-                GameManager.currentGamePageIndex = -1;
-                _uiControllers[0].Set_STATE_FINAL_SCORE();
-                break;
+            //     /// The game is finished
+            //     GameManager.currentGameChapterIndex = 0;
+            //     GameManager.currentGamePageIndex = -1;
+            //     _uiControllers[0].Set_STATE_FINAL_SCORE();
+            //     break;
 
             case PlayerController.RUNNING_STATE.THINKING:
 
@@ -153,6 +153,9 @@ public class PlayManager : NetworkManagerBase
 
                             case GameManager.GAME_STATE.FINISHED:
                                 myPlayer.Set_RUNNING_STATE_NONE();
+                                GameManager.currentGameChapterIndex = 0;
+                                GameManager.currentGamePageIndex = -1;
+                                _uiControllers[0].Set_STATE_FINAL_SCORE();
                                 break;
                         }
                     });

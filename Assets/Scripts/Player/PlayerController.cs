@@ -93,11 +93,11 @@ public class PlayerController : NetworkBehaviour
                 });
 
 
-            print("******** SCORE PLAYER " + NetworkedId + " **********");
-            print("Tasto premuto n. " + NetworkedButtonPressedNumber);
-            print("Tempo: " + NetworkedTimeSpent);
-            print("Risposta giusta? " + NetworkedAnswerResult);
-            print("*****************");
+            // print("******** SCORE PLAYER " + NetworkedId + " **********");
+            // print("Tasto premuto n. " + NetworkedButtonPressedNumber);
+            // print("Tempo: " + NetworkedTimeSpent);
+            // print("Risposta giusta? " + NetworkedAnswerResult);
+            // print("*****************");
         }
 
         /// Callback

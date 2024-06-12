@@ -5,7 +5,7 @@ using System.Collections;
 public class UiController : MonoBehaviour
 {
     public enum STATE { INTRO, WAITING_FOR_PLAYERS, READY_TO_START, IN_GAME, FINAL_SCORE }
-    public enum RUNNING_STATE { OPEN_CHAPTER, OPEN_PAGE, ANSWER_CLICKED, WAIT_OTHER_PLAYER, CLOSE_PAGE, CLOSE_CHAPTER }
+    public enum RUNNING_STATE { OPEN_CHAPTER, OPEN_PAGE, ANSWER_CLICKED, WAIT_OTHER_PLAYER, CLOSE_PAGE }
     public STATE state { get; private set; }
     // public RUNNING_STATE runningState { get; private set; }
 
