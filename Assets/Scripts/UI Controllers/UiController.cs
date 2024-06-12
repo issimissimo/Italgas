@@ -48,13 +48,11 @@ public class UiController : MonoBehaviour
 
         /// This property is just used by the Managers to check the state of the UiController
         if (newState != null) state = newState.Value;
-        // if (newRunningState != null) runningState = newRunningState.Value;
 
 
-        // while(_ExitOldPanelAndEnterTheNewOne != null) yield return null;
-
-        // _ExitOldPanelAndEnterTheNewOne = StartCoroutine(ExitOldPanelAndEnterTheNewOneCoroutine(newState, newRunningState, callback));
-
+        /// We need this for the animations of Ready...        
+        if (newState == STATE.IN_GAME) yield break;
+        
         if (_activePanel != null)
             yield return _activePanel.Exit();
 
@@ -71,25 +69,4 @@ public class UiController : MonoBehaviour
         _activePanel.Enter(state, newRunningState, callback);
     }
 
-
-    // private Coroutine _ExitOldPanelAndEnterTheNewOne = null;
-    // private IEnumerator ExitOldPanelAndEnterTheNewOneCoroutine(STATE? newState = null, RUNNING_STATE? newRunningState = null, Action callback = null)
-    // {
-    //     if (_activePanel != null)
-    //         yield return _activePanel.Exit();
-
-    //     foreach (var p in _panels)
-    //     {
-    //         if (p.STATE == newState)
-    //         {
-    //             p.GetComponent<CanvasController>().SetOn();
-    //             _activePanel = p;
-    //         }
-    //         else p.GetComponent<CanvasController>().SetOff();
-    //     }
-
-    //     _activePanel.Enter(newState, newRunningState, callback);
-
-    //     _ExitOldPanelAndEnterTheNewOne = null;
-    // }
 }

@@ -82,7 +82,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
             case UiController.RUNNING_STATE.OPEN_PAGE:
 
-                
+                print("ESCO DALLA PAGINA");
                 break;
 
             case UiController.RUNNING_STATE.ANSWER_CLICKED:
