@@ -64,11 +64,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
                 _currentRunningState = UiController.RUNNING_STATE.PAGE;
                 ShowWaitOtherPlayer();
                 break;
-
-                // case UiController.RUNNING_STATE.CLOSE_PAGE:
-
-                //     ClosePage(callback);
-                //     break;
         }
     }
 
@@ -80,12 +75,10 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         {
             case UiController.RUNNING_STATE.CHAPTER:
 
-                print("ESCO DA 'OPEN_CHAPTER'");
                 break;
 
             case UiController.RUNNING_STATE.PAGE:
 
-                print("ESCO DA 'OPEN_PAGE'");
                 ClosePage();
                 break;
 
@@ -97,11 +90,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             case UiController.RUNNING_STATE.WAITING:
 
                 print("ESCO DA 'WAIT_OTHER_PLAYER'");
-                break;
-
-            case UiController.RUNNING_STATE.CLOSE_PAGE:
-
-                print("ESCO DA 'CLOSE_PAGE'");
                 break;
         }
 

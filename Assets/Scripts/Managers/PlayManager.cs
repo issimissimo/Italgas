@@ -53,7 +53,6 @@ public class PlayManager : NetworkManagerBase
     /// <param name="state"></param>
     public override async void OnPlayerStateChanged(int playerId, PlayerController.STATE state)
     {
-        // Debug.Log(this.name + " RECEIVED STATE CHANGED FROM PLAYER " + playerId + " ---> " + state);
         Debug.Log("<color=yellow>PlayerManager - StateChanged: </color>" + state.ToString() + " - Player: " + playerId);
 
         switch (state)
@@ -119,8 +118,6 @@ public class PlayManager : NetworkManagerBase
     {
         if (myPlayer.NetworkedState != PlayerController.STATE.RUNNING) return;
 
-        // print("************  RICEVUTO CHANGE RUNNING STATE DA PLAYER: " + playerId + " --> " + runningState.ToString());
-
         Debug.Log("<color=orange>PlayerManager - RunningStateChanged: </color>" + runningState.ToString() + " - Player: " + playerId);
 
         switch (runningState)
@@ -138,8 +135,6 @@ public class PlayManager : NetworkManagerBase
                 if (playerId == myPlayer.NetworkedId)
                 {
                     GameManager.currentGamePageIndex++;
-                    // ProceedToNext();
-
 
                     GameManager.instance.GetNewGameState(async (gameState) =>
                     {
@@ -156,10 +151,6 @@ public class PlayManager : NetworkManagerBase
                             case GameManager.GAME_STATE.END:
                                 print("IL GIOCO E' FINiTO!!!");
                                 
-                                // GameManager.currentGameChapterIndex = 0;
-                                // GameManager.currentGamePageIndex = -1;
-                                // _uiControllers[0].Set_STATE_FINAL_SCORE();
-
                                 await Task.Delay(GameManager.instance.FusionDelayTime);
                                 myPlayer.Set_RUNNING_STATE_NONE();
                                 break;
@@ -187,8 +178,6 @@ public class PlayManager : NetworkManagerBase
                     {
                         /// I have finished too, now we can move on!
                         print("YEEEEEEEEE, HO FINITO ANCH'IO....");
-                        // _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() => myPlayer.Set_RUNNING_STATE_THINKING());
-                        // _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() => {}); /// PER DEBUG!
                         myPlayer.Set_RUNNING_STATE_THINKING();
                     }
                     else
@@ -204,8 +193,6 @@ public class PlayManager : NetworkManagerBase
                     {
                         /// Other player have finished too, now we can move on!
                         print("....FINALMENTE HA FINITO ANCHE LUI....");
-                        // _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() => myPlayer.Set_RUNNING_STATE_THINKING());
-                        // _uiControllers[0].Set_RUNNING_STATE_CLOSE_PAGE(() => {}); /// PER DEBUG!
                         myPlayer.Set_RUNNING_STATE_THINKING();
                     }
                     else

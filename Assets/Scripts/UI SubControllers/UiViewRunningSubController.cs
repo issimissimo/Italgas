@@ -31,10 +31,7 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
                 // ShowWaitOtherPlayer();
                 break;
 
-            case UiController.RUNNING_STATE.CLOSE_PAGE:
-
-                // StartCoroutine(ClosePage(callback));
-                break;
+            
         }
     }
 

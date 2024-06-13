@@ -32,14 +32,14 @@ public class ViewManager : NetworkManagerBase
     /// </summary>
     /// <param name="playerId"></param>
     /// <param name="state"></param>
-    public override void OnPlayerStateChanged(int playerId, PlayerController.STATE playerState)
+    public override void OnPlayerStateChanged(int playerId, PlayerController.STATE state)
     {
-        Debug.Log(this.name + " RECEIVED STATE CHANGED FROM PLAYER " + playerId + " ---> " + playerState);
+        Debug.Log("<color=yellow>PlayerManager - StateChanged: </color>" + state.ToString() + " - Player: " + playerId);
 
         /// Refresh the list of real Players (this is necessary if the Viewer start up after the Player)
         OnRealPlayersCountChanged();
 
-        switch (playerState)
+        switch (state)
         {
             case PlayerController.STATE.READY:
 
@@ -77,7 +77,7 @@ public class ViewManager : NetworkManagerBase
     {
         // if (_players[playerId].NetworkedState != PlayerController.STATE.RUNNING) return;
 
-        print("************  RICEVUTO CHANGE RUNNING STATE DA PLAYER: " + playerId + " --> " + runningState.ToString());
+        Debug.Log("<color=orange>ViewManager - RunningStateChanged: </color>" + runningState.ToString() + " - Player: " + playerId);
 
         switch (runningState)
         {
@@ -127,70 +127,7 @@ public class ViewManager : NetworkManagerBase
                     }
                 });
 
-                // // /// Since both players will send this state, we must avoid a double call
-                // // if (GameManager.gameSessionData.numberOfPlayersRunning == 2)
-                // // {
-                // if (_runningPlayers.Count == 1)
-                // {
-                //     print("AVANZO DI UNA PAGINA PERCHE' SONO DA SOLO");
-                //     GameManager.currentGamePageIndex++;
-                // }
-                // else
-                // {
-                //     if (_players[0].NetworkedRunningState != _players[1].NetworkedRunningState)
-                //     {
-                //         print(_players[0].NetworkedRunningState + " ---- " + _players[1].NetworkedRunningState);
-                //         print("AVANZO DI UNA PAGINA PERCHE' SONO IL PRIMO");
-                //         GameManager.currentGamePageIndex++;
-                //     }
-                //     else
-                //     {
-                //         print("NON AVANZO!!!!");
-                //     }
-                // }
-
-
-                // }
-
-
-                // ProceedToNext();
-
-
-
-
-
-                // ///
-                // /// ////////////////////////////////////
-                // if (GameManager.currentGamePageIndex <= GameManager.currentGameChapter.pages.Count - 1)
-                // {
-                //     if (GameManager.currentGamePageIndex == 0)
-                //         _uiControllers[playerId].Set_RUNNING_STATE_OPEN_CHAPTER(() => _uiControllers[playerId].Set_RUNNING_STATE_OPEN_PAGE());
-                //     else
-                //         _uiControllers[playerId].Set_RUNNING_STATE_OPEN_PAGE();
-                // }
-                // else
-                // {
-                //     if (GameManager.currentGameChapterIndex < GameManager.currentGameVersion.chapters.Count - 1)
-                //     {
-                //         /// Iterate
-                //         GameManager.currentGameChapterIndex++;
-                //         GameManager.currentGamePageIndex = 0;
-
-                //         ProceedToNext();
-                //     }
-                //     // else
-                //     // {
-                //     //     /// Player
-                //     //     if (myPlayer != null) myPlayer.Set_RUNNING_STATE_NONE();
-
-                //     //     /// Viewer
-                //     //     else foreach (var p in _players) p.Set_RUNNING_STATE_NONE();
-                //     // }
-                // }
-
-                /// <summary>
-                /// ///////////////////////////
-                /// </summary>
+               
 
                 break;
 
@@ -205,51 +142,24 @@ public class ViewManager : NetworkManagerBase
 
             case PlayerController.RUNNING_STATE.FINISHED:
 
-                var playerThatHasNotFinished = _runningPlayers.Find(x => x.NetworkedRunningState != PlayerController.RUNNING_STATE.FINISHED);
+                // var playerThatHasNotFinished = _runningPlayers.Find(x => x.NetworkedRunningState != PlayerController.RUNNING_STATE.FINISHED);
 
-                if (playerThatHasNotFinished == null)
-                {
-                    /// All running players have finished
-                    for (int i = 0; i < _runningPlayers.Count; i++)
-                        _uiControllers[_runningPlayers[i].NetworkedId].Set_RUNNING_STATE_CLOSE_PAGE(() => { });
-                }
-                else
-                {
-                    /// One player have finished, but it have to wait the other Player...
-                    _uiControllers[playerId].Set_RUNNING_STATE_WAIT_OTHER_PLAYER();
-                }
-
-
-
-
-
-                // if (playerId == myPlayer.NetworkedId)
+                // if (playerThatHasNotFinished == null)
                 // {
-                //     if (GameManager.gameSessionData.numberOfPlayersRunning == 1 ||
-                //          otherPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
-                //     {
-                //         /// I have finished too, now we can move on!
-                //         _uiControllers[playerId].Set_RUNNING_STATE_CLOSE_PAGE(() => { });
-                //     }
-                //     else
-                //     {
-                //         /// I have finished, but I have to wait the other Player...
-                //         _uiControllers[playerId].Set_RUNNING_STATE_WAIT_OTHER_PLAYER();
-                //     }
+                //     /// All running players have finished
+                //     for (int i = 0; i < _runningPlayers.Count; i++)
+                //         _uiControllers[_runningPlayers[i].NetworkedId].Set_RUNNING_STATE_CLOSE_PAGE(() => { });
                 // }
-                // else if (playerId == otherPlayer.NetworkedId)
+                // else
                 // {
-                //     if (myPlayer.NetworkedRunningState == PlayerController.RUNNING_STATE.FINISHED)
-                //     {
-                //         /// Other player have finished too, now we can move on!
-                //         _uiControllers[playerId].Set_RUNNING_STATE_CLOSE_PAGE(() => { });
-
-                //     }
-                //     else
-                //     {
-                //         /// Other Player finished, but not me. He's waiting...
-                //     }
+                //     /// One player have finished, but it have to wait the other Player...
+                //     _uiControllers[playerId].Set_RUNNING_STATE_WAIT_OTHER_PLAYER();
                 // }
+
+
+
+
+
                 break;
         }
     }

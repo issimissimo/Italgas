@@ -29,41 +29,6 @@ public class UiAnimatedElement : MonoBehaviour
         PlayAnimation("Exit", delay != null ? delay.Value : _exitDelay);
     }
 
-    // public async void ExitTrue()
-    // {
-    //     await Task.Delay(_exitDelay);
-    //     _animator.SetTrigger("EXIT_TRUE");
-    //     // print(gameObject.name + " ===> EXIT_TRUE");
-    // }
-
-    // public async void ExitFalse()
-    // {
-    //     await Task.Delay(_exitDelay);
-    //     _animator.SetTrigger("EXIT_FALSE");
-    //     // print(gameObject.name + " ===> EXIT_FALSE");
-    // }
-
-    // public void Clicked()
-    // {
-    //     // print(gameObject.name + " --> CLICKED");
-    //     _animator.SetTrigger("CLICKED");
-    // }
-
-    // public void NotClicked()
-    // {
-    //     _animator.SetTrigger("NOT_CLICKED");
-    // }
-
-
-    // public bool IsOnEmptyState()
-    // {
-    //     AnimatorStateInfo animatorStateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-    //     var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
-    //     if (clipInfo.Length > 0)
-    //         return clipInfo[0].clip.name == "Empty" ? true : false;
-    //     else return true;
-    // }
-
     public bool IsPlaying(string stateName)
     {
         if (_animator.GetCurrentAnimatorStateInfo(0).IsName(stateName) &&
