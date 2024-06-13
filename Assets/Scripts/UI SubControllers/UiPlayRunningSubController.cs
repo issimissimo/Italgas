@@ -21,6 +21,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
     private PlayManager _playManager;
     private List<UiAnimatedElement> _answerListAnimations = new List<UiAnimatedElement>();
+    private bool _isWaiting;
 
 
 
@@ -39,7 +40,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         base.Enter(state, runningState, callback);
 
         _pageCanvasGroup.interactable = false;
-        
+
         switch (runningState)
         {
             case UiController.RUNNING_STATE.CHAPTER:
@@ -64,10 +65,10 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
                 ShowWaitOtherPlayer();
                 break;
 
-            // case UiController.RUNNING_STATE.CLOSE_PAGE:
+                // case UiController.RUNNING_STATE.CLOSE_PAGE:
 
-            //     ClosePage(callback);
-            //     break;
+                //     ClosePage(callback);
+                //     break;
         }
     }
 
@@ -103,7 +104,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
                 print("ESCO DA 'CLOSE_PAGE'");
                 break;
         }
-        
+
         /// Don't forget to call the BASE at the end of Exit coroutine
         return base.Exit();
     }
@@ -115,7 +116,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <returns></returns>
     private void OpenChapter(Action callback)
     {
-        print("OPEN CHAPTER.... " + GameManager.currentGameChapter.chapterName );
+        print("OPEN CHAPTER.... " + GameManager.currentGameChapter.chapterName);
         _chapterNameText.text = GameManager.currentGameChapter.chapterName;
         animationsController.Animations_EnterByName("ChapterName");
 
@@ -196,8 +197,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         /// Show clicked or not clicked button animations
         for (int i = 0; i < _answerListAnimations.Count; i++)
         {
-            if (i == buttonPressed) _answerListAnimations[i].Clicked();
-            else _answerListAnimations[i].NotClicked();
+            if (i == buttonPressed) _answerListAnimations[i].PlayAnimation("Clicked");
+            else _answerListAnimations[i].PlayAnimation("NotClicked");
         }
 
         /// We must wait for animation finished,
@@ -214,6 +215,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     private void ShowWaitOtherPlayer()
     {
         animationsController.Animations_EnterByName("WaitOtherPlayer");
+        _isWaiting = true;
     }
 
 
@@ -224,7 +226,13 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     private void ClosePage()
     {
         animationsController.Animations_ExitByName("Question");
-        animationsController.Animations_ExitByName("WaitOtherPlayer");
+
+        if (_isWaiting)
+        {
+            animationsController.Animations_ExitByName("WaitOtherPlayer");
+            _isWaiting = false;
+        }
+
 
 
         int buttonPressed = _playManager.myPlayer.NetworkedButtonPressedNumber;
@@ -237,12 +245,12 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             {
                 if (isTrue)
                 {
-                    _answerListAnimations[i].ExitTrue();
+                    _answerListAnimations[i].PlayAnimation("IsRight");
                     _answerList[i].animationsController.Lottie_PlayByName("IsRight");
                 }
                 else
                 {
-                    _answerListAnimations[i].ExitFalse();
+                    _answerListAnimations[i].PlayAnimation("IsWrong");
                 }
             }
             else _answerListAnimations[i].Exit();

@@ -9,13 +9,15 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
+    //#region INSPECTOR
+
+    [Header("SETTINGS")]
     public bool isDevelopment;
-    public bool sendMessageToRestart { get; set; } = false;
-    public bool isAppJustStarted { get; set; } = true;
-    public Globals.GAMESCENE gameScene { get; private set; }
-    public static GameManager instance;
+    [field: SerializeField] public int FusionDelayTime { get; private set; } = 500;
 
 
+    [Space]
+    [Header("UI")]
     [SerializeField] ModalWindowManager _modalWindowManager;
     [SerializeField] NotificationManager _notificationManager;
     [SerializeField] SpinnerManager _spinnerManager;
@@ -28,6 +30,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] Image _backgroundImage;
     [SerializeField] Sprite _defaultBackgroundSprite;
     [SerializeField] Background[] _backgrounds;
+
+    //#endregion
+
+
+
+    public bool sendMessageToRestart { get; set; } = false;
+    public bool isAppJustStarted { get; set; } = true;
+    public Globals.GAMESCENE gameScene { get; private set; }
+    public static GameManager instance;
+
 
 
 

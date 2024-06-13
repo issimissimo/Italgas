@@ -1,25 +1,15 @@
 using UnityEngine;
-using System.Threading.Tasks;
 using System.Collections;
 
 [RequireComponent(typeof(Animator))]
 public class UiAnimatedElement : MonoBehaviour
 {
     private Animator _animator;
-    // {
-    //     get
-    //     {
-    //         if (__animator == null) __animator = 
-    //         return __animator;
-    //     }
-    //     set { __animator = value; }
-    // }
-    private Animator __animator;
-    public int _enterDelay = 0;
-    public int _exitDelay = 0;
+    public float _enterDelay = 0;
+    public float _exitDelay = 0;
     public string animatorName { get; private set; }
-    public bool isActivated { get; private set; }
-    
+
+    private Coroutine _playAnimationCoroutine;
 
 
     void Awake()
@@ -29,53 +19,50 @@ public class UiAnimatedElement : MonoBehaviour
     }
 
 
-    public async void Enter()
+    public void Enter(float? delay = null)
     {
-        await Task.Delay(_enterDelay);
-        _animator.SetTrigger("ENTER");
+        PlayAnimation("Enter", delay != null ? delay.Value : _enterDelay);
     }
 
-    public async void Exit()
+    public void Exit(float? delay = null)
     {
-        await Task.Delay(_exitDelay);
-        _animator.SetTrigger("EXIT");
-        // print(gameObject.name + " ===> EXIT");
+        PlayAnimation("Exit", delay != null ? delay.Value : _exitDelay);
     }
 
-    public async void ExitTrue()
-    {
-        await Task.Delay(_exitDelay);
-        _animator.SetTrigger("EXIT_TRUE");
-        // print(gameObject.name + " ===> EXIT_TRUE");
-    }
+    // public async void ExitTrue()
+    // {
+    //     await Task.Delay(_exitDelay);
+    //     _animator.SetTrigger("EXIT_TRUE");
+    //     // print(gameObject.name + " ===> EXIT_TRUE");
+    // }
 
-    public async void ExitFalse()
-    {
-        await Task.Delay(_exitDelay);
-        _animator.SetTrigger("EXIT_FALSE");
-        // print(gameObject.name + " ===> EXIT_FALSE");
-    }
+    // public async void ExitFalse()
+    // {
+    //     await Task.Delay(_exitDelay);
+    //     _animator.SetTrigger("EXIT_FALSE");
+    //     // print(gameObject.name + " ===> EXIT_FALSE");
+    // }
 
-    public void Clicked()
-    {
-        // print(gameObject.name + " --> CLICKED");
-        _animator.SetTrigger("CLICKED");
-    }
+    // public void Clicked()
+    // {
+    //     // print(gameObject.name + " --> CLICKED");
+    //     _animator.SetTrigger("CLICKED");
+    // }
 
-    public void NotClicked()
-    {
-        _animator.SetTrigger("NOT_CLICKED");
-    }
+    // public void NotClicked()
+    // {
+    //     _animator.SetTrigger("NOT_CLICKED");
+    // }
 
 
-    public bool IsOnEmptyState()
-    {
-        AnimatorStateInfo animatorStateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-        var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
-        if (clipInfo.Length > 0)
-            return clipInfo[0].clip.name == "Empty" ? true : false;
-        else return true;
-    }
+    // public bool IsOnEmptyState()
+    // {
+    //     AnimatorStateInfo animatorStateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+    //     var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
+    //     if (clipInfo.Length > 0)
+    //         return clipInfo[0].clip.name == "Empty" ? true : false;
+    //     else return true;
+    // }
 
     public bool IsPlaying(string stateName)
     {
@@ -85,16 +72,37 @@ public class UiAnimatedElement : MonoBehaviour
         else return false;
     }
 
-    public float GetRunningAnimationTime()
+    public void PlayAnimation(string stateName, float delay = 0f)
     {
-        var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
-        return clipInfo[0].clip.length;
+        int stateID = Animator.StringToHash(stateName);
+        if (!_animator.HasState(0, stateID))
+        {
+            Debug.LogError("The animation " + stateName + " don't exist!");
+            return;
+        }
+        if (_playAnimationCoroutine != null) StopCoroutine(_playAnimationCoroutine);
+        _playAnimationCoroutine = StartCoroutine(PlayAnimationCoroutine(stateName, delay));
     }
 
-    public string GetRunningAnimationName()
+    private IEnumerator PlayAnimationCoroutine(string stateName, float delayTime)
     {
-        var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
-        return clipInfo[0].clip.name;
+        print(gameObject.name + " - PlayAnimationCoroutine: " + stateName);
+        yield return new WaitForSeconds(delayTime);
+        print(gameObject.name + " - ORA SIIIIIIIIIIIIIII");
+        _animator.Play(stateName);
+        _playAnimationCoroutine = null;
     }
+
+    // public float GetRunningAnimationTime()
+    // {
+    //     var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
+    //     return clipInfo[0].clip.length;
+    // }
+
+    // public string GetRunningAnimationName()
+    // {
+    //     var clipInfo = _animator.GetCurrentAnimatorClipInfo(0);
+    //     return clipInfo[0].clip.name;
+    // }
 
 }

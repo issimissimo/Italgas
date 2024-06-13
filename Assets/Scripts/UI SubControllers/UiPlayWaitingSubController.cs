@@ -19,7 +19,7 @@ public class UiPlayWaitingSubController : GamePanelSubControllerBase
     {
         /// Don't forget to call the BASE at the init of Enter method
         base.Enter(state, runningState, callback);
-        
+
         if (GameManager.userData.requestedPlayers == 1)
         {
             GameManager.instance.ShowNotification("Sei in modalità SOLO, quindi non possono collegarsi altri giocatori");
@@ -50,9 +50,9 @@ public class UiPlayWaitingSubController : GamePanelSubControllerBase
 
     public override IEnumerator Exit()
     {
-        yield return StartCoroutine(animationsController.CloseAll());
-        
-        /// We don't need to call the Base,
-        /// because we don't have exit time for this!
+        StartCoroutine(animationsController.CloseAll());
+
+        /// Don't forget to call the BASE at the end of Exit coroutine
+        return base.Exit();
     }
 }

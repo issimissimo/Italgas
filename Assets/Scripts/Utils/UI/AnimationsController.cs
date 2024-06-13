@@ -49,7 +49,7 @@ public class AnimationsController : MonoBehaviour
 
         yield return null;
 
-        while (Animations_IsAnyNotInEmptyState())
+        while (Animations_IsAnyPlaying("Exit"))
             yield return null;
     }
 
@@ -72,29 +72,29 @@ public class AnimationsController : MonoBehaviour
         return null;
     }
 
-    public bool Animations_IsInEmptyState(string name)
-    {
-        UiAnimatedElement anim;
-        anim = Animations_GetByName(name);
-        if (anim == null)
-        {
-            Debug.LogError("Nome dell'animazione non trovata!");
-            return false;
-        }
-        else return anim.IsOnEmptyState();
-    }
+    // public bool Animations_IsInEmptyState(string name)
+    // {
+    //     UiAnimatedElement anim;
+    //     anim = Animations_GetByName(name);
+    //     if (anim == null)
+    //     {
+    //         Debug.LogError("Nome dell'animazione non trovata!");
+    //         return false;
+    //     }
+    //     else return anim.IsOnEmptyState();
+    // }
 
-    public bool Animations_IsAnyNotInEmptyState()
-    {
-        var firstMatch = Array.Find(_standardAnimations, elem => elem.IsOnEmptyState() == false);
-        return firstMatch == null ? false : true;
-    }
+    // public bool Animations_IsAnyNotInEmptyState()
+    // {
+    //     var firstMatch = Array.Find(_standardAnimations, elem => elem.IsOnEmptyState() == false);
+    //     return firstMatch == null ? false : true;
+    // }
 
-    public bool Animations_IsAnyNotInEmptyState(UiAnimatedElement[] animations)
-    {
-        var firstMatch = Array.Find(animations, elem => elem.IsOnEmptyState() == false);
-        return firstMatch == null ? false : true;
-    }
+    // public bool Animations_IsAnyNotInEmptyState(UiAnimatedElement[] animations)
+    // {
+    //     var firstMatch = Array.Find(animations, elem => elem.IsOnEmptyState() == false);
+    //     return firstMatch == null ? false : true;
+    // }
 
     public bool Animations_IsAnyPlaying(string stateName)
     {

@@ -83,7 +83,7 @@ public class PlayManager : NetworkManagerBase
 
                     /// Here we must wait for some time, I think because we have just received
                     /// the State change... If we not wait on VIEWER version will be called 3 times!!!
-                    await Task.Delay(500);
+                    await Task.Delay(GameManager.instance.FusionDelayTime);
                     myPlayer.Set_RUNNING_STATE_THINKING();
                 }
                 /// Other Player started the Game
@@ -125,13 +125,13 @@ public class PlayManager : NetworkManagerBase
 
         switch (runningState)
         {
-            // case PlayerController.RUNNING_STATE.NONE:
+            case PlayerController.RUNNING_STATE.NONE:
 
-            //     /// The game is finished
-            //     GameManager.currentGameChapterIndex = 0;
-            //     GameManager.currentGamePageIndex = -1;
-            //     _uiControllers[0].Set_STATE_FINAL_SCORE();
-            //     break;
+                /// The game is finished
+                GameManager.currentGameChapterIndex = 0;
+                GameManager.currentGamePageIndex = -1;
+                _uiControllers[0].Set_STATE_FINAL_SCORE();
+                break;
 
             case PlayerController.RUNNING_STATE.THINKING:
 
@@ -141,7 +141,7 @@ public class PlayManager : NetworkManagerBase
                     // ProceedToNext();
 
 
-                    GameManager.instance.GetNewGameState((gameState) =>
+                    GameManager.instance.GetNewGameState(async (gameState) =>
                     {
                         switch (gameState)
                         {
@@ -156,9 +156,11 @@ public class PlayManager : NetworkManagerBase
                             case GameManager.GAME_STATE.END:
                                 print("IL GIOCO E' FINiTO!!!");
                                 
-                                GameManager.currentGameChapterIndex = 0;
-                                GameManager.currentGamePageIndex = -1;
-                                _uiControllers[0].Set_STATE_FINAL_SCORE();
+                                // GameManager.currentGameChapterIndex = 0;
+                                // GameManager.currentGamePageIndex = -1;
+                                // _uiControllers[0].Set_STATE_FINAL_SCORE();
+
+                                await Task.Delay(GameManager.instance.FusionDelayTime);
                                 myPlayer.Set_RUNNING_STATE_NONE();
                                 break;
                         }
@@ -230,7 +232,7 @@ public class PlayManager : NetworkManagerBase
         /// Retrieve the list of actual connected Players
         base.OnRealPlayersCountChanged();
         
-        Debug.Log("<color=orange>PlayerManager - OnPlayersCountChanged: </color>");
+        // Debug.Log("<color=orange>PlayerManager - OnPlayersCountChanged: </color>");
 
         foreach (var p in _players)
         {
@@ -309,13 +311,9 @@ public class PlayManager : NetworkManagerBase
         }
 
         /// Set myPlayer to READY
-        print("IL MIO PLAYER ID E' : " + myPlayer.NetworkedId);
         myPlayer.NetworkedState = PlayerController.STATE.READY;
 
         WaitForPlayers = null;
-
-
-
     }
 
 

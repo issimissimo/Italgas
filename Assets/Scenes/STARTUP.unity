@@ -691,7 +691,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 02583c4ea25a1734a8d6fb262d7e21e3, type: 3}
   exitTimes:
   - stateName: WAITING_FOR_PLAYERS
-    exitTime: 0.5
+    exitTime: 1
   - stateName: READY_TO_START
     exitTime: 2.5
   - stateName: CHAPTER
