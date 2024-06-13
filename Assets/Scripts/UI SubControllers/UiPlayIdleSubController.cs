@@ -11,6 +11,13 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
     [SerializeField] private CanvasController _sessionPlayersCanvasController;
     [SerializeField] private List<Toggle> _sessionPlayersToggles;
 
+    private PlayManager _playManager;
+
+
+    void Awake()
+    {
+        _playManager = FindObjectOfType<PlayManager>();
+    }
 
 
     public override void Enter(UiController.STATE? state, UiController.RUNNING_STATE? runningState, Action callback)
@@ -48,8 +55,6 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
     }
 
 
-
-
     public void OnSessionPlayersNumberChanged()
     {
         if (GameManager.gameSessionData != null)
@@ -59,6 +64,16 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
 
             print("ADESSO I GIOCATORI SONO: " + GameManager.gameSessionData.numberOfPlayersRunning);
         }
+    }
+
+
+    /// <summary>
+    /// BUTTON
+    /// </summary>
+    public void ButtonPressed()
+    {
+        animationsController.Animations_PlayByName("ReadyToStart", "Clicked");
+        _playManager.Set_RUNNING();
     }
 
 

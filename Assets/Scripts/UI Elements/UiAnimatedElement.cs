@@ -42,7 +42,7 @@ public class UiAnimatedElement : MonoBehaviour
         int stateID = Animator.StringToHash(stateName);
         if (!_animator.HasState(0, stateID))
         {
-            Debug.LogError("The animation " + stateName + " don't exist!");
+            Debug.LogError("The animation " + stateName + "' on gameObject " + _animator.gameObject.name + " can't be found!");
             return;
         }
         if (_playAnimationCoroutine != null) StopCoroutine(_playAnimationCoroutine);
@@ -51,9 +51,7 @@ public class UiAnimatedElement : MonoBehaviour
 
     private IEnumerator PlayAnimationCoroutine(string stateName, float delayTime)
     {
-        print(gameObject.name + " - PlayAnimationCoroutine: " + stateName);
         yield return new WaitForSeconds(delayTime);
-        print(gameObject.name + " - ORA SIIIIIIIIIIIIIII");
         _animator.Play(stateName);
         _playAnimationCoroutine = null;
     }

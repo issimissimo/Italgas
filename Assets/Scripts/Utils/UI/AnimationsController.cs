@@ -13,7 +13,7 @@ public class AnimationsController : MonoBehaviour
 
     //#region COMMONS
 
-    
+
     /// <summary>
     /// Close all animations and stop Lottie files at the end
     /// </summary>
@@ -22,7 +22,7 @@ public class AnimationsController : MonoBehaviour
     {
         /// Exit all animations
         yield return Animations_ExitAll();
-        
+
         /// Stop all Lottie animations
         Lottie_StopAll();
 
@@ -52,34 +52,44 @@ public class AnimationsController : MonoBehaviour
             yield return null;
     }
 
-    public void Animations_EnterByName(string name)
+    public void Animations_EnterByName(string animatorName)
     {
-        foreach (var anim in _standardAnimations) if (anim.animatorName == name) anim.Enter();
+        // foreach (var anim in _standardAnimations) if (anim.animatorName == animatorName) anim.Enter();
+        var anim = Animations_GetByName(animatorName);
+        if (anim != null) anim.Enter();
     }
 
-    public void Animations_ExitByName(string name)
+    public void Animations_ExitByName(string animatorName)
     {
-        foreach (var anim in _standardAnimations) if (anim.animatorName == name) anim.Exit();
+        // foreach (var anim in _standardAnimations) if (anim.animatorName == animatorName) anim.Exit();
+        var anim = Animations_GetByName(animatorName);
+        if (anim != null) anim.Exit();
     }
 
-    public UiAnimatedElement Animations_GetByName(string name)
+    public void Animations_PlayByName(string animatorName, string animationName)
+    {
+        var anim = Animations_GetByName(animatorName);
+        if (anim != null) anim.PlayAnimation(animationName);
+    }
+
+    public UiAnimatedElement Animations_GetByName(string animatorName)
     {
         foreach (var anim in _standardAnimations)
-        {
-            if (anim.animatorName == name) return anim;
-        }
+            if (anim.animatorName == animatorName) return anim;
+
+        Debug.LogError("The Animator '" + animatorName + "' on gameObject " + gameObject.name + " can't be found!");
         return null;
     }
 
-    public bool Animations_IsAnyPlaying(string stateName)
+    public bool Animations_IsAnyPlaying(string animationName)
     {
-        var firstMatch = Array.Find(_standardAnimations, elem => elem.IsPlaying(stateName) == true);
+        var firstMatch = Array.Find(_standardAnimations, elem => elem.IsPlaying(animationName) == true);
         return firstMatch == null ? true : false;
     }
 
-    public bool Animations_IsAnyPlaying(UiAnimatedElement[] animations, string stateName)
+    public bool Animations_IsAnyPlaying(UiAnimatedElement[] animations, string animationName)
     {
-        var firstMatch = Array.Find(animations, elem => elem.IsPlaying(stateName) == true);
+        var firstMatch = Array.Find(animations, elem => elem.IsPlaying(animationName) == true);
         return firstMatch == null ? true : false;
     }
 
