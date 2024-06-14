@@ -54,7 +54,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
 
     private void OnConnectFailed()
     {
-        GameManager.instance.ShowModal("ERRORE DI CONNESSIONE", "Non è stato possibile connettersi al Server", showConfigureButton: false, showRestartButton: false);
+        GameManager.instance.ShowModal("MANCATA CONNESSIONE", "Non è stato possibile connettersi al Server", showConfigureButton: false, showRestartButton: false);
     }
 
     private async void OnPlayerLeft()
@@ -62,12 +62,16 @@ public abstract class NetworkManagerBase : MonoBehaviour
         await Task.Delay(500);
         OnRealPlayersCountChanged();
 
-        /// Tell the GameManager how many connected users and real players
-        NetworkRunner runner = FindObjectOfType<NetworkRunner>();
-        GameManager.instance.SetupConnectionZone(runner.ActivePlayers.Count(), players.Count);
+        SetupUi();
     }
 
     private void OnPlayerJoined()
+    {
+        SetupUi();
+    }
+
+
+    private void SetupUi()
     {
         /// Tell the GameManager how many connected users and real players
         NetworkRunner runner = FindObjectOfType<NetworkRunner>();
@@ -116,77 +120,5 @@ public abstract class NetworkManagerBase : MonoBehaviour
         FusionBootstrap[] f = FindObjectsOfType<FusionBootstrap>();
         foreach (var aa in f) Destroy(aa.gameObject);
     }
-
-
-
-
-
-    // /// <summary>
-    // /// 
-    // /// </summary>
-    // protected void ProceedToNext()
-    // {
-    //     if (GameManager.currentGamePageIndex <= GameManager.currentGameChapter.pages.Count - 1)
-    //     {
-    //         if (GameManager.currentGamePageIndex == 0)
-    //         {
-    //             /// Open a Chapter, and next open a Page
-    //             foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_OPEN_CHAPTER(() => ui.Set_RUNNING_STATE_OPEN_PAGE());
-    //         }
-    //         else
-    //         {
-    //             /// Open a Page
-    //             foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_OPEN_PAGE();
-    //         }
-    //     }
-    //     else
-    //     {
-    //         if (GameManager.currentGameChapterIndex < GameManager.currentGameVersion.chapters.Count - 1)
-    //         {
-    //             /// Iterate
-    //             GameManager.currentGameChapterIndex++;
-    //             GameManager.currentGamePageIndex = 0;
-    //             ProceedToNext();
-    //         }
-    //         else
-    //         {
-    //             /// Player
-    //             if (myPlayer != null) myPlayer.Set_RUNNING_STATE_NONE();
-
-    //             /// Viewer
-    //             else foreach (var p in _players) p.Set_RUNNING_STATE_NONE();
-    //         }
-    //     }
-    // }
-
-    /// <summary>
-    /// /////////////////////////////// TESTTTTTTTTT
-    /// </summary>
-    // protected void ProceedToNext()
-    // {
-    //     if (GameManager.currentGamePageIndex == 0)
-    //     {
-    //         foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_OPEN_CHAPTER(()=> ui.Set_RUNNING_STATE_OPEN_PAGE());
-    //         // foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_OPEN_CHAPTER(()=> {});
-
-
-    //     }
-    //     else
-    //     {
-    //         print("------------ FINITO!!!!!!!!!!!");
-
-    //         /// Game is finished!!!
-    //         GameManager.currentGameChapterIndex = 0;
-    //         GameManager.currentGamePageIndex = -1;
-
-    //         /// Set my Player
-    //         // _myPlayer.NetworkedState = PlayerController.STATE.FINISHED;
-    //         if (_myPlayer != null) _myPlayer.Set_RUNNING_STATE_NONE();
-
-    //         /// UI
-    //         foreach (var ui in _uiControllers) ui.Set_RUNNING_STATE_FINAL_SCORE();
-
-    //     }
-    // }
 
 }

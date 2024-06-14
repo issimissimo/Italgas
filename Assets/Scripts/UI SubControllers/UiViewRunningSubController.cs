@@ -12,8 +12,8 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
     [Header("UI ELEMENTS")]
     [SerializeField] private TMP_Text _chapterNameText;
     [SerializeField] private RawImage _chapterBackgroundImage;
-    
-    
+
+
     private ViewManager _viewManager;
 
     void Awake()
@@ -106,12 +106,28 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
         // while (!animationsController.Animations_IsInEmptyState("ChapterName")) yield return null;
         // print("...CLOSE CHAPTER");
 
-        string filePath = Path.Combine(Application.persistentDataPath, GameManager.currentGameChapter.backgroundImageName);
-        FileDownloader fileDownloader = new FileDownloader();
-        StartCoroutine(fileDownloader.LoadFileFromUrlToRawImage(filePath, _chapterBackgroundImage));
+        /// Load background Image
+        if (!string.IsNullOrEmpty(GameManager.currentGameChapter.backgroundImageName))
+        {
+            string filePath = Path.Combine(Application.persistentDataPath, GameManager.currentGameChapter.backgroundImageName);
+            FileDownloader fileDownloader = new FileDownloader();
+            StartCoroutine(fileDownloader.LoadFileFromUrlToRawImage(filePath, _chapterBackgroundImage, (result) =>
+            {
+                if (result.state != FileDownloader.STATE.SUCCESS)
+                {
+                    GameManager.instance.ShowModal("ERRORE", "Non è stato possibile caricare il file a questo percorso: " + filePath, true, true);
+                }
+                else
+                {
+
+                }
+            }));
+        }
 
 
-        
+
+
+
         callback.Invoke();
     }
 
@@ -133,7 +149,7 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
         // StopTimer();
         // animationsController.Animations_ExitByName("Countdown");
 
-        
+
 
         print("Il numero di players è " + _viewManager.players.Count);
 
@@ -144,7 +160,7 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
         }
 
         print("Il player con ID: " + siblingIndex + " ha premuto il tasto N." + buttonPressed);
-        
+
 
 
 

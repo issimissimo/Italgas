@@ -37,15 +37,16 @@ public class ViewManager : NetworkManagerBase
         Debug.Log("<color=yellow>PlayerManager - StateChanged: </color>" + state.ToString() + " - Player: " + playerId);
 
         /// Refresh the list of real Players (this is necessary if the Viewer start up after the Player)
+        /// AND set (maybe) the UI to READY 
         OnRealPlayersCountChanged();
 
         switch (state)
         {
-            case PlayerController.STATE.READY:
+            // case PlayerController.STATE.READY:
 
-                if (_uiControllers[playerId].state != UiController.STATE.READY_TO_START)
-                    _uiControllers[playerId].Set_STATE_READY_TO_START();
-                break;
+            //     if (_uiControllers[playerId].state != UiController.STATE.READY_TO_START)
+            //         _uiControllers[playerId].Set_STATE_READY_TO_START();
+            //     break;
 
             case PlayerController.STATE.RUNNING:
 
@@ -127,7 +128,7 @@ public class ViewManager : NetworkManagerBase
                     }
                 });
 
-               
+
 
                 break;
 
@@ -180,6 +181,42 @@ public class ViewManager : NetworkManagerBase
         base.OnRealPlayersCountChanged();
 
         print("ADESSO CE NE SONO: " + players.Count);
+
+        
+        if (players.Count == 0)
+        {
+            for (int i = 0; i < _uiControllers.Length; i++)
+            {
+                if (_uiControllers[i].state != UiController.STATE.READY_TO_START)
+                    _uiControllers[i].Set_STATE_READY_TO_START();
+            }
+        }
+
+        else if (players.Count == 1)
+        {
+            for (int i = 0; i < _uiControllers.Length; i++)
+            {
+                if (i == players[0].NetworkedId)
+                {
+                    if (players[0].NetworkedState == PlayerController.STATE.READY && _uiControllers[i].state != UiController.STATE.READY_TO_START)
+                        _uiControllers[i].Set_STATE_READY_TO_START();
+                }
+                else
+                {
+                    if (_uiControllers[i].state != UiController.STATE.READY_TO_START)
+                        _uiControllers[i].Set_STATE_READY_TO_START();
+                }
+            }
+        }
+
+        else if (players.Count == 2)
+        {
+            for (int i = 0; i < _uiControllers.Length; i++)
+            {
+                if (players[i].NetworkedState == PlayerController.STATE.READY && _uiControllers[i].state != UiController.STATE.READY_TO_START)
+                    _uiControllers[i].Set_STATE_READY_TO_START();
+            }
+        }
     }
 
 
