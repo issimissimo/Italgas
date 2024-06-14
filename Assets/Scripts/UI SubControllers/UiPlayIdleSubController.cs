@@ -78,4 +78,13 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
         _playManager.Set_RUNNING();
     }
 
+
+        
+    // public UiAnimatedElement elem;
+    // void Update()
+    // {
+    //     print(animationsController.Animations_IsAnyPlaying("Exit"));
+    //     // print(elem.IsPlaying("Exit"));
+    // }
+
 }

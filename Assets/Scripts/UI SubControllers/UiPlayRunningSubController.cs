@@ -268,7 +268,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         _playManager.OnAnswerButtonPressed(buttonNumber: answerClicked.buttonNumber, isTrue: answerClicked.isTrue, time: timer);
     }
 
-    
+   
 
     void Update()
     {

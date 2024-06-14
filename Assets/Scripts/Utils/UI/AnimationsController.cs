@@ -47,11 +47,12 @@ public class AnimationsController : MonoBehaviour
     {
         foreach (var a in _standardAnimations) a.Exit();
 
-        /// Trick, because immediately don't work
-        while (!Animations_IsAnyPlaying("Exit"))
-        {
-            yield return null;
-        }
+        // /// Trick, because immediately don't work
+        // while (!Animations_IsAnyPlaying("Exit"))
+        // {
+        // yield return null;
+        // }
+        yield return new WaitForSeconds(0.1f);
 
         while (Animations_IsAnyPlaying("Exit"))
         {
@@ -92,7 +93,7 @@ public class AnimationsController : MonoBehaviour
     public bool Animations_IsAnyPlaying(string animationName)
     {
         var firstMatch = Array.Find(_standardAnimations, elem => elem.IsPlaying(animationName) == true);
-        return firstMatch == null ? true : false;
+        return firstMatch == null ? false : true;
     }
 
     public bool Animations_IsAnyPlaying(UiAnimatedElement[] animations, string animationName)
