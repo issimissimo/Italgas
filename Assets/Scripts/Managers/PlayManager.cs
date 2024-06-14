@@ -125,9 +125,12 @@ public class PlayManager : NetworkManagerBase
             case PlayerController.RUNNING_STATE.NONE:
 
                 /// The game is finished
-                GameManager.currentGameChapterIndex = 0;
-                GameManager.currentGamePageIndex = -1;
-                _uiControllers[0].Set_STATE_FINAL_SCORE();
+                if (playerId == myPlayer.NetworkedId)
+                {
+                    GameManager.currentGameChapterIndex = 0;
+                    GameManager.currentGamePageIndex = -1;
+                    _uiControllers[0].Set_STATE_FINAL_SCORE();
+                }
                 break;
 
             case PlayerController.RUNNING_STATE.THINKING:
@@ -150,7 +153,7 @@ public class PlayManager : NetworkManagerBase
 
                             case GameManager.GAME_STATE.END:
                                 print("IL GIOCO E' FINiTO!!!");
-                                
+
                                 await Task.Delay(GameManager.instance.FusionDelayTime);
                                 myPlayer.Set_RUNNING_STATE_NONE();
                                 break;
@@ -220,7 +223,7 @@ public class PlayManager : NetworkManagerBase
     {
         /// Retrieve the list of actual connected Players
         base.OnRealPlayersCountChanged();
-        
+
         // Debug.Log("<color=orange>PlayerManager - OnPlayersCountChanged: </color>");
 
         foreach (var p in _players)

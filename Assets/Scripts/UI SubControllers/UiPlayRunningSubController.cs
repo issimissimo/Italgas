@@ -30,7 +30,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         _playManager = FindObjectOfType<PlayManager>();
 
         foreach (var a in _answerList) _answerListAnimations.Add(a.animatedElement);
-        // _pageCanvasGroup.interactable = false;
+        _pageCanvasGroup.interactable = false;
     }
 
 
@@ -70,7 +70,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
     public override IEnumerator Exit()
     {
-        // StartCoroutine(animationsController.CloseAll());
         switch (_currentRunningState)
         {
             case UiController.RUNNING_STATE.CHAPTER:
@@ -96,6 +95,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         /// Don't forget to call the BASE at the end of Exit coroutine
         return base.Exit();
     }
+
+
 
 
     /// <summary>
