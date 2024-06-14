@@ -226,7 +226,7 @@ public class PlayManager : NetworkManagerBase
 
         // Debug.Log("<color=orange>PlayerManager - OnPlayersCountChanged: </color>");
 
-        foreach (var p in _players)
+        foreach (var p in players)
         {
             /// Check if there's some weird error on ID assignment
             /// This should NEVER happen!!! (But happened!!!!)
@@ -284,16 +284,16 @@ public class PlayManager : NetworkManagerBase
         }
 
         /// Too many players
-        if (_players.Count > GameManager.userData.requestedPlayers)
+        if (players.Count > GameManager.userData.requestedPlayers)
             GameManager.instance.ShowNotification("Si sono aggiunti troppi utenti. Il massimo consentito è " + GameManager.userData.requestedPlayers);
 
         /// Wait for the right number of players
-        while (_players.Count != GameManager.userData.requestedPlayers)
+        while (players.Count != GameManager.userData.requestedPlayers)
             yield return null;
 
         /// Get other Player
         if (GameManager.userData.requestedPlayers > 1)
-            otherPlayer = _players.Find(elem => elem.HasStateAuthority == false);
+            otherPlayer = players.Find(elem => elem.HasStateAuthority == false);
 
         /// Check for error due to the same player ID assignment
         if (otherPlayer != null && otherPlayer.NetworkedId == myPlayer.NetworkedId)

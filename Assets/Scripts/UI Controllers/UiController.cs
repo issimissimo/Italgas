@@ -28,7 +28,10 @@ public class UiController : MonoBehaviour
 
     private void Awake()
     {
-        foreach (var p in _panels) p.GetComponent<CanvasController>().SetOff();
+        foreach (var p in _panels){
+            p.siblingIndex = transform.GetSiblingIndex();
+            p.GetComponent<CanvasController>().SetOff();
+        } 
     }
 
 
@@ -38,6 +41,9 @@ public class UiController : MonoBehaviour
         // Set_STATE_INTRO();
 
         // Set_STATE_INTRO(() => { });
+
+        // Debug.Log("Sibling Index : " + transform.GetSiblingIndex());
+
     }
 
 

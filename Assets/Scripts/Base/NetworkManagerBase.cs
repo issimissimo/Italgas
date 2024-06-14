@@ -13,9 +13,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
     [SerializeField] GameObject PrototypeNetworkStartPrefab;
     [SerializeField] protected UiController[] _uiControllers;
 
-    protected List<PlayerController> _players = new List<PlayerController>();
-
-
+    public List<PlayerController> players = new List<PlayerController>();
     public PlayerController myPlayer { get; protected set; } = null;
 
 
@@ -66,14 +64,14 @@ public abstract class NetworkManagerBase : MonoBehaviour
 
         /// Tell the GameManager how many connected users and real players
         NetworkRunner runner = FindObjectOfType<NetworkRunner>();
-        GameManager.instance.SetupConnectionZone(runner.ActivePlayers.Count(), _players.Count);
+        GameManager.instance.SetupConnectionZone(runner.ActivePlayers.Count(), players.Count);
     }
 
     private void OnPlayerJoined()
     {
         /// Tell the GameManager how many connected users and real players
         NetworkRunner runner = FindObjectOfType<NetworkRunner>();
-        GameManager.instance.SetupConnectionZone(runner.ActivePlayers.Count(), _players.Count);
+        GameManager.instance.SetupConnectionZone(runner.ActivePlayers.Count(), players.Count);
     }
 
 
@@ -84,14 +82,14 @@ public abstract class NetworkManagerBase : MonoBehaviour
     /// </summary>
     public virtual void OnRealPlayersCountChanged()
     {
-        _players.Clear();
+        players.Clear();
         PlayerController[] playersArray = FindObjectsOfType<PlayerController>();
-        _players = playersArray.ToList();
+        players = playersArray.ToList();
 
 
         /// Tell the GameManager how many connected users and real players
         NetworkRunner runner = FindObjectOfType<NetworkRunner>();
-        GameManager.instance.SetupConnectionZone(runner.ActivePlayers.Count(), _players.Count);
+        GameManager.instance.SetupConnectionZone(runner.ActivePlayers.Count(), players.Count);
 
         /// to be implemented
     }

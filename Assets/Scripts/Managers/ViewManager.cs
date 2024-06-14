@@ -49,7 +49,7 @@ public class ViewManager : NetworkManagerBase
 
             case PlayerController.STATE.RUNNING:
 
-                _runningPlayers = new List<PlayerController>(_players.FindAll(x => x.NetworkedState == PlayerController.STATE.RUNNING));
+                _runningPlayers = new List<PlayerController>(players.FindAll(x => x.NetworkedState == PlayerController.STATE.RUNNING));
 
                 // print("I players sono: " + _players.Count);
 
@@ -179,7 +179,7 @@ public class ViewManager : NetworkManagerBase
         /// don't forget to call the base in this function
         base.OnRealPlayersCountChanged();
 
-        print("ADESSO CE NE SONO: " + _players.Count);
+        print("ADESSO CE NE SONO: " + players.Count);
     }
 
 

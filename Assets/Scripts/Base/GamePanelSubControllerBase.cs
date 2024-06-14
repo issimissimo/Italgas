@@ -11,8 +11,8 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
 
     protected UiController.STATE? _currentState;
     protected UiController.RUNNING_STATE? _currentRunningState;
+    public int siblingIndex {get; set;} /// We use this index to identify the Player ID on the Viewer version
 
-   
 
     public virtual void Enter(UiController.STATE? state, UiController.RUNNING_STATE? runningState, Action callback)
     {
@@ -20,8 +20,7 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
         _currentRunningState = runningState;
 
         string stateName = _currentRunningState != null ? _currentRunningState.ToString() : _currentState.ToString();
-
-        Debug.Log("<color=blue>>>>>>>>>>>>>> </color> entro in: " + stateName.ToString());
+        Debug.Log("<color=blue>>>>>>>>>>>>>> </color> entro in: " + stateName.ToString() + " ID:" + siblingIndex);
         
         /// To be implemented
     }
@@ -32,26 +31,10 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
         
         string stateName = _currentRunningState != null ? _currentRunningState.ToString() : _currentState.ToString();
         float exitTime = GameManager.instance.GetStateExitTime(stateName);
-        Debug.Log("<color=blue><<<<<<<<<<<<< </color> esco da: " + stateName.ToString() + " ---- exit time: " + exitTime);
+        Debug.Log("<color=blue><<<<<<<<<<<<< </color> esco da: " + stateName.ToString() + " ---- exit time: " + exitTime + " ID:" + siblingIndex);
+
         yield return new WaitForSeconds(exitTime);
     }
-
-
-    // /// <summary>
-    // /// CLOSE ALL ANIMATED ELEMENTS OF THIS UI CONTROLLER
-    // /// </summary>
-    // /// <returns></returns>
-    // public virtual IEnumerator CloseAllAnimatedElements()
-    // {
-    //     /// Exit all animations
-    //     yield return animationsController.Animations_ExitAll();
-        
-    //     /// Stop all Lottie animations
-    //     animationsController.Lottie_StopAll();
-
-    //     yield return null;
-    // }
-
 
 
 
