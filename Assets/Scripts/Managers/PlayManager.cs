@@ -114,7 +114,7 @@ public class PlayManager : NetworkManagerBase
 
 
     //#region GAME LOGICS
-    public override void OnPlayerRunningStateChanged(int playerId, PlayerController.RUNNING_STATE runningState)
+    public override async void OnPlayerRunningStateChanged(int playerId, PlayerController.RUNNING_STATE runningState)
     {
         if (myPlayer.NetworkedState != PlayerController.STATE.RUNNING) return;
 
@@ -178,6 +178,7 @@ public class PlayManager : NetworkManagerBase
                     {
                         /// I have finished too, now we can move on!
                         print("YEEEEEEEEE, HO FINITO ANCH'IO....");
+                        await Task.Delay(GameManager.instance.FusionDelayTime);
                         myPlayer.Set_RUNNING_STATE_THINKING();
                     }
                     else
@@ -193,6 +194,7 @@ public class PlayManager : NetworkManagerBase
                     {
                         /// Other player have finished too, now we can move on!
                         print("....FINALMENTE HA FINITO ANCHE LUI....");
+                        await Task.Delay(GameManager.instance.FusionDelayTime);
                         myPlayer.Set_RUNNING_STATE_THINKING();
                     }
                     else

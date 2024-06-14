@@ -192,7 +192,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         /// We must wait for animation finished,
         /// for aesthetic reasons, but mainly because we can't call
         /// immediately another state change
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         /// callback is "myPlayer.Set_RUNNING_STATE_FINISHED"
         callback.Invoke();
