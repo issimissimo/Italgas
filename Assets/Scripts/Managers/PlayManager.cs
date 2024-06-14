@@ -53,7 +53,7 @@ public class PlayManager : NetworkManagerBase
     /// <param name="state"></param>
     public override async void OnPlayerStateChanged(int playerId, PlayerController.STATE state)
     {
-        Debug.Log("<color=yellow>PlayerManager - StateChanged: </color>" + state.ToString() + " - Player: " + playerId);
+        Debug.Log("<color=yellow>PlayerManager - RunningStateChanged: </color>" + " - Player " + playerId + " - " + state.ToString());
 
         switch (state)
         {
@@ -118,7 +118,7 @@ public class PlayManager : NetworkManagerBase
     {
         if (myPlayer.NetworkedState != PlayerController.STATE.RUNNING) return;
 
-        Debug.Log("<color=orange>PlayerManager - RunningStateChanged: </color>" + runningState.ToString() + " - Player: " + playerId);
+        Debug.Log("<color=orange>PlayerManager - RunningStateChanged: </color>" + " - Player " + playerId + " - " + runningState.ToString());
 
         switch (runningState)
         {

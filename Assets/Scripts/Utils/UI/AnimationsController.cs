@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Collections;
 using UnityEngine;
 using System;
@@ -46,10 +47,17 @@ public class AnimationsController : MonoBehaviour
     {
         foreach (var a in _standardAnimations) a.Exit();
 
-        yield return null;
+        /// Trick, because immediately don't work
+        while (!Animations_IsAnyPlaying("Exit"))
+        {
+            yield return null;
+        }
 
         while (Animations_IsAnyPlaying("Exit"))
+        {
             yield return null;
+        }
+
     }
 
     public void Animations_EnterByName(string animatorName)

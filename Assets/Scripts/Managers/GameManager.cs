@@ -262,8 +262,8 @@ public class GameManager : MonoBehaviour
         if (currentGamePageIndex <= currentGameChapter.pages.Count - 1)
         {
             if (currentGamePageIndex == 0) callback(GAME_STATE.CHAPTER);
-            // else callback(GAME_STATE.PAGE);
-            else callback(GAME_STATE.END); /// PER DEBUG!
+            else callback(GAME_STATE.PAGE);
+            // else callback(GAME_STATE.END); /// PER DEBUG!
         }
         else
         {
