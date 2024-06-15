@@ -59,10 +59,8 @@ public abstract class NetworkManagerBase : MonoBehaviour
 
     private async void OnPlayerLeft()
     {
-        await Task.Delay(500);
+        await Task.Delay(GameManager.instance.FusionDelayTime);
         OnRealPlayersCountChanged();
-
-        SetupUi();
     }
 
     private void OnPlayerJoined()
@@ -91,9 +89,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
         players = playersArray.ToList();
 
 
-        /// Tell the GameManager how many connected users and real players
-        NetworkRunner runner = FindObjectOfType<NetworkRunner>();
-        GameManager.instance.SetupConnectionZone(runner.ActivePlayers.Count(), players.Count);
+        SetupUi();
 
         /// to be implemented
     }

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     [Header("SETTINGS")]
     public bool isDevelopment;
+    [SerializeField] bool _singlePageMode;
     [field: SerializeField] public int FusionDelayTime { get; private set; } = 500;
 
 
@@ -262,8 +263,11 @@ public class GameManager : MonoBehaviour
         if (currentGamePageIndex <= currentGameChapter.pages.Count - 1)
         {
             if (currentGamePageIndex == 0) callback(GAME_STATE.CHAPTER);
-            else callback(GAME_STATE.PAGE);
-            // else callback(GAME_STATE.END); /// PER DEBUG!
+            else
+            {
+                if (_singlePageMode) callback(GAME_STATE.END);
+                else callback(GAME_STATE.PAGE);
+            }
         }
         else
         {

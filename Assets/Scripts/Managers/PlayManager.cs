@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayManager : NetworkManagerBase
 {
     public PlayerController otherPlayer { get; private set; } = null;
+    private int _playersCount;
 
 
 
@@ -225,6 +226,11 @@ public class PlayManager : NetworkManagerBase
         base.OnRealPlayersCountChanged();
 
         // Debug.Log("<color=orange>PlayerManager - OnPlayersCountChanged: </color>");
+
+        /// We want to skip when the Viewer join or leave
+        if (players.Count == _playersCount) return;
+        _playersCount = players.Count;
+
 
         foreach (var p in players)
         {
