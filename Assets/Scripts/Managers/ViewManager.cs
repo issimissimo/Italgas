@@ -143,24 +143,14 @@ public class ViewManager : NetworkManagerBase
 
             case PlayerController.RUNNING_STATE.FINISHED:
 
-                // var playerThatHasNotFinished = _runningPlayers.Find(x => x.NetworkedRunningState != PlayerController.RUNNING_STATE.FINISHED);
+                var playerThatHasNotFinished = _runningPlayers.Find(x => x.NetworkedRunningState != PlayerController.RUNNING_STATE.FINISHED);
 
-                // if (playerThatHasNotFinished == null)
-                // {
-                //     /// All running players have finished
-                //     for (int i = 0; i < _runningPlayers.Count; i++)
-                //         _uiControllers[_runningPlayers[i].NetworkedId].Set_RUNNING_STATE_CLOSE_PAGE(() => { });
-                // }
-                // else
-                // {
-                //     /// One player have finished, but it have to wait the other Player...
-                //     _uiControllers[playerId].Set_RUNNING_STATE_WAIT_OTHER_PLAYER();
-                // }
-
-
-
-
-
+                if (playerThatHasNotFinished != null)
+                {
+                   /// One player have finished, but it have to wait the other Player...
+                   print("UNO HA FINTO MA L'ALTRO NO!!!!");
+                    _uiControllers[playerId].Set_RUNNING_STATE_WAIT_OTHER_PLAYER();
+                }
                 break;
         }
     }
@@ -211,10 +201,11 @@ public class ViewManager : NetworkManagerBase
 
         else if (players.Count == 2)
         {
-            for (int i = 0; i < _uiControllers.Length; i++)
+            for (int i = 0; i < players.Count; i++)
             {
-                if (players[i].NetworkedState == PlayerController.STATE.READY && _uiControllers[i].state != UiController.STATE.READY_TO_START)
-                    _uiControllers[i].Set_STATE_READY_TO_START();
+                int playerId = players[i].NetworkedId;
+                if (players[i].NetworkedState == PlayerController.STATE.READY && _uiControllers[playerId].state != UiController.STATE.READY_TO_START)
+                    _uiControllers[playerId].Set_STATE_READY_TO_START();
             }
         }
     }

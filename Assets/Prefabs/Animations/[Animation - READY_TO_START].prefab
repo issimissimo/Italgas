@@ -1281,6 +1281,52 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &4674027618412220539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2885778169925710882}
+  - component: {fileID: 1536588443524584789}
+  m_Layer: 0
+  m_Name: _Opacity Override
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2885778169925710882
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4674027618412220539}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3221206578328695928}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1536588443524584789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4674027618412220539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 035dcf41a5a94b9ba8c514a7714b4fbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertyName: _Opacity
+  propertyValue: 1
 --- !u!1 &5457724597093754748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1940,6 +1986,7 @@ GameObject:
   - component: {fileID: 45554813540380292}
   - component: {fileID: 8452204296526720142}
   - component: {fileID: 2994982353997782317}
+  - component: {fileID: 7578549236443171711}
   m_Layer: 5
   m_Name: Lottie_Button_outline_anim_01
   m_TagString: Untagged
@@ -1958,7 +2005,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.1, y: -1.4, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2885778169925710882}
   m_Father: {fileID: 5798464929033324088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1986,9 +2034,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 39df17c173b23f745819000e61f4c38f, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2034,6 +2082,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _duration: 0
   _opacity: 1
+--- !u!114 &7578549236443171711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7568136712668757015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7c531f67844491ae84a4f3d1575d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7770453764537908471
 GameObject:
   m_ObjectHideFlags: 0

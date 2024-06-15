@@ -33,7 +33,7 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
         {
             case UiController.RUNNING_STATE.CHAPTER:
 
-                OpenChapter(callback);
+                LoadChapterImage(callback);
                 break;
 
             case UiController.RUNNING_STATE.PAGE:
@@ -95,7 +95,7 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
     /// OPEN THE CHAPTER
     /// </summary>
     /// <returns></returns>
-    private void OpenChapter(Action callback)
+    private void LoadChapterImage(Action callback)
     {
         print(gameObject.name + " - OpenChapter - " + GameManager.currentGameChapter.chapterName);
 
@@ -114,20 +114,19 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
             StartCoroutine(fileDownloader.LoadFileFromUrlToRawImage(filePath, _chapterBackgroundImage, (result) =>
             {
                 if (result.state != FileDownloader.STATE.SUCCESS)
-                {
                     GameManager.instance.ShowModal("ERRORE", "Non è stato possibile caricare il file a questo percorso: " + filePath, true, true);
-                }
                 else
-                {
-
-                }
+                    OpenChapter(callback);
             }));
         }
+        else
+            OpenChapter(callback);
+    }
 
 
 
-
-
+    private void OpenChapter(Action callback)
+    {
         callback.Invoke();
     }
 

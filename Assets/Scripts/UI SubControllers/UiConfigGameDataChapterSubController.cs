@@ -84,7 +84,7 @@ public class UiConfigGameDataChapterSubController : MonoBehaviour
     {
         await Task.Delay(300);
 
-        string[] paths = StandaloneFileBrowser.OpenFilePanel("Open FIle", "", "jpg", false);
+        string[] paths = StandaloneFileBrowser.OpenFilePanel("Open FIle", "", "png", false);
         if (paths.Length > 0)
         {
             string fileUri = new System.Uri(paths[0]).AbsoluteUri;

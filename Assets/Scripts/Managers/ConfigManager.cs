@@ -55,7 +55,7 @@ public class ConfigManager : MonoBehaviour
     {
         
         // GameManager.instance.ShowSpinner();
-        GameManager.instance.ShowSpinner(delayTime: 1f);
+        GameManager.instance.ShowSpinner(delayTime: 0f);
 
         // await Task.Delay(500);
 
