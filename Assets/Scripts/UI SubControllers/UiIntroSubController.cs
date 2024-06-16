@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEngine;
 using System;
 
 public class UiIntroSubController : GamePanelSubControllerBase
@@ -22,16 +21,4 @@ public class UiIntroSubController : GamePanelSubControllerBase
         yield return null;
     }
 
-
-    // private IEnumerator ShowIntro(Action callback)
-    // {
-    //     animationsController.Lottie_PlayByName("Intro");
-
-    //     /// Wait for the length of the intro file
-    //     yield return new WaitForSeconds(animationsController.Lottie_GetDuration_ByName("Intro"));
-
-    //     GameManager.instance.isAppJustStarted = false;
-
-    //     callback.Invoke();
-    // }
 }

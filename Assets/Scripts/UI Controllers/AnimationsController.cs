@@ -49,8 +49,11 @@ public class AnimationsController : MonoBehaviour
     {
         foreach (var anim in _tweenAnimations)
         {
-            if (anim.gameObject.name == name) Tween_PlayForward(anim, OnEnd);
-            return;
+            if (anim.gameObject.name == name)
+            {
+                Tween_PlayForward(anim, OnEnd);
+                return;
+            }
         }
         Debug.LogError("Tween Animation  '" + name + "' can't be found");
     }

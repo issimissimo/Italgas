@@ -3,6 +3,7 @@ using TMPro;
 using System;
 using System.Collections;
 
+
 public class UiPlayWaitingSubController : GamePanelSubControllerBase
 {
     [Header("UI ELEMENTS")]
@@ -42,15 +43,13 @@ public class UiPlayWaitingSubController : GamePanelSubControllerBase
             }
         }
 
-        /// Play animations
-        animationsController.Animations_EnterAll();
-        animationsController.Lottie_PlayAll();
+        animationsController.Tween_PlayByName("[ENTER]");
     }
 
 
     public override IEnumerator Exit()
     {
-        StartCoroutine(animationsController.CloseAll());
+        animationsController.Tween_PlayByName("[EXIT]");
 
         /// Don't forget to call the BASE at the end of Exit coroutine
         return base.Exit();

@@ -243,12 +243,9 @@ public class PlayManager : NetworkManagerBase
                 return;
             }
 
-
+            /// I've entered for the 1st time!
             if (myPlayer == null && p.HasStateAuthority)
             {
-                // /// Get my Player
-                // myPlayer = p;
-
                 /// Show INTRO UI
                 _uiControllers[0].Set_STATE_INTRO(() =>
                 {
@@ -277,6 +274,9 @@ public class PlayManager : NetworkManagerBase
 
         /// Show WAITING UI
         _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
+
+        /// Let's wait the end of the animation
+        yield return new WaitForSeconds(1);
 
         /// If we changed something that require others to restart,
         /// send message to restart!
