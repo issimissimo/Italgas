@@ -8,7 +8,7 @@ public class LottieAnimation : MonoBehaviour
 {
     [SerializeField] private float _duration;
     public string Name { get; private set; }
-    public bool isFadedIn { get; set; }
+    // public bool isFadedIn { get; set; }
     public RawImage rawImage { get; private set; }
     public Material material { get; private set; }
 
@@ -27,23 +27,23 @@ public class LottieAnimation : MonoBehaviour
     // [FormerlySerializedAs("thisIsMyOldField")]
     // [SerializeField] private int _thisIsMyOldField;
 
-    public float opacity
-    {
-        get { return _opacity; }
-        set
-        {
-            print("AAAAAAAAAAAAA");
+    // public float opacity
+    // {
+    //     get { return _opacity; }
+    //     set
+    //     {
+    //         print("AAAAAAAAAAAAA");
 
 
-            _opacity = value;
-            material.SetFloat("_Opacity", _opacity);
+    //         _opacity = value;
+    //         material.SetFloat("_Opacity", _opacity);
 
-        }
-    }
+    //     }
+    // }
 
 
-    [FormerlySerializedAs("opacity")]
-    [SerializeField] private float _opacity = 1f;
+    // [FormerlySerializedAs("opacity")]
+    // [SerializeField] private float _opacity = 1f;
 
 
 

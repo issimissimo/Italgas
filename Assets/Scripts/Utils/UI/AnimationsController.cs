@@ -1,10 +1,13 @@
-using System.Runtime.CompilerServices;
 using System.Collections;
 using UnityEngine;
 using System;
+using UnityExtensions.Tween;
 
 public class AnimationsController : MonoBehaviour
 {
+    [Header("TWEEN ANIMATIONS")]
+    [SerializeField] protected TweenPlayer[] _tweenAnimations;
+
     [Header("LOTTIE ANIMATIONS")]
     [SerializeField] protected LottieAnimation[] _lottieAnimations;
 
@@ -30,6 +33,26 @@ public class AnimationsController : MonoBehaviour
         yield return null;
     }
 
+
+    //#endregion
+
+
+
+    //#region TWEEN ANIMATIONS MANAGER
+
+    void Start()
+    {
+        foreach (var a in _tweenAnimations) a.enabled = false;
+    }
+
+    public event Action connectedInternetEvent;
+    private void Tween_PlayForward(TweenPlayer anim)
+    {
+        anim.normalizedTime = 0f;
+        anim.SetForwardDirectionAndEnabled();
+    }
+
+   
 
     //#endregion
 
