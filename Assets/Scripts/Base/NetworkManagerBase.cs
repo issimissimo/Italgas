@@ -13,7 +13,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
     [SerializeField] GameObject PrototypeNetworkStartPrefab;
     [SerializeField] protected UiController[] _uiControllers;
 
-    public List<PlayerController> players = new List<PlayerController>();
+    public List<PlayerController> players { get; protected set; } = new List<PlayerController>();
     public PlayerController myPlayer { get; protected set; } = null;
 
 
