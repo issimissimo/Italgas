@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using TMPro;
 using Michsky.UI.ModernUIPack;
+using UnityExtensions.Tween;
 
 public class UiPlayRunningSubController : GamePanelSubControllerBase
 {
@@ -20,7 +21,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
 
     private PlayManager _playManager;
-    private List<UiAnimatedElement> _answerListAnimations = new List<UiAnimatedElement>();
+    // private List<UiAnimatedElement> _answerListAnimations = new List<UiAnimatedElement>();
+    // private List<TweenPlayer> _answerAnimations = new List<TweenPlayer>();
     private bool _isWaiting;
 
 
@@ -29,7 +31,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     {
         _playManager = FindObjectOfType<PlayManager>();
 
-        foreach (var a in _answerList) _answerListAnimations.Add(a.animatedElement);
+        // foreach (var a in _answerList) _answerListAnimations.Add(a.animatedElement);
+        // foreach (var a in _answerList) _answerAnimations.Add(a.animatedElement);
         _pageCanvasGroup.interactable = false;
 
         _chapterNameText.text = "";
@@ -140,10 +143,12 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         // yield break;
 
         /// Setup the Answer Buttons
+        List<TweenPlayer> buttonsAnimation = new List<TweenPlayer>();
+
         for (int i = 0; i < _answerList.Length; i++)
         {
             AnswerButtonComponent answerBttn = _answerList[i];
-            answerBttn.Set(
+            answerBttn.Setup(
                 text: GameManager.currentGamePage.answers[i].title,
                 result: GameManager.currentGamePage.answers[i].isTrue,
                 number: i
@@ -151,12 +156,18 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             answerBttn.button.onClick.RemoveAllListeners();
             answerBttn.button.onClick.AddListener(() => AnswerButtonListener(answerBttn));
 
-            answerBttn.animatedElement.Enter();
+            // answerBttn.animatedElement.Enter();
+            StartCoroutine(answerBttn.animationsController.Tween_PlayByNameWithDelay("[ENTER]", 0.5f));
+
         }
 
         /// Let's wait for all animation ENTER
-        while (animationsController.Animations_IsAnyPlaying(_answerListAnimations.ToArray(), "Enter"))
-            yield return null;
+        // while (animationsController.Animations_IsAnyPlaying(_answerListAnimations.ToArray(), "Enter"))
+        //     yield return null;
+        yield return new WaitForSeconds(2); /// e vaffanculo!
+
+
+
 
         /// Setup the Countdown
         _countdownProgressBar.maxValue = GameManager.currentGameVersion.maxTimeInSeconds;
@@ -195,12 +206,12 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         int buttonPressed = _playManager.myPlayer.NetworkedButtonPressedNumber;
 
-        /// Show clicked or not clicked button animations
-        for (int i = 0; i < _answerListAnimations.Count; i++)
-        {
-            if (i == buttonPressed) _answerListAnimations[i].PlayAnimation("Clicked");
-            else _answerListAnimations[i].PlayAnimation("NotClicked");
-        }
+        /// QUESTO DOBBIAMO RIFARLO        // /// Show clicked or not clicked button animations
+        // for (int i = 0; i < _answerListAnimations.Count; i++)
+        // {
+        //     if (i == buttonPressed) _answerListAnimations[i].PlayAnimation("Clicked");
+        //     else _answerListAnimations[i].PlayAnimation("NotClicked");
+        // }
 
         /// We must wait for animation finished,
         /// for aesthetic reasons, but mainly because we can't call
@@ -247,29 +258,27 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         bool isTrue = _playManager.myPlayer.NetworkedAnswerResult;
 
 
-        for (int i = 0; i < _answerListAnimations.Count; i++)
-        {
-            if (i == buttonPressed)
-            {
-                if (isTrue)
-                {
-                    _answerListAnimations[i].PlayAnimation("IsRight");
-                    _answerList[i].animationsController.Lottie_PlayByName("IsRight");
-                }
-                else
-                {
-                    _answerListAnimations[i].PlayAnimation("IsWrong");
-                }
-            }
-            else _answerListAnimations[i].Exit();
-        }
+        /// QUESTO DOBBIAMO RIFARLO
+        
+        // for (int i = 0; i < _answerListAnimations.Count; i++)
+        // {
+        //     if (i == buttonPressed)
+        //     {
+        //         if (isTrue)
+        //         {
+        //             _answerListAnimations[i].PlayAnimation("IsRight");
+        //             _answerList[i].animationsController.Lottie_PlayByName("IsRight");
+        //         }
+        //         else
+        //         {
+        //             _answerListAnimations[i].PlayAnimation("IsWrong");
+        //         }
+        //     }
+        //     else _answerListAnimations[i].Exit();
+        // }
 
 
-        // /// Let's wait for button animations EXIT
-        // while (animationsController.Animations_IsAnyNotInEmptyState(_answerListAnimations.ToArray()))
-        //     yield return null;
-
-        // callback.Invoke();
+       
     }
 
 

@@ -59,16 +59,10 @@ public class AnimationsController : MonoBehaviour
     }
 
 
-    public IEnumerator Tween_PlayWithDelay(TweenPlayer[] animations, float delay, Action callback)
+    public IEnumerator Tween_PlayByNameWithDelay(string name, float delay, Action OnEnd = null)
     {
-        float delayTime = delay;
-        for (int i = 0; i < animations.Length; i++)
-        {
-            yield return new WaitForSeconds(delayTime);
-            animations[i].SetForwardDirectionAndEnabled();
-            delayTime += delay;
-        }
-        callback?.Invoke();
+        yield return new WaitForSeconds(delay);
+        Tween_PlayByName(name, OnEnd);
     }
 
 
