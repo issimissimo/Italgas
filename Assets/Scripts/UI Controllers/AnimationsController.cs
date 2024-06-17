@@ -59,6 +59,19 @@ public class AnimationsController : MonoBehaviour
     }
 
 
+    public IEnumerator Tween_PlayWithDelay(TweenPlayer[] animations, float delay, Action callback)
+    {
+        float delayTime = delay;
+        for (int i = 0; i < animations.Length; i++)
+        {
+            yield return new WaitForSeconds(delayTime);
+            animations[i].SetForwardDirectionAndEnabled();
+            delayTime += delay;
+        }
+        callback?.Invoke();
+    }
+
+
 
     /// <summary>
     /// Play Forward the Tween (NOTE: use "OnEnd" just once!)
