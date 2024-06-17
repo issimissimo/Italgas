@@ -1,10 +1,8 @@
-using System.Threading;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections;
-using System.Threading.Tasks;
 
 public class UiPlayIdleSubController : GamePanelSubControllerBase
 {
@@ -42,15 +40,13 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
         /// if we are in SOLO mode
         _sessionPlayersCanvasController.Toggle(GameManager.userData.requestedPlayers == 1 ? false : true);
 
-        /// Play animations
-        animationsController.Animations_EnterAll();
-        animationsController.Lottie_PlayAll();
+        animationsController.Tween_PlayByName("[ENTER]");
     }
 
 
     public override IEnumerator Exit()
     {
-        StartCoroutine(animationsController.CloseAll());
+        animationsController.Tween_PlayByName("[EXIT]");
 
         /// Don't forget to call the BASE at the end of Exit coroutine
         return base.Exit();
@@ -74,8 +70,10 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
     /// </summary>
     public void ButtonPressed()
     {
-        animationsController.Animations_PlayByName("ReadyToStart", "Clicked");
+        animationsController.Tween_PlayByName("[CLICKED]");
         _playManager.Set_RUNNING();
     }
+
+   
 
 }
