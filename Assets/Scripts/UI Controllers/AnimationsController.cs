@@ -39,7 +39,7 @@ public class AnimationsController : MonoBehaviour
 
     //#region TWEEN ANIMATIONS MANAGER
 
-    void Start()
+    void OnEnable()
     {
         foreach (var a in _tweenAnimations) a.enabled = false;
     }
@@ -71,6 +71,9 @@ public class AnimationsController : MonoBehaviour
         anim.normalizedTime = 0f;
         anim.SetForwardDirectionAndEnabled();
     }
+
+
+
 
 
 

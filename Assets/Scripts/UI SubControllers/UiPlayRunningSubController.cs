@@ -31,6 +31,9 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         foreach (var a in _answerList) _answerListAnimations.Add(a.animatedElement);
         _pageCanvasGroup.interactable = false;
+
+        _chapterNameText.text = "";
+        _questionText.text = "";
     }
 
 
@@ -107,7 +110,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     {
         print("OPEN CHAPTER.... " + GameManager.currentGameChapter.chapterName);
         _chapterNameText.text = GameManager.currentGameChapter.chapterName;
-        animationsController.Animations_EnterByName("ChapterName");
+        // animationsController.Animations_EnterByName("ChapterName");
+        animationsController.Tween_PlayByName("[ENTER CHAPTER]");
 
         callback.Invoke();
     }
@@ -128,7 +132,12 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         /// Setup the Question
         _questionText.text = GameManager.currentGamePage.question;
-        animationsController.Animations_EnterByName("Question");
+        // animationsController.Animations_EnterByName("Question");
+        animationsController.Tween_PlayByName("[ENTER QUESTION]");
+
+
+
+        // yield break;
 
         /// Setup the Answer Buttons
         for (int i = 0; i < _answerList.Length; i++)
@@ -153,7 +162,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         _countdownProgressBar.maxValue = GameManager.currentGameVersion.maxTimeInSeconds;
         yield return null;
         _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds - 0.1f; /// weird...
-        animationsController.Animations_EnterByName("Countdown");
+        // animationsController.Animations_EnterByName("Countdown");
+        animationsController.Tween_PlayByName("[ENTER COUNTDOWN]");
 
         /// Start the Countdown
         StartTimer(
@@ -179,7 +189,9 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     {
         /// Stop Countdown
         StopTimer();
-        animationsController.Animations_ExitByName("Countdown");
+
+
+        // animationsController.Animations_ExitByName("Countdown");
 
         int buttonPressed = _playManager.myPlayer.NetworkedButtonPressedNumber;
 
@@ -203,8 +215,9 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
     private void ShowWaitOtherPlayer()
     {
-        animationsController.Animations_EnterByName("WaitOtherPlayer");
         _isWaiting = true;
+        // animationsController.Animations_EnterByName("WaitOtherPlayer");
+        animationsController.Tween_PlayByName("[ENTER WAIT]");
     }
 
 
@@ -214,12 +227,18 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// </summary>
     private void ClosePage()
     {
-        animationsController.Animations_ExitByName("Question");
+        // animationsController.Animations_ExitByName("Question");
+        animationsController.Tween_PlayByName("[EXIT QUESTION]");
 
         if (_isWaiting)
         {
-            animationsController.Animations_ExitByName("WaitOtherPlayer");
             _isWaiting = false;
+            // animationsController.Animations_ExitByName("WaitOtherPlayer");
+            animationsController.Tween_PlayByName("[EXIT WAIT]");
+        }
+        else
+        {
+            animationsController.Tween_PlayByName("[EXIT COUNTDOWN]");
         }
 
 
@@ -269,7 +288,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         _playManager.OnAnswerButtonPressed(buttonNumber: answerClicked.buttonNumber, isTrue: answerClicked.isTrue, time: timer);
     }
 
-   
+
 
     void Update()
     {
