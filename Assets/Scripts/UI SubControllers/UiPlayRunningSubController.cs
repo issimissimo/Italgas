@@ -84,7 +84,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
             case UiController.RUNNING_STATE.PAGE:
 
-                ClosePage();
+                StartCoroutine(ClosePage());
                 break;
 
             case UiController.RUNNING_STATE.CLICKED:
@@ -206,12 +206,29 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         int buttonPressed = _playManager.myPlayer.NetworkedButtonPressedNumber;
 
-        /// QUESTO DOBBIAMO RIFARLO        // /// Show clicked or not clicked button animations
         // for (int i = 0; i < _answerListAnimations.Count; i++)
         // {
         //     if (i == buttonPressed) _answerListAnimations[i].PlayAnimation("Clicked");
         //     else _answerListAnimations[i].PlayAnimation("NotClicked");
         // }
+
+
+        for (int i = 0; i < _answerList.Length; i++)
+        {
+            if (i == buttonPressed)
+            {
+                _answerList[i].animationsController.Tween_PlayByName("[CLICKED]");
+            }
+        }
+
+
+
+
+
+
+
+
+
 
         /// We must wait for animation finished,
         /// for aesthetic reasons, but mainly because we can't call
@@ -236,10 +253,10 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <summary>
     /// CLOSE THE PAGE
     /// </summary>
-    private void ClosePage()
+    private IEnumerator ClosePage()
     {
         // animationsController.Animations_ExitByName("Question");
-        animationsController.Tween_PlayByName("[EXIT QUESTION]");
+        
 
         if (_isWaiting)
         {
@@ -258,8 +275,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         bool isTrue = _playManager.myPlayer.NetworkedAnswerResult;
 
 
-        /// QUESTO DOBBIAMO RIFARLO
-        
         // for (int i = 0; i < _answerListAnimations.Count; i++)
         // {
         //     if (i == buttonPressed)
@@ -277,8 +292,28 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         //     else _answerListAnimations[i].Exit();
         // }
 
+        for (int i = 0; i < _answerList.Length; i++)
+        {
+            if (i == buttonPressed)
+            {
+                if (isTrue)
+                {
+                    _answerList[i].animationsController.Tween_PlayByName("[BUTTON TRUE]");
+                    // _answerList[i].animationsController.Lottie_PlayByName("IsRight");
+                }
+                else
+                {
+                    _answerList[i].animationsController.Tween_PlayByName("[BUTTON FALSE]");
+                }
+            }
+            // else _answerListAnimations[i].Exit();
+        }
 
-       
+        /// Let's wait a little...
+        yield return new WaitForSeconds(3);
+
+        animationsController.Tween_PlayByName("[EXIT QUESTION]");
+
     }
 
 
