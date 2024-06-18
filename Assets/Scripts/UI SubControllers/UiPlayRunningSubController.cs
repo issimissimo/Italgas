@@ -51,7 +51,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         {
             case UiController.RUNNING_STATE.CHAPTER:
 
-                OpenChapter(callback);
+                StartCoroutine(OpenChapter(callback));
                 break;
 
             case UiController.RUNNING_STATE.PAGE:
@@ -109,12 +109,16 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// OPEN THE CHAPTER
     /// </summary>
     /// <returns></returns>
-    private void OpenChapter(Action callback)
+    private IEnumerator OpenChapter(Action callback)
     {
         print("OPEN CHAPTER.... " + GameManager.currentGameChapter.chapterName);
         _chapterNameText.text = GameManager.currentGameChapter.chapterName;
         // animationsController.Animations_EnterByName("ChapterName");
         animationsController.Tween_PlayByName("[ENTER CHAPTER]");
+
+        yield return new WaitForSeconds(2);
+
+        animationsController.Tween_PlayByName("[EXIT CHAPTER]");
 
         callback.Invoke();
     }
@@ -157,7 +161,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             answerBttn.button.onClick.AddListener(() => AnswerButtonListener(answerBttn));
 
             // answerBttn.animatedElement.Enter();
-            StartCoroutine(answerBttn.animationsController.Tween_PlayByNameWithDelay("[ENTER]", 0.4f * (i + 1)));
+            StartCoroutine(answerBttn.animationsController.Tween_PlayByNameWithDelay("[ENTER]", 0.2f * (i + 1)));
 
 
 
@@ -175,7 +179,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         /// Let's wait for all animation ENTER
         // while (animationsController.Animations_IsAnyPlaying(_answerListAnimations.ToArray(), "Enter"))
         //     yield return null;
-        yield return new WaitForSeconds(2); /// e vaffanculo!
+        yield return new WaitForSeconds(1); /// e vaffanculo!
 
 
 
@@ -303,6 +307,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         //     else _answerListAnimations[i].Exit();
         // }
 
+        bool isRightAnswer = false;
+
         for (int i = 0; i < _answerList.Length; i++)
         {
             if (i == buttonPressed)
@@ -310,14 +316,22 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
                 if (isTrue)
                 {
                     _answerList[i].animationsController.Tween_PlayByName("[BUTTON TRUE]");
-                    // _answerList[i].animationsController.Lottie_PlayByName("IsRight");
+                    isRightAnswer = true;
                 }
                 else
                 {
                     _answerList[i].animationsController.Tween_PlayByName("[BUTTON FALSE]");
                 }
             }
-            // else _answerListAnimations[i].Exit();
+        }
+
+        /// Show the right answer button
+        if (!isRightAnswer)
+        {
+            foreach (var a in _answerList)
+            {
+                if (a.isTrue) a.animationsController.Tween_PlayByName("[BUTTON WAS TRUE]");
+            }
         }
 
         /// Let's wait a little...

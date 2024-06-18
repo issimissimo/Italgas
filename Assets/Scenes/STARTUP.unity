@@ -227,115 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: -1774853514, guid: ebe26e22332665d4c8332b2a624e5e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rules:
-  - Type: 0
-    Name: 
-    GameObject: {fileID: 298900378}
-    Ordinal: 0
-    Priority: 0
-    IconType: 1000
-    IconTexture: {fileID: 0}
-    IsIconRecursive: 1
-    BackgroundType: 1000
-    BackgroundTexture: {fileID: 0}
-    IsBackgroundRecursive: 1
-    IsHidden: 0
-  - Type: 0
-    Name: 
-    GameObject: {fileID: 1773510770}
-    Ordinal: 1
-    Priority: 0
-    IconType: 3000
-    IconTexture: {fileID: 0}
-    IsIconRecursive: 1
-    BackgroundType: 3000
-    BackgroundTexture: {fileID: 0}
-    IsBackgroundRecursive: 1
-    IsHidden: 0
-  - Type: 0
-    Name: 
-    GameObject: {fileID: 0}
-    Ordinal: 2
-    Priority: 0
-    IconType: 0
-    IconTexture: {fileID: 0}
-    IsIconRecursive: 0
-    BackgroundType: 1000
-    BackgroundTexture: {fileID: 0}
-    IsBackgroundRecursive: 1
-    IsHidden: 0
-  - Type: 0
-    Name: 
-    GameObject: {fileID: 2732547693204527530}
-    Ordinal: 3
-    Priority: 0
-    IconType: 333000
-    IconTexture: {fileID: 0}
-    IsIconRecursive: 1
-    BackgroundType: 13000
-    BackgroundTexture: {fileID: 0}
-    IsBackgroundRecursive: 1
-    IsHidden: 0
-  - Type: 0
-    Name: 
-    GameObject: {fileID: 0}
-    Ordinal: 4
-    Priority: 0
-    IconType: 333000
-    IconTexture: {fileID: 0}
-    IsIconRecursive: 1
-    BackgroundType: 13000
-    BackgroundTexture: {fileID: 0}
-    IsBackgroundRecursive: 1
-    IsHidden: 0
-  - Type: 0
-    Name: 
-    GameObject: {fileID: 0}
-    Ordinal: 5
-    Priority: 0
-    IconType: 117100
-    IconTexture: {fileID: 0}
-    IsIconRecursive: 0
-    BackgroundType: 0
-    BackgroundTexture: {fileID: 0}
-    IsBackgroundRecursive: 0
-    IsHidden: 0
-  - Type: 0
-    Name: 
-    GameObject: {fileID: 0}
-    Ordinal: 6
-    Priority: 0
-    IconType: 19000
-    IconTexture: {fileID: 0}
-    IsIconRecursive: 0
-    BackgroundType: 20000
-    BackgroundTexture: {fileID: 0}
-    IsBackgroundRecursive: 1
-    IsHidden: 0
-  - Type: 0
-    Name: 
-    GameObject: {fileID: 342867930}
-    Ordinal: 7
-    Priority: 0
-    IconType: 333000
-    IconTexture: {fileID: 0}
-    IsIconRecursive: 1
-    BackgroundType: 13000
-    BackgroundTexture: {fileID: 0}
-    IsBackgroundRecursive: 1
-    IsHidden: 0
-  - Type: 0
-    Name: 
-    GameObject: {fileID: 0}
-    Ordinal: 8
-    Priority: 0
-    IconType: 19000
-    IconTexture: {fileID: 0}
-    IsIconRecursive: 1
-    BackgroundType: 20000
-    BackgroundTexture: {fileID: 0}
-    IsBackgroundRecursive: 1
-    IsHidden: 0
 --- !u!4 &197278750
 Transform:
   m_ObjectHideFlags: 1
@@ -697,11 +588,9 @@ MonoBehaviour:
   - stateName: READY_TO_START
     exitTime: 2.5
   - stateName: CHAPTER
-    exitTime: 4
+    exitTime: 1.5
   - stateName: PAGE
     exitTime: 6
-  - stateName: CLOSE_CHAPTER
-    exitTime: 0
   - stateName: FINAL_SCORE
     exitTime: 2
 --- !u!4 &298900380
@@ -5190,7 +5079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 701.0849, y: 0}
   m_SizeDelta: {x: 826, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &5487829601446621205
@@ -5352,8 +5241,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 413, y: 0}
+  m_SizeDelta: {x: 786, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5853343825282759873
 CanvasRenderer:

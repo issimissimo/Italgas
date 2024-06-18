@@ -1352,8 +1352,8 @@ MonoBehaviour:
             m_RotationOrder: 4
         _foldout: 1
         _comment: 
-        from: {r: 1, g: 1, b: 1, a: 1}
-        to: {r: 0.754717, g: 0.40555644, b: 0.3025988, a: 1}
+        from: {r: 0.16470589, g: 0.64705884, b: 1, a: 1}
+        to: {r: 0.8113208, g: 0.25120136, b: 0.15690637, a: 1}
         target: {fileID: 3307583265138320379}
         useGradient: 0
         gradient:
@@ -1407,8 +1407,8 @@ MonoBehaviour:
             m_RotationOrder: 4
         _foldout: 1
         _comment: 
-        from: {r: 1, g: 1, b: 1, a: 1}
-        to: {r: 0.7529412, g: 0.40392157, b: 0.3019608, a: 1}
+        from: {r: 0.16470589, g: 0.64705884, b: 1, a: 1}
+        to: {r: 0.8117647, g: 0.2509804, b: 0.15686275, a: 1}
         target: {fileID: 3620836647302874514}
         useGradient: 0
         gradient:
@@ -1806,8 +1806,8 @@ MonoBehaviour:
             m_RotationOrder: 4
         _foldout: 1
         _comment: 
-        from: {r: 1, g: 1, b: 1, a: 1}
-        to: {r: 0.089999974, g: 1, b: 0.5949999, a: 1}
+        from: {r: 0.16470589, g: 0.64705884, b: 1, a: 1}
+        to: {r: 0.12415449, g: 0.8490566, b: 0.2926625, a: 1}
         target: {fileID: 3307583265138320379}
         useGradient: 0
         gradient:
@@ -1861,8 +1861,8 @@ MonoBehaviour:
             m_RotationOrder: 4
         _foldout: 1
         _comment: 
-        from: {r: 1, g: 1, b: 1, a: 1}
-        to: {r: 0.089999974, g: 1, b: 0.5949999, a: 1}
+        from: {r: 0.16470589, g: 0.64705884, b: 1, a: 1}
+        to: {r: 0.1254902, g: 0.8509804, b: 0.29411766, a: 1}
         target: {fileID: 3620836647302874514}
         useGradient: 0
         gradient:
