@@ -21,8 +21,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
 
     private PlayManager _playManager;
-    // private List<UiAnimatedElement> _answerListAnimations = new List<UiAnimatedElement>();
-    // private List<TweenPlayer> _answerAnimations = new List<TweenPlayer>();
     private bool _isWaiting;
 
 
@@ -30,9 +28,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     void Awake()
     {
         _playManager = FindObjectOfType<PlayManager>();
-
-        // foreach (var a in _answerList) _answerListAnimations.Add(a.animatedElement);
-        // foreach (var a in _answerList) _answerAnimations.Add(a.animatedElement);
         _pageCanvasGroup.interactable = false;
 
         _chapterNameText.text = "";
@@ -111,9 +106,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <returns></returns>
     private IEnumerator OpenChapter(Action callback)
     {
-        print("OPEN CHAPTER.... " + GameManager.currentGameChapter.chapterName);
         _chapterNameText.text = GameManager.currentGameChapter.chapterName;
-        // animationsController.Animations_EnterByName("ChapterName");
         animationsController.Tween_PlayByName("[ENTER CHAPTER]");
 
         yield return new WaitForSeconds(2);
@@ -139,12 +132,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         /// Setup the Question
         _questionText.text = GameManager.currentGamePage.question;
-        // animationsController.Animations_EnterByName("Question");
         animationsController.Tween_PlayByName("[ENTER QUESTION]");
 
-
-
-        // yield break;
 
         /// Setup the Answer Buttons
         List<TweenPlayer> buttonsAnimation = new List<TweenPlayer>();
@@ -160,35 +149,16 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             answerBttn.button.onClick.RemoveAllListeners();
             answerBttn.button.onClick.AddListener(() => AnswerButtonListener(answerBttn));
 
-            // answerBttn.animatedElement.Enter();
             StartCoroutine(answerBttn.animationsController.Tween_PlayByNameWithDelay("[ENTER]", 0.2f * (i + 1)));
-
-
-
-            // AnimationsController anim = _answerList[i].GetComponent<AnimationsController>();
-            // anim.Test();
-            // anim.Tween_PlayByName("[ENTER]");
-
-
-
-
-            // _answerList[i].animationsController.Tween_PlayByName("[ENTER]");
-
         }
 
         /// Let's wait for all animation ENTER
-        // while (animationsController.Animations_IsAnyPlaying(_answerListAnimations.ToArray(), "Enter"))
-        //     yield return null;
         yield return new WaitForSeconds(1); /// e vaffanculo!
-
-
-
 
         /// Setup the Countdown
         _countdownProgressBar.maxValue = GameManager.currentGameVersion.maxTimeInSeconds;
         yield return null;
         _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds - 0.1f; /// weird...
-        // animationsController.Animations_EnterByName("Countdown");
         animationsController.Tween_PlayByName("[ENTER COUNTDOWN]");
 
         /// Start the Countdown
@@ -216,18 +186,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         /// Stop Countdown
         StopTimer();
 
-
-        // animationsController.Animations_ExitByName("Countdown");
-
+        /// Show the clicked animation
         int buttonPressed = _playManager.myPlayer.NetworkedButtonPressedNumber;
-
-        // for (int i = 0; i < _answerListAnimations.Count; i++)
-        // {
-        //     if (i == buttonPressed) _answerListAnimations[i].PlayAnimation("Clicked");
-        //     else _answerListAnimations[i].PlayAnimation("NotClicked");
-        // }
-
-
         for (int i = 0; i < _answerList.Length; i++)
         {
             if (i == buttonPressed)
@@ -236,21 +196,12 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             }
         }
 
-
-
-
-
-
-
-
-
-
         /// We must wait for animation finished,
         /// for aesthetic reasons, but mainly because we can't call
         /// immediately another state change
         yield return new WaitForSeconds(1f);
 
-        /// callback is "myPlayer.Set_RUNNING_STATE_FINISHED"
+        /// (callback is "myPlayer.Set_RUNNING_STATE_FINISHED")
         callback.Invoke();
     }
 
@@ -259,7 +210,6 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     private void ShowWaitOtherPlayer()
     {
         _isWaiting = true;
-        // animationsController.Animations_EnterByName("WaitOtherPlayer");
         animationsController.Tween_PlayByName("[ENTER WAIT]");
     }
 
@@ -270,13 +220,11 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// </summary>
     private IEnumerator ClosePage()
     {
-        // animationsController.Animations_ExitByName("Question");
-
-
+        /// Close the Countdown
+        /// or the Wait
         if (_isWaiting)
         {
             _isWaiting = false;
-            // animationsController.Animations_ExitByName("WaitOtherPlayer");
             animationsController.Tween_PlayByName("[EXIT WAIT]");
         }
         else
@@ -284,31 +232,10 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             animationsController.Tween_PlayByName("[EXIT COUNTDOWN]");
         }
 
-
-
+        /// Show it the pressed button is true or not
         int buttonPressed = _playManager.myPlayer.NetworkedButtonPressedNumber;
         bool isTrue = _playManager.myPlayer.NetworkedAnswerResult;
-
-
-        // for (int i = 0; i < _answerListAnimations.Count; i++)
-        // {
-        //     if (i == buttonPressed)
-        //     {
-        //         if (isTrue)
-        //         {
-        //             _answerListAnimations[i].PlayAnimation("IsRight");
-        //             _answerList[i].animationsController.Lottie_PlayByName("IsRight");
-        //         }
-        //         else
-        //         {
-        //             _answerListAnimations[i].PlayAnimation("IsWrong");
-        //         }
-        //     }
-        //     else _answerListAnimations[i].Exit();
-        // }
-
         bool isRightAnswer = false;
-
         for (int i = 0; i < _answerList.Length; i++)
         {
             if (i == buttonPressed)
@@ -325,7 +252,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             }
         }
 
-        /// Show the right answer button
+        /// Show the right answer button if the
+        /// pressed button was false, or no button has been pressed
         if (!isRightAnswer)
         {
             foreach (var a in _answerList)
@@ -337,12 +265,10 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         /// Let's wait a little...
         yield return new WaitForSeconds(2);
 
+        /// Close all
         animationsController.Tween_PlayByName("[EXIT QUESTION]");
-
         foreach (var a in _answerList)
-        {
             a.animationsController.Tween_PlayByName("[EXIT]");
-        }
 
     }
 
