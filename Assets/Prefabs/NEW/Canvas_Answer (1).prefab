@@ -1313,7 +1313,7 @@ MonoBehaviour:
   _updateMode: 0
   _foldoutControl: 1
   _foldoutEvents: 1
-  _duration: 0.01
+  _duration: 0.1
   timeMode: 1
   wrapMode: 0
   arrivedAction: 3
@@ -1342,8 +1342,8 @@ MonoBehaviour:
         _holdBeforeStart: 1
         _holdAfterEnd: 1
         _interpolator:
-          type: 0
-          strength: 0
+          type: 2
+          strength: 0.5
           customCurve:
             serializedVersion: 2
             m_Curve: []
@@ -1397,8 +1397,8 @@ MonoBehaviour:
         _holdBeforeStart: 1
         _holdAfterEnd: 1
         _interpolator:
-          type: 0
-          strength: 0
+          type: 2
+          strength: 0.5
           customCurve:
             serializedVersion: 2
             m_Curve: []
@@ -1767,7 +1767,7 @@ MonoBehaviour:
   _updateMode: 0
   _foldoutControl: 1
   _foldoutEvents: 0
-  _duration: 0.01
+  _duration: 0.1
   timeMode: 1
   wrapMode: 0
   arrivedAction: 3
@@ -1796,8 +1796,8 @@ MonoBehaviour:
         _holdBeforeStart: 1
         _holdAfterEnd: 1
         _interpolator:
-          type: 0
-          strength: 0
+          type: 2
+          strength: 0.5
           customCurve:
             serializedVersion: 2
             m_Curve: []
@@ -1851,8 +1851,8 @@ MonoBehaviour:
         _holdBeforeStart: 1
         _holdAfterEnd: 1
         _interpolator:
-          type: 0
-          strength: 0
+          type: 2
+          strength: 0.5
           customCurve:
             serializedVersion: 2
             m_Curve: []
