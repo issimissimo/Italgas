@@ -13,6 +13,7 @@ public class AnswerButtonComponent : MonoBehaviour
 
     public void Setup(string text, bool result, int number)
     {
+        print(gameObject.name + " -- SETUP");
         answerText.text = text;
         isTrue = result;
         buttonNumber = number;

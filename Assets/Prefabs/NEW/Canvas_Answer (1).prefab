@@ -64,6 +64,9 @@ MonoBehaviour:
   _animations:
   - rid: 3326188002310619136
   - rid: 3326188002310619137
+  - rid: 3326188018791088128
+  - rid: 3326188018791088129
+  - rid: 3326188018791088130
   references:
     version: 2
     RefIds:
@@ -115,6 +118,171 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 0
+    - rid: 3326188018791088128
+      type: {class: TweenGraphicColor, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 0.016666666
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 0
+          strength: 0
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: {r: 0.16470589, g: 0.64705884, b: 1, a: 1}
+        to: {r: 0.16470589, g: 0.64705884, b: 1, a: 1}
+        target: {fileID: 3307583265138320379}
+        useGradient: 0
+        gradient:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+        toggleRGB: 1
+        toggleAlpha: 0
+    - rid: 3326188018791088129
+      type: {class: TweenGraphicColor, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 0.016666666
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 0
+          strength: 0
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: {r: 0.16470589, g: 0.64705884, b: 1, a: 1}
+        to: {r: 0.16470589, g: 0.64705884, b: 1, a: 1}
+        target: {fileID: 3620836647302874514}
+        useGradient: 0
+        gradient:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+        toggleRGB: 1
+        toggleAlpha: 0
+    - rid: 3326188018791088130
+      type: {class: TweenGraphicColor, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 0.016666666
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 0
+          strength: 0
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: {r: 0, g: 0, b: 0, a: 1}
+        to: {r: 0, g: 0, b: 0, a: 1}
+        target: {fileID: 3879402607190988276}
+        useGradient: 0
+        gradient:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+        toggleRGB: 1
+        toggleAlpha: 0
 --- !u!1 &5014496765148544693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,7 +1230,7 @@ MonoBehaviour:
             m_RotationOrder: 4
         _foldout: 1
         _comment: 
-        from: {r: 1, g: 1, b: 1, a: 1}
+        from: {r: 0, g: 0, b: 0, a: 1}
         to: {r: 1, g: 1, b: 1, a: 1}
         target: {fileID: 3879402607190988276}
         useGradient: 0
@@ -1528,7 +1696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee80480241f0eb24b96a747cb8c37453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationsController: {fileID: 0}
+  animationsController: {fileID: 3056651581093699414}
   answerText: {fileID: 280231675930323394}
   button: {fileID: 1057559227814684660}
 --- !u!114 &3056651581093699414

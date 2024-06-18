@@ -58,6 +58,9 @@ public class AnimationsController : MonoBehaviour
         Debug.LogError("Tween Animation  '" + name + "' can't be found");
     }
 
+    public void Test(){
+        print("AAAAAAA");
+    }
 
     public IEnumerator Tween_PlayByNameWithDelay(string name, float delay, Action OnEnd = null)
     {

@@ -157,7 +157,18 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             answerBttn.button.onClick.AddListener(() => AnswerButtonListener(answerBttn));
 
             // answerBttn.animatedElement.Enter();
-            StartCoroutine(answerBttn.animationsController.Tween_PlayByNameWithDelay("[ENTER]", 0.5f));
+            StartCoroutine(answerBttn.animationsController.Tween_PlayByNameWithDelay("[ENTER]", 0.4f * (i + 1)));
+
+
+
+            // AnimationsController anim = _answerList[i].GetComponent<AnimationsController>();
+            // anim.Test();
+            // anim.Tween_PlayByName("[ENTER]");
+
+
+
+
+            // _answerList[i].animationsController.Tween_PlayByName("[ENTER]");
 
         }
 
@@ -256,7 +267,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     private IEnumerator ClosePage()
     {
         // animationsController.Animations_ExitByName("Question");
-        
+
 
         if (_isWaiting)
         {
@@ -310,9 +321,14 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         }
 
         /// Let's wait a little...
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
 
         animationsController.Tween_PlayByName("[EXIT QUESTION]");
+
+        foreach (var a in _answerList)
+        {
+            a.animationsController.Tween_PlayByName("[EXIT]");
+        }
 
     }
 
