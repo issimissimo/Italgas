@@ -650,7 +650,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: FUSION_WEAVER;FUSION2;AMPLIFY_SHADER_EDITOR
+    Standalone: FUSION_WEAVER;FUSION2;AMPLIFY_SHADER_EDITOR;LETAI_TRUESHADOW
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
