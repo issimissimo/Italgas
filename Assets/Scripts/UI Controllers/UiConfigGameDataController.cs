@@ -3,8 +3,6 @@ using UnityEngine;
 using Michsky.UI.ModernUIPack;
 using System;
 using UnityEngine.UI;
-using System.Threading.Tasks;
-
 
 public class UiConfigGameDataController : MonoBehaviour
 {
@@ -68,9 +66,6 @@ public class UiConfigGameDataController : MonoBehaviour
                 _gameVersionDropDown.CreateNewItem(name, _usersSprite);
         }
 
-        // /// change dropdown to the right version
-        // _gameVersionDropDown.ChangeDropdownInfo((int)GameManager.gameData.currentVersion);
-
         /// create version selector
         if (_versionSelector.itemList.Count == 0)
         {
@@ -86,7 +81,6 @@ public class UiConfigGameDataController : MonoBehaviour
         /// we don't need to create the chapter selector (always 3 items)
         _chapterSelector.defaultIndex = 0;
         _selectedChapterIndex = 0;
-        // OnSelectorChapterChange(_chapterSelector.defaultIndex);
 
         OnToggleSelectorChange();
 
@@ -96,6 +90,8 @@ public class UiConfigGameDataController : MonoBehaviour
     /// Clicked Toggle Selectors
     public void OnToggleSelectorChange()
     {
+        GameManager.instance.PlayAudioSuperSoftClick();
+        
         int selected = _selectors.FindIndex(a => a.isOn == true);
         print("OnToggleSelectorChange: " + selected);
         for (int i = 0; i < _contents.Count; i++)
@@ -116,9 +112,10 @@ public class UiConfigGameDataController : MonoBehaviour
     /// Changed Version Selector
     public void OnSelectorVersionChange(int index)
     {
+        GameManager.instance.PlayAudioSuperSoftClick();
+
         /// Update Version UI
         _selectedVersionName = (Data.VERSION_NAME)index;
-        Debug.Log("Changed Version to: " + _selectedVersionName.ToString());
         _versionController.UpdateUI(_selectedVersionName);
 
         OnSelectorChapterChange(0);
@@ -131,9 +128,10 @@ public class UiConfigGameDataController : MonoBehaviour
     /// Changed Chapter Selector
     public void OnSelectorChapterChange(int index)
     {
+        GameManager.instance.PlayAudioSuperSoftClick();
+        
         /// Update Chapter UI
         _selectedChapterIndex = index;
-        Debug.Log("Changed Chapter to: " + _selectedChapterIndex.ToString());
         _chapterController.UpdateUI(_selectedVersionName, _selectedChapterIndex);
 
         /// Update Page Selector
@@ -147,10 +145,10 @@ public class UiConfigGameDataController : MonoBehaviour
     /// Changed Page Selector
     public void OnSelectorPageChange(int index)
     {
-        print(this + " ************ OnSelectorPageChange: " + index);
+        GameManager.instance.PlayAudioSuperSoftClick();
+
         /// Update Page UI
         _selectedPageIndex = index;
-        // Debug.Log("Changed Page to: " + _selectedPageIndex.ToString());
         _pageController.UpdateUI(_selectedVersionName, _selectedChapterIndex, _selectedPageIndex);
 
         /// Set RemovePage button
@@ -161,6 +159,8 @@ public class UiConfigGameDataController : MonoBehaviour
     /// Add page to current chapter
     public void AddPage()
     {
+        GameManager.instance.PlayAudioClick();
+        
         Data.GameChapter chapter = GameManager.gameData.GetVersion(_selectedVersionName).chapters[_selectedChapterIndex];
         Data.GamePage page = new Data.GamePage
         {

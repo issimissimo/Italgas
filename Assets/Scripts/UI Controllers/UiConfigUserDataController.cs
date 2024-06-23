@@ -66,7 +66,7 @@ public class UiConfigUserDataController : MonoBehaviour
         /// We must wait for stuff that update in the UI...
         await Task.Yield();
 
-        GameManager.instance.PlayAudioSoftClick();
+        GameManager.instance.PlayAudioSuperSoftClick();
 
         GameManager.userData.Set(
             gameMode: _dropDown.selectedItemIndex == 0 ? Globals.GAMEMODE.PLAYER : Globals.GAMEMODE.VIEWER,

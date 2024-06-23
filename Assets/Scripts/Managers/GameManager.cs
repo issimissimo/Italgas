@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     [Header("Common audio clips")]
     [SerializeField] AudioSource _clickAudioSource;
     [SerializeField] AudioSource _softClickAudioSource;
+    [SerializeField] AudioSource _superSoftClickAudioSource;
 
     //#endregion
 
@@ -266,6 +267,10 @@ public class GameManager : MonoBehaviour
     public void PlayAudioSoftClick()
     {
         _softClickAudioSource.Play();
+    }
+    public void PlayAudioSuperSoftClick()
+    {
+        _superSoftClickAudioSource.Play();
     }
 
 

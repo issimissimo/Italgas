@@ -39,8 +39,6 @@ public class UiSetupZone : MonoBehaviour
 
     public void OnPointerDown()
     {
-        print("DDDDDDDDDDDDDDDD");
-
         if (_openSetupCoroutine != null) StopCoroutine(_openSetupCoroutine);
         _openSetupCoroutine = StartCoroutine(OpenSetupCoroutine());
     }

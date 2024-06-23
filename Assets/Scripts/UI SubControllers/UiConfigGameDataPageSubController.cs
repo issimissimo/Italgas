@@ -76,6 +76,8 @@ public class UiConfigGameDataPageSubController : MonoBehaviour
     {
         if (_isUpdatingUI) return;
 
+        GameManager.instance.PlayAudioSuperSoftClick();
+
         _gamePage.question = _questionField.text;
         _gamePage.answers.Clear();
 
