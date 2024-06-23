@@ -243,11 +243,13 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
                 if (isTrue)
                 {
                     _answerList[i].animationsController.Tween_PlayByName("[BUTTON TRUE]");
+                    _answerList[i].animationsController.Audio_PlayByName("[BUTTON TRUE]");
                     isRightAnswer = true;
                 }
                 else
                 {
                     _answerList[i].animationsController.Tween_PlayByName("[BUTTON FALSE]");
+                    _answerList[i].animationsController.Audio_PlayByName("[BUTTON FALSE]");
                 }
             }
         }
