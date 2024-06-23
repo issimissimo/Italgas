@@ -32,6 +32,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] Sprite _defaultBackgroundSprite;
     [SerializeField] Background[] _backgrounds;
 
+
+    [Space]
+    [Header("Common audio clips")]
+    [SerializeField] AudioSource _clickAudioSource;
+    [SerializeField] AudioSource _softClickAudioSource;
+
     //#endregion
 
 
@@ -252,6 +258,14 @@ public class GameManager : MonoBehaviour
     public void SetupConnectionZone(int users, int players)
     {
         _connectionZone.SetupUi(userData.gameMode, users, players);
+    }
+    public void PlayAudioClick()
+    {
+        _clickAudioSource.Play();
+    }
+    public void PlayAudioSoftClick()
+    {
+        _softClickAudioSource.Play();
     }
 
 

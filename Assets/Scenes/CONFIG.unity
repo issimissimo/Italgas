@@ -6770,7 +6770,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21eceee8f87b3c648be9322435c110cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 345991899}
 --- !u!1 &349583152
 GameObject:
   m_ObjectHideFlags: 0
@@ -10098,7 +10097,19 @@ MonoBehaviour:
   editMode: 0
   onWindowChange:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 147487354}
+        m_TargetAssemblyTypeName: ConfigManager, Assembly-CSharp
+        m_MethodName: PlayAudioSoftClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &581082060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10123,7 +10134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21eceee8f87b3c648be9322435c110cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 581082062}
 --- !u!225 &581082062
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -25530,7 +25540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.26666668, g: 0.43529412, b: 0.6039216, a: 1}
+  m_Color: {r: 0.32941177, g: 0.5647059, b: 0.53333336, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -29065,7 +29075,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21eceee8f87b3c648be9322435c110cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 1647889805}
 --- !u!225 &1647889805
 CanvasGroup:
   m_ObjectHideFlags: 0

@@ -23,6 +23,7 @@ public class ConfigManager : MonoBehaviour
     /// </summary>
     public void ContinueWithUserData()
     {
+        GameManager.instance.PlayAudioClick();
         GameManager.instance.StartGame();
     }
 
@@ -32,6 +33,8 @@ public class ConfigManager : MonoBehaviour
     /// </summary>
     public void SaveUserDataAndRestart()
     {
+        GameManager.instance.PlayAudioClick();
+
         PlayerPrefs.SetString("gameMode", GameManager.userData.gameMode.ToString());
         PlayerPrefs.SetInt("playerId", GameManager.userData.playerId);
         PlayerPrefs.SetInt("requestedPlayers", GameManager.userData.requestedPlayers);
@@ -45,7 +48,7 @@ public class ConfigManager : MonoBehaviour
     }
 
 
-    
+
 
 
     /// <summary>
@@ -53,7 +56,8 @@ public class ConfigManager : MonoBehaviour
     /// </summary>
     public void SaveGameData()
     {
-        
+        GameManager.instance.PlayAudioClick();
+
         // GameManager.instance.ShowSpinner();
         GameManager.instance.ShowSpinner(delayTime: 0f);
 
@@ -75,7 +79,7 @@ public class ConfigManager : MonoBehaviour
 
             CoroutineUtils.StartThrowingCoroutine(
             this,
-            fileUploader.UploadToFTPCoroutine(fileFullPath, null, GameManager.userData.ftpServer, GameManager.userData.ftpUserName, 
+            fileUploader.UploadToFTPCoroutine(fileFullPath, null, GameManager.userData.ftpServer, GameManager.userData.ftpUserName,
             GameManager.userData.ftpPassword, GameManager.userData.ftpFolder),
             (ex) =>
             {
@@ -140,7 +144,19 @@ public class ConfigManager : MonoBehaviour
     /// </summary>
     public void QuitButton()
     {
+        GameManager.instance.PlayAudioClick();
         GameManager.instance.Quit();
+    }
+
+
+
+    public void PlayAudioClick()
+    {
+        GameManager.instance.PlayAudioClick();
+    }
+    public void PlayAudioSoftClick()
+    {
+        GameManager.instance.PlayAudioSoftClick();
     }
 
 
