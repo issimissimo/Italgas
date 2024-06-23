@@ -6,6 +6,8 @@ using UnityExtensions.Tween;
 public class AnimationsController : MonoBehaviour
 {
     [SerializeField] protected TweenPlayer[] _tweenAnimations;
+    [SerializeField] protected AudioSource[] _audioSources;
+
 
     [Header("LOTTIE ANIMATIONS")]
     [SerializeField] protected LottieAnimation[] _lottieAnimations;
@@ -58,16 +60,12 @@ public class AnimationsController : MonoBehaviour
         Debug.LogError("Tween Animation  '" + name + "' can't be found");
     }
 
-    public void Test(){
-        print("AAAAAAA");
-    }
 
     public IEnumerator Tween_PlayByNameWithDelay(string name, float delay, Action OnEnd = null)
     {
         yield return new WaitForSeconds(delay);
         Tween_PlayByName(name, OnEnd);
     }
-
 
 
     /// <summary>
@@ -82,12 +80,35 @@ public class AnimationsController : MonoBehaviour
         anim.SetForwardDirectionAndEnabled();
     }
 
+    //#endregion
+
+
+
+
+    //#region AUDIO SOURCES MANAGER
+
+    public void Audio_PlayByName(string name)
+    {
+        foreach (var audio in _audioSources)
+        {
+            if (audio.gameObject.name == name)
+            {
+                audio.Play();
+                return;
+            }
+        }
+        Debug.LogError("Tween Animation  '" + name + "' can't be found");
+    }
+
+
 
 
 
 
 
     //#endregion
+
+
 
 
 

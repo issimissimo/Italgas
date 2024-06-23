@@ -66,7 +66,6 @@ MonoBehaviour:
   - rid: 3326188002310619137
   - rid: 3326188018791088128
   - rid: 3326188018791088129
-  - rid: 3326188018791088130
   references:
     version: 2
     RefIds:
@@ -195,61 +194,6 @@ MonoBehaviour:
         from: {r: 0.16470589, g: 0.64705884, b: 1, a: 1}
         to: {r: 0.16470589, g: 0.64705884, b: 1, a: 1}
         target: {fileID: 3620836647302874514}
-        useGradient: 0
-        gradient:
-          serializedVersion: 2
-          key0: {r: 1, g: 1, b: 1, a: 1}
-          key1: {r: 1, g: 1, b: 1, a: 1}
-          key2: {r: 0, g: 0, b: 0, a: 0}
-          key3: {r: 0, g: 0, b: 0, a: 0}
-          key4: {r: 0, g: 0, b: 0, a: 0}
-          key5: {r: 0, g: 0, b: 0, a: 0}
-          key6: {r: 0, g: 0, b: 0, a: 0}
-          key7: {r: 0, g: 0, b: 0, a: 0}
-          ctime0: 0
-          ctime1: 65535
-          ctime2: 0
-          ctime3: 0
-          ctime4: 0
-          ctime5: 0
-          ctime6: 0
-          ctime7: 0
-          atime0: 0
-          atime1: 65535
-          atime2: 0
-          atime3: 0
-          atime4: 0
-          atime5: 0
-          atime6: 0
-          atime7: 0
-          m_Mode: 0
-          m_ColorSpace: -1
-          m_NumColorKeys: 2
-          m_NumAlphaKeys: 2
-        toggleRGB: 1
-        toggleAlpha: 0
-    - rid: 3326188018791088130
-      type: {class: TweenGraphicColor, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
-      data:
-        enabled: 1
-        _minNormalizedTime: 0
-        _maxNormalizedTime: 0.016666666
-        _holdBeforeStart: 1
-        _holdAfterEnd: 1
-        _interpolator:
-          type: 0
-          strength: 0
-          customCurve:
-            serializedVersion: 2
-            m_Curve: []
-            m_PreInfinity: 2
-            m_PostInfinity: 2
-            m_RotationOrder: 4
-        _foldout: 1
-        _comment: 
-        from: {r: 0, g: 0, b: 0, a: 1}
-        to: {r: 0, g: 0, b: 0, a: 1}
-        target: {fileID: 3879402607190988276}
         useGradient: 0
         gradient:
           serializedVersion: 2
@@ -532,81 +476,6 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 0
---- !u!1 &5709896711719645753
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1373739840750539209}
-  - component: {fileID: 8621350251121945879}
-  - component: {fileID: 3879402607190988276}
-  m_Layer: 5
-  m_Name: Shadow
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1373739840750539209
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5709896711719645753}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 656026332670071139}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 512.374, y: 152.1293}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &8621350251121945879
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5709896711719645753}
-  m_CullTransparentMesh: 1
---- !u!114 &3879402607190988276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5709896711719645753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.19607843}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0755a77d5bd80d94eaba57a2d5d0f55e, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 3
 --- !u!1 &6354512479476083945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,7 +895,7 @@ MonoBehaviour:
   _updateMode: 0
   _foldoutControl: 1
   _foldoutEvents: 0
-  _duration: 0.25
+  _duration: 0.3
   timeMode: 1
   wrapMode: 0
   arrivedAction: 3
@@ -1044,7 +913,6 @@ MonoBehaviour:
   - rid: 3326188008093777920
   - rid: 3326188008093777921
   - rid: 3326188008093777922
-  - rid: 3326188008093777923
   references:
     version: 2
     RefIds:
@@ -1072,14 +940,14 @@ MonoBehaviour:
               inWeight: 0
               outWeight: 0.040984806
             - serializedVersion: 3
-              time: 0.34268656
-              value: 0.9507476
-              inSlope: -0.09801777
-              outSlope: -0.09801777
+              time: 0.10243277
+              value: 1.0002995
+              inSlope: -0.030419715
+              outSlope: -0.030419715
               tangentMode: 0
               weightedMode: 0
               inWeight: 0.33333334
-              outWeight: 0.15813248
+              outWeight: 0.09567964
             - serializedVersion: 3
               time: 1
               value: -0.000104693696
@@ -1095,7 +963,7 @@ MonoBehaviour:
         _foldout: 1
         _comment: 
         from: {x: 1, y: 1, z: 1}
-        to: {x: 1.05, y: 1.05, z: 1}
+        to: {x: 0.95, y: 0.95, z: 1}
         target: {fileID: 2239210149008185721}
         toggle:
           x: 1
@@ -1121,7 +989,7 @@ MonoBehaviour:
         _foldout: 1
         _comment: 
         from: {r: 0.043137256, g: 0.6117647, b: 1, a: 1}
-        to: {r: 0.3820755, g: 0.748756, b: 1, a: 1}
+        to: {r: 0.48584908, g: 0.7917364, b: 1, a: 1}
         target: {fileID: 3307583265138320379}
         useGradient: 0
         gradient:
@@ -1176,63 +1044,8 @@ MonoBehaviour:
         _foldout: 1
         _comment: 
         from: {r: 0.043137256, g: 0.6117647, b: 1, a: 1}
-        to: {r: 0.38039216, g: 0.7490196, b: 1, a: 1}
+        to: {r: 0.4862745, g: 0.7921569, b: 1, a: 1}
         target: {fileID: 3620836647302874514}
-        useGradient: 0
-        gradient:
-          serializedVersion: 2
-          key0: {r: 1, g: 1, b: 1, a: 1}
-          key1: {r: 1, g: 1, b: 1, a: 1}
-          key2: {r: 0, g: 0, b: 0, a: 0}
-          key3: {r: 0, g: 0, b: 0, a: 0}
-          key4: {r: 0, g: 0, b: 0, a: 0}
-          key5: {r: 0, g: 0, b: 0, a: 0}
-          key6: {r: 0, g: 0, b: 0, a: 0}
-          key7: {r: 0, g: 0, b: 0, a: 0}
-          ctime0: 0
-          ctime1: 65535
-          ctime2: 0
-          ctime3: 0
-          ctime4: 0
-          ctime5: 0
-          ctime6: 0
-          ctime7: 0
-          atime0: 0
-          atime1: 65535
-          atime2: 0
-          atime3: 0
-          atime4: 0
-          atime5: 0
-          atime6: 0
-          atime7: 0
-          m_Mode: 0
-          m_ColorSpace: -1
-          m_NumColorKeys: 2
-          m_NumAlphaKeys: 2
-        toggleRGB: 1
-        toggleAlpha: 0
-    - rid: 3326188008093777923
-      type: {class: TweenGraphicColor, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
-      data:
-        enabled: 1
-        _minNormalizedTime: 0
-        _maxNormalizedTime: 0.04
-        _holdBeforeStart: 1
-        _holdAfterEnd: 1
-        _interpolator:
-          type: 0
-          strength: 0
-          customCurve:
-            serializedVersion: 2
-            m_Curve: []
-            m_PreInfinity: 2
-            m_PostInfinity: 2
-            m_RotationOrder: 4
-        _foldout: 1
-        _comment: 
-        from: {r: 0, g: 0, b: 0, a: 1}
-        to: {r: 1, g: 1, b: 1, a: 1}
-        target: {fileID: 3879402607190988276}
         useGradient: 0
         gradient:
           serializedVersion: 2
@@ -1313,7 +1126,7 @@ MonoBehaviour:
   _updateMode: 0
   _foldoutControl: 1
   _foldoutEvents: 1
-  _duration: 0.1
+  _duration: 0.2
   timeMode: 1
   wrapMode: 0
   arrivedAction: 3
@@ -1458,6 +1271,8 @@ GameObject:
   - component: {fileID: 8861642205080072890}
   - component: {fileID: 1695069902844389147}
   - component: {fileID: 6219449067626399151}
+  - component: {fileID: 4259318005047983016}
+  - component: {fileID: 4504009915505859120}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1483,7 +1298,6 @@ RectTransform:
   - {fileID: 346365408335081012}
   - {fileID: 4293479315956388245}
   - {fileID: 5643594656351563655}
-  - {fileID: 1373739840750539209}
   - {fileID: 3847609073241812796}
   - {fileID: 2445107102353523986}
   m_Father: {fileID: 2239210149008185721}
@@ -1742,6 +1556,80 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4259318005047983016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7896364244067924794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  algorithm: 0
+  size: 32
+  spread: 0
+  useGlobalAngle: 0
+  offsetAngle: 90
+  offsetDistance: 12
+  offset: {x: 0.00000071525574, y: -11.999999}
+  color: {r: 0, g: 0, b: 0, a: 0.6}
+  inset: 0
+  blendMode: 0
+  useCasterAlpha: 1
+  ignoreCasterColor: 0
+  colorBleedMode: 2
+  disableFitCompensation: 0
+  shadowAsSibling: 0
+  cutout: 0
+  baked: 0
+  modifiedFromInspector: 0
+  bakedShadows: []
+--- !u!114 &4504009915505859120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7896364244067924794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 101816ea49601ec4eb7319bbf76ca035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationDuration: 0.1
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  useEnterExitEvents: 1
+  _clickedShadowSize: 8
+  _pressAnimationTime: 0.1
+  _releaseAnimationTime: 0.1
+  _useEventHandler: 0
+  _glowShadow: 1
 --- !u!1 &8256895080564917332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1876,7 +1764,7 @@ MonoBehaviour:
   _updateMode: 0
   _foldoutControl: 1
   _foldoutEvents: 0
-  _duration: 0.1
+  _duration: 0.2
   timeMode: 1
   wrapMode: 0
   arrivedAction: 3

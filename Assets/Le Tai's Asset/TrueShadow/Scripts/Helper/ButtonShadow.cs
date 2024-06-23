@@ -13,6 +13,7 @@ namespace LeTai.TrueShadow
         [SerializeField] float _clickedShadowSize = 8f;
         [SerializeField] float _pressAnimationTime = 0.1f;
         [SerializeField] float _releaseAnimationTime = 0.1f;
+        [SerializeField] bool _useEventHandler = true;
         [SerializeField] bool _glowShadow;
         private float _defaultSize;
         private UnityEngine.Color _defaultColor;
@@ -26,21 +27,32 @@ namespace LeTai.TrueShadow
             _defaultColor = _shadow.Color;
         }
 
+
         void OnEnable()
         {
             SetDefault();
         }
 
+
         protected override void OnWillPress()
         {
+            if (_useEventHandler)
+            {
+                OnPressed();
+            }
+            base.OnWillPress();
+        }
+
+
+        public void OnPressed()
+        {
             var newColor = _glowShadow ? UnityEngine.Color.white : _defaultColor;
-            StartCoroutine(AnimateCoroutine(_defaultSize, _clickedShadowSize, _defaultColor, newColor, _pressAnimationTime, ()=>
+            StartCoroutine(AnimateCoroutine(_defaultSize, _clickedShadowSize, _defaultColor, newColor, _pressAnimationTime, () =>
             {
                 StartCoroutine(AnimateCoroutine(_clickedShadowSize, _defaultSize, newColor, newColor, _releaseAnimationTime));
             }));
-
-            base.OnWillPress();
         }
+
 
         public void SetDefault()
         {

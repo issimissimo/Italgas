@@ -47,6 +47,7 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
     public override IEnumerator Exit()
     {
         animationsController.Tween_PlayByName("[EXIT]");
+        animationsController.Audio_PlayByName("[EXIT]");
 
         /// Don't forget to call the BASE at the end of Exit coroutine
         return base.Exit();
@@ -70,7 +71,10 @@ public class UiPlayIdleSubController : GamePanelSubControllerBase
     /// </summary>
     public void ButtonPressed()
     {
+        _canvasGroup.interactable = false;
+
         animationsController.Tween_PlayByName("[CLICKED]");
+        
         _playManager.Set_RUNNING();
     }
 
