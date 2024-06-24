@@ -187,7 +187,7 @@ public class UiConfigGameDataController : MonoBehaviour
     private void OnDropdownGameVersionChange(int value)
     {
         GameManager.gameData.currentVersion = (Data.VERSION_NAME)value;
-        print("game version is: " + GameManager.gameData.currentVersion.ToString());
+        // print("game version is: " + GameManager.gameData.currentVersion.ToString());
     }
 
 
