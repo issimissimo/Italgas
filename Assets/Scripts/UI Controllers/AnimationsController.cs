@@ -7,9 +7,6 @@ public class AnimationsController : MonoBehaviour
 {
     [SerializeField] protected TweenPlayer[] _tweenAnimations;
     [SerializeField] protected AudioSource[] _audioSources;
-
-
-    [Header("LOTTIE ANIMATIONS")]
     [SerializeField] protected LottieAnimation[] _lottieAnimations;
 
     [Header("STANDARD ANIMATIONS")]
@@ -98,6 +95,12 @@ public class AnimationsController : MonoBehaviour
             }
         }
         Debug.LogError("Tween Animation  '" + name + "' can't be found");
+    }
+
+    public IEnumerator Audio_PlayByNameWithDelay(string name, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Audio_PlayByName(name);
     }
 
 

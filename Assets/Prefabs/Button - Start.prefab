@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2411843072641362720
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28,15 +28,15 @@ RectTransform:
   m_GameObject: {fileID: 392266450385517679}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.32, y: -1.6800002, z: 1.2}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.1, y: -1.1, z: 1.1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9024401628534636342}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 100}
+  m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8636896065445317350
 CanvasRenderer:
@@ -85,11 +85,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd340d501d30f364781da00b0938e032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationJson: {fileID: 4900000, guid: de82406aaf5b8b543924bf37fb4a3b2c, type: 3}
+  _animationJson: {fileID: 4900000, guid: 3c352155eb5d8c3438cc21bf14f681cc, type: 3}
   _rawImage: {fileID: 8356681052418871056}
   _animationSpeed: 1
   _textureWidth: 512
-  _textureHeight: 128
+  _textureHeight: 256
   _playOnAwake: 1
   _loop: 1
 --- !u!1 &4498133702704612268
@@ -525,6 +525,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   useEnterExitEvents: 1
   _clickedShadowSize: 8
+  _pressAnimationTime: 0.1
+  _releaseAnimationTime: 0.1
+  _useEventHandler: 1
+  _glowShadow: 0
 --- !u!82 &7532238337143499744
 AudioSource:
   m_ObjectHideFlags: 0

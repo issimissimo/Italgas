@@ -100,23 +100,42 @@ public class GameManager : MonoBehaviour
         public int totalQuestions;
         public int rightQuestions;
         public float totalTime;
-        public int score;
+        public float score;
         public PlayerStats(int playerId)
         {
             List<Data.SinglePlayerScore> singlePlayerScoreList = gameSessionData.scores[playerId].singlePlayerScoreList;
 
             totalQuestions = singlePlayerScoreList.Count;
             rightQuestions = 0;
+
             totalTime = 0f;
+            score = 0f;
             foreach (var s in singlePlayerScoreList)
             {
-                if (s.isCorrect) rightQuestions++;
+                if (s.isCorrect)
+                {
+                    rightQuestions++;
+                    score += SingleScore(totalQuestions, s.timeSpent);
+                }
+
                 totalTime += s.timeSpent;
             }
-            score = (rightQuestions * 100) - (int)totalTime;
+
+            float SingleScore(int totalQuestions, float timeSpent)
+            {
+                float minPenalty = 0f;
+                float maxPenalty = 100f / totalQuestions / 2;
+
+                float penaltyPercent = Mathf.InverseLerp(0f, currentGameVersion.maxTimeInSeconds, timeSpent);
+                float penalty = Mathf.Lerp(minPenalty, maxPenalty, penaltyPercent);
+
+                float score = (100f / totalQuestions) - penalty;
+                return score;
+            }
         }
     }
-    //#endregion
+
+
 
     //#region PRIVATE
 

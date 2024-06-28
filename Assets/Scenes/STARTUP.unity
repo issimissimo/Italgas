@@ -559,8 +559,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76707b2533347aa44b46578b0aeb005c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDevelopment: 0
-  _singlePageMode: 0
+  isDevelopment: 1
+  _singlePageMode: 1
   <FusionDelayTime>k__BackingField: 500
   _modalWindowManager: {fileID: 8164853624248774133}
   _notificationManager: {fileID: 1426818768}
@@ -593,7 +593,7 @@ MonoBehaviour:
   - stateName: CHAPTER
     exitTime: 1.5
   - stateName: PAGE
-    exitTime: 6
+    exitTime: 4
   - stateName: FINAL_SCORE
     exitTime: 2
 --- !u!4 &298900380

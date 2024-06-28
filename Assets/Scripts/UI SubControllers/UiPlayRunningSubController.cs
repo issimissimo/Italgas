@@ -150,6 +150,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             answerBttn.button.onClick.AddListener(() => AnswerButtonListener(answerBttn));
 
             StartCoroutine(answerBttn.animationsController.Tween_PlayByNameWithDelay("[ENTER]", 0.2f * (i + 1)));
+            StartCoroutine(answerBttn.animationsController.Audio_PlayByNameWithDelay("[ENTER]", 0.2f * (i + 1)));
         }
 
         /// Let's wait for all animation ENTER
@@ -168,6 +169,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
                 {
                     /// Time is finished!
                     print("TEMPO SCADUTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    animationsController.Audio_PlayByName("[TIME FINISHED]");
                     _playManager.OnAnswerButtonPressed(buttonNumber: -1, isTrue: false, time: timer);
                 }
             );
