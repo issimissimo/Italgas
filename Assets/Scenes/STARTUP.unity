@@ -560,7 +560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDevelopment: 1
-  _singlePageMode: 0
+  _singlePageMode: 1
   <FusionDelayTime>k__BackingField: 500
   _modalWindowManager: {fileID: 8164853624248774133}
   _notificationManager: {fileID: 1426818768}
