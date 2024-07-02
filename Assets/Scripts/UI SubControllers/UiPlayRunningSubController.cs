@@ -109,7 +109,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         _chapterNameText.text = GameManager.currentGameChapter.chapterName;
         animationsController.Tween_PlayByName("[ENTER CHAPTER]");
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5); /// è il tempo dell'animazione di AE
 
         animationsController.Tween_PlayByName("[EXIT CHAPTER]");
 
@@ -256,18 +256,28 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             }
         }
 
-        /// Show the right answer button if the
-        /// pressed button was false, or no button has been pressed
+
         if (!isRightAnswer)
         {
+            /// Show the "Wrong" Icon
+            animationsController.Tween_PlayByName("[ENTER QUESTION WRONG]");
+
+            /// Show the right answer button if the
+            /// pressed button was false, or no button has been pressed
             foreach (var a in _answerList)
             {
                 if (a.isTrue) a.animationsController.Tween_PlayByName("[BUTTON WAS TRUE]");
             }
         }
+        else
+        {
+            /// Show the "Right" Icon
+            animationsController.Tween_PlayByName("[ENTER QUESTION RIGHT]");
+        }
+
 
         /// Let's wait a little...
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
 
         /// Close all
         animationsController.Tween_PlayByName("[EXIT QUESTION]");
