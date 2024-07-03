@@ -12,6 +12,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     [SerializeField] private TMP_Text _chapterNameText;
 
     [Space]
+    [SerializeField] GameObject _chapter;
+    [SerializeField] GameObject _page;
     [SerializeField] CanvasGroup _pageCanvasGroup;
     [SerializeField] private ProgressBar _countdownProgressBar;
     [SerializeField] private TMP_Text _questionText;
@@ -46,11 +48,15 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         {
             case UiController.RUNNING_STATE.CHAPTER:
 
+                _chapter.SetActive(true);
+                _page.SetActive(false);
                 StartCoroutine(OpenChapter(callback));
                 break;
 
             case UiController.RUNNING_STATE.PAGE:
 
+                _chapter.SetActive(false);
+                _page.SetActive(true);
                 StartCoroutine(OpenPage());
                 break;
 
