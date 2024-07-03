@@ -224,6 +224,195 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &435002577268236749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3705320228742371786}
+  - component: {fileID: 754026906802572}
+  m_Layer: 5
+  m_Name: '[EXIT LOOSER]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3705320228742371786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435002577268236749}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3978064877616597524}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &754026906802572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435002577268236749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fdc95d9dfe9cf54398eecb6868b0335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _updateMode: 0
+  _foldoutControl: 1
+  _foldoutEvents: 1
+  _duration: 1.5
+  timeMode: 1
+  wrapMode: 0
+  arrivedAction: 3
+  sampleOnAwake: 1
+  _onForwardStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  _onForwardArrived:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4944218373716775097}
+        m_TargetAssemblyTypeName: LottiePlugin.UI.AnimatedImage, LottiePlugin.Runtime
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6698587670302132653}
+        m_TargetAssemblyTypeName: LottiePlugin.UI.AnimatedImage, LottiePlugin.Runtime
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onBackArrived:
+    m_PersistentCalls:
+      m_Calls: []
+  _animations:
+  - rid: 3940993876206551041
+  - rid: 3940993881516802049
+  - rid: 3940993881516802050
+  - rid: 3940993881516802055
+  references:
+    version: 2
+    RefIds:
+    - rid: 3940993876206551041
+      type: {class: TweenCanvasGroupAlpha, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 0
+          strength: 0
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: 1
+        to: 0
+        target: {fileID: 2253128241231644950}
+    - rid: 3940993881516802049
+      type: {class: TweenTransformScale, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0.65
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 6
+          strength: 0.5
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: {x: 1, y: 1, z: 1}
+        to: {x: 0.8, y: 0.8, z: 1}
+        target: {fileID: 6712031959265334096}
+        toggle:
+          x: 1
+          y: 1
+          z: 0
+    - rid: 3940993881516802050
+      type: {class: TweenCanvasGroupAlpha, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 0
+          strength: 0
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: 1
+        to: 0
+        target: {fileID: 3806963393856030224}
+    - rid: 3940993881516802055
+      type: {class: TweenTransformScale, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 6
+          strength: 0.5
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: {x: 1, y: -1, z: 1}
+        to: {x: 0.8, y: -0.8, z: 1}
+        target: {fileID: 626389520881556299}
+        toggle:
+          x: 1
+          y: 1
+          z: 0
 --- !u!1 &1288716760250197865
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +423,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3971602701173456254}
   - component: {fileID: 4793077478749301956}
-  - component: {fileID: 3296455700567278394}
   m_Layer: 5
   m_Name: Radial
   m_TagString: Untagged
@@ -274,18 +462,98 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288716760250197865}
   m_CullTransparentMesh: 1
---- !u!225 &3296455700567278394
-CanvasGroup:
+--- !u!1 &1786279696405305954
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1288716760250197865}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5427647589253231968}
+  - component: {fileID: 8281289164145062059}
+  - component: {fileID: 226029763025660782}
+  - component: {fileID: 4566354936019578956}
+  m_Layer: 5
+  m_Name: Lottie_TextBorder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5427647589253231968
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786279696405305954}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7002737311214219023}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 300, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8281289164145062059
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786279696405305954}
+  m_CullTransparentMesh: 1
+--- !u!114 &226029763025660782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786279696405305954}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 9e2cf56a977c0b440aab4c6eabd8f1a6, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!114 &4566354936019578956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786279696405305954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd340d501d30f364781da00b0938e032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animationJson: {fileID: 4900000, guid: ea1bf25dc7f219240b706a885d7d9afa, type: 3}
+  _rawImage: {fileID: 226029763025660782}
+  _animationSpeed: 1
+  _textureWidth: 384
+  _textureHeight: 128
+  _playOnAwake: 0
+  _loop: 1
 --- !u!1 &2146680688279383965
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,12 +900,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   algorithm: 0
   size: 4
-  spread: 0
+  spread: 0.4
   useGlobalAngle: 0
   offsetAngle: 90
   offsetDistance: 0
   offset: {x: 0, y: -0}
-  color: {r: 0, g: 0, b: 0, a: 0.6}
+  color: {r: 0, g: 0, b: 0, a: 0.4392157}
   inset: 1
   blendMode: 0
   useCasterAlpha: 1
@@ -1172,7 +1440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _updateMode: 0
   _foldoutControl: 1
-  _foldoutEvents: 0
+  _foldoutEvents: 1
   _duration: 0.3
   timeMode: 1
   wrapMode: 0
@@ -1183,13 +1451,26 @@ MonoBehaviour:
       m_Calls: []
   _onForwardArrived:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8805655138157143289}
+        m_TargetAssemblyTypeName: LottiePlugin.UI.AnimatedImage, LottiePlugin.Runtime
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onBackArrived:
     m_PersistentCalls:
       m_Calls: []
   _animations:
   - rid: 3326188199781335040
   - rid: 3326188199781335041
+  - rid: 3940993900395888640
   references:
     version: 2
     RefIds:
@@ -1214,7 +1495,7 @@ MonoBehaviour:
         _comment: 
         from: 1
         to: 0
-        target: {fileID: 5624768424430630542}
+        target: {fileID: 4504342600357986359}
     - rid: 3326188199781335041
       type: {class: TweenTransformScale, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
       data:
@@ -1237,6 +1518,32 @@ MonoBehaviour:
         from: {x: -1, y: -1, z: 1}
         to: {x: -0.8, y: -0.8, z: 1}
         target: {fileID: 1943248605870127355}
+        toggle:
+          x: 1
+          y: 1
+          z: 0
+    - rid: 3940993900395888640
+      type: {class: TweenTransformScale, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 1
+          strength: 0.5
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: {x: 1, y: 1, z: 1}
+        to: {x: 0.8, y: 0.8, z: 1}
+        target: {fileID: 2157738371307481201}
         toggle:
           x: 1
           y: 1
@@ -1735,6 +2042,7 @@ GameObject:
   - component: {fileID: 3659995252477557071}
   - component: {fileID: 1593217872891395036}
   - component: {fileID: 3928127625980531933}
+  - component: {fileID: 4504342600357986359}
   - component: {fileID: 8495387837634665217}
   m_Layer: 5
   m_Name: Panel_left
@@ -1821,6 +2129,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &4504342600357986359
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4595472494572560604}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!114 &8495387837634665217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1839,7 +2159,6 @@ MonoBehaviour:
   _audioSources:
   - {fileID: 6719986218300879098}
   _lottieAnimations: []
-  _standardAnimations: []
 --- !u!1 &4633247762223428962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1886,7 +2205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _updateMode: 0
   _foldoutControl: 1
-  _foldoutEvents: 0
+  _foldoutEvents: 1
   _duration: 0.6
   timeMode: 1
   wrapMode: 0
@@ -1894,7 +2213,19 @@ MonoBehaviour:
   sampleOnAwake: 1
   _onForwardStarted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8805655138157143289}
+        m_TargetAssemblyTypeName: LottiePlugin.UI.AnimatedImage, LottiePlugin.Runtime
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onForwardArrived:
     m_PersistentCalls:
       m_Calls: []
@@ -1904,6 +2235,7 @@ MonoBehaviour:
   _animations:
   - rid: 3326188199781335040
   - rid: 3326188199781335041
+  - rid: 3940993900395888642
   references:
     version: 2
     RefIds:
@@ -1916,8 +2248,8 @@ MonoBehaviour:
         _holdBeforeStart: 1
         _holdAfterEnd: 1
         _interpolator:
-          type: 0
-          strength: 0
+          type: 1
+          strength: 0.5
           customCurve:
             serializedVersion: 2
             m_Curve: []
@@ -1928,7 +2260,7 @@ MonoBehaviour:
         _comment: 
         from: 0
         to: 1
-        target: {fileID: 5624768424430630542}
+        target: {fileID: 4504342600357986359}
     - rid: 3326188199781335041
       type: {class: TweenTransformScale, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
       data:
@@ -1951,6 +2283,32 @@ MonoBehaviour:
         from: {x: -0.8, y: -0.8, z: 1}
         to: {x: -1, y: -1, z: 1}
         target: {fileID: 1943248605870127355}
+        toggle:
+          x: 1
+          y: 1
+          z: 0
+    - rid: 3940993900395888642
+      type: {class: TweenTransformScale, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 6
+          strength: 0.5
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: {x: 0.9, y: 0.9, z: 1}
+        to: {x: 1, y: 1, z: 1}
+        target: {fileID: 2157738371307481201}
         toggle:
           x: 1
           y: 1
@@ -2026,6 +2384,7 @@ GameObject:
   - component: {fileID: 3002676892678107369}
   - component: {fileID: 7109361007340370785}
   - component: {fileID: 4243449025584722090}
+  - component: {fileID: 213403235199909652}
   - component: {fileID: 6828064317055128283}
   m_Layer: 5
   m_Name: Panel_right
@@ -2112,6 +2471,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &213403235199909652
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4947658813516965925}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!114 &6828064317055128283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2130,7 +2501,6 @@ MonoBehaviour:
   _audioSources:
   - {fileID: 3622349486768935293}
   _lottieAnimations: []
-  _standardAnimations: []
 --- !u!1 &5181456392814802593
 GameObject:
   m_ObjectHideFlags: 0
@@ -2523,7 +2893,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 374, y: 97.36}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3044376119005474682
 CanvasRenderer:
@@ -2553,7 +2923,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Punteggio:'
+  m_text: Punteggio
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 915677e737c2b7e4aa171536eda02b87, type: 2}
   m_sharedMaterial: {fileID: -8138334550632811972, guid: 915677e737c2b7e4aa171536eda02b87, type: 2}
@@ -2795,6 +3165,7 @@ MonoBehaviour:
   - rid: 3940993876206551041
   - rid: 3940993881516802049
   - rid: 3940993881516802050
+  - rid: 3940993881516802056
   references:
     version: 2
     RefIds:
@@ -2868,6 +3239,33 @@ MonoBehaviour:
         from: 0
         to: 1
         target: {fileID: 2915391277616382400}
+    - rid: 3940993881516802056
+      type: {class: TweenTransformPosition, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 0.05
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 1
+          strength: 0.5
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: {x: 0, y: 0, z: 0}
+        to: {x: 0, y: 0, z: 0}
+        target: {fileID: 21425016371366905}
+        toggle:
+          x: 0
+          y: 1
+          z: 0
+        space: 1
 --- !u!1 &5763846927908933977
 GameObject:
   m_ObjectHideFlags: 0
@@ -3085,7 +3483,7 @@ MonoBehaviour:
   offsetAngle: 226.77148
   offsetDistance: 7
   offset: {x: -4.7943687, y: 5.100395}
-  color: {r: 0, g: 0, b: 0, a: 0.70980394}
+  color: {r: 0, g: 0, b: 0, a: 0.39215687}
   inset: 0
   blendMode: 0
   useCasterAlpha: 1
@@ -3111,7 +3509,6 @@ GameObject:
   - component: {fileID: 9185805342025852386}
   - component: {fileID: 8171791678401015061}
   - component: {fileID: 7101628731571391794}
-  - component: {fileID: 2383978597347900309}
   m_Layer: 5
   m_Name: Ui_Play_FINAL_SCORE
   m_TagString: Untagged
@@ -3133,8 +3530,9 @@ RectTransform:
   m_Children:
   - {fileID: 7101858376030258119}
   - {fileID: 3574829513813018033}
+  - {fileID: 2956541940202876601}
   - {fileID: 3512415934254909879}
-  - {fileID: 3225304973525536326}
+  - {fileID: 3705320228742371786}
   - {fileID: 324420773587581641}
   - {fileID: 601207389391939361}
   - {fileID: 811724162795966034}
@@ -3208,40 +3606,10 @@ MonoBehaviour:
   - {fileID: 8849740611979944315}
   - {fileID: 6082813723658825211}
   - {fileID: 4267672044964894107}
-  - {fileID: 6124357418599566010}
+  - {fileID: 793168553236792209}
+  - {fileID: 754026906802572}
   _audioSources: []
   _lottieAnimations: []
-  _standardAnimations: []
---- !u!114 &2383978597347900309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5808630986397544385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0acbb2d4f40a00345b4f345fb65336e4, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &5910197236593442606
 GameObject:
   m_ObjectHideFlags: 0
@@ -3693,7 +4061,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _updateMode: 0
   _foldoutControl: 1
-  _foldoutEvents: 0
+  _foldoutEvents: 1
   _duration: 0.6
   timeMode: 1
   wrapMode: 0
@@ -3701,7 +4069,19 @@ MonoBehaviour:
   sampleOnAwake: 1
   _onForwardStarted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4566354936019578956}
+        m_TargetAssemblyTypeName: LottiePlugin.UI.AnimatedImage, LottiePlugin.Runtime
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onForwardArrived:
     m_PersistentCalls:
       m_Calls: []
@@ -3711,6 +4091,7 @@ MonoBehaviour:
   _animations:
   - rid: 3326188199781335040
   - rid: 3326188199781335041
+  - rid: 3940993900395888643
   references:
     version: 2
     RefIds:
@@ -3723,8 +4104,8 @@ MonoBehaviour:
         _holdBeforeStart: 1
         _holdAfterEnd: 1
         _interpolator:
-          type: 0
-          strength: 0
+          type: 1
+          strength: 0.5
           customCurve:
             serializedVersion: 2
             m_Curve: []
@@ -3735,7 +4116,7 @@ MonoBehaviour:
         _comment: 
         from: 0
         to: 1
-        target: {fileID: 3296455700567278394}
+        target: {fileID: 213403235199909652}
     - rid: 3326188199781335041
       type: {class: TweenTransformScale, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
       data:
@@ -3758,6 +4139,32 @@ MonoBehaviour:
         from: {x: -0.8, y: -0.8, z: 1}
         to: {x: -1, y: -1, z: 1}
         target: {fileID: 3971602701173456254}
+        toggle:
+          x: 1
+          y: 1
+          z: 0
+    - rid: 3940993900395888643
+      type: {class: TweenTransformScale, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 6
+          strength: 0.5
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: {x: 0.9, y: 0.9, z: 1}
+        to: {x: 1, y: 1, z: 1}
+        target: {fileID: 7002737311214219023}
         toggle:
           x: 1
           y: 1
@@ -3797,7 +4204,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 374, y: 97.36}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &537675165530788031
 CanvasRenderer:
@@ -3827,7 +4234,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Risposte giuste:'
+  m_text: Risposte giuste
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 915677e737c2b7e4aa171536eda02b87, type: 2}
   m_sharedMaterial: {fileID: -8138334550632811972, guid: 915677e737c2b7e4aa171536eda02b87, type: 2}
@@ -4156,7 +4563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _updateMode: 0
   _foldoutControl: 1
-  _foldoutEvents: 0
+  _foldoutEvents: 1
   _duration: 0.3
   timeMode: 1
   wrapMode: 0
@@ -4167,13 +4574,26 @@ MonoBehaviour:
       m_Calls: []
   _onForwardArrived:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4566354936019578956}
+        m_TargetAssemblyTypeName: LottiePlugin.UI.AnimatedImage, LottiePlugin.Runtime
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onBackArrived:
     m_PersistentCalls:
       m_Calls: []
   _animations:
   - rid: 3326188199781335040
   - rid: 3326188199781335041
+  - rid: 3940993900395888644
   references:
     version: 2
     RefIds:
@@ -4198,7 +4618,7 @@ MonoBehaviour:
         _comment: 
         from: 1
         to: 0
-        target: {fileID: 3296455700567278394}
+        target: {fileID: 213403235199909652}
     - rid: 3326188199781335041
       type: {class: TweenTransformScale, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
       data:
@@ -4221,6 +4641,32 @@ MonoBehaviour:
         from: {x: -1, y: -1, z: 1}
         to: {x: -0.8, y: -0.8, z: 1}
         target: {fileID: 3971602701173456254}
+        toggle:
+          x: 1
+          y: 1
+          z: 0
+    - rid: 3940993900395888644
+      type: {class: TweenTransformScale, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 1
+          strength: 0.5
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: {x: 1, y: 1, z: 1}
+        to: {x: 0.8, y: 0.8, z: 1}
+        target: {fileID: 7002737311214219023}
         toggle:
           x: 1
           y: 1
@@ -4320,7 +4766,7 @@ MonoBehaviour:
   offsetAngle: 226.77148
   offsetDistance: 7
   offset: {x: -4.7943687, y: 5.100395}
-  color: {r: 0, g: 0, b: 0, a: 0.70980394}
+  color: {r: 0, g: 0, b: 0, a: 0.3882353}
   inset: 0
   blendMode: 0
   useCasterAlpha: 1
@@ -4422,6 +4868,98 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!1 &6978863023879162367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4163985964337789842}
+  - component: {fileID: 1247915800993054187}
+  - component: {fileID: 6479549213118977897}
+  - component: {fileID: 8805655138157143289}
+  m_Layer: 5
+  m_Name: Lottie_TextBorder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4163985964337789842
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6978863023879162367}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2157738371307481201}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 300, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1247915800993054187
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6978863023879162367}
+  m_CullTransparentMesh: 1
+--- !u!114 &6479549213118977897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6978863023879162367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 9e2cf56a977c0b440aab4c6eabd8f1a6, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!114 &8805655138157143289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6978863023879162367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd340d501d30f364781da00b0938e032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animationJson: {fileID: 4900000, guid: ea1bf25dc7f219240b706a885d7d9afa, type: 3}
+  _rawImage: {fileID: 6479549213118977897}
+  _animationSpeed: 1
+  _textureWidth: 384
+  _textureHeight: 128
+  _playOnAwake: 0
+  _loop: 1
 --- !u!1 &7289877876188929616
 GameObject:
   m_ObjectHideFlags: 0
@@ -4550,117 +5088,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &7302826357665699532
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3225304973525536326}
-  - component: {fileID: 6124357418599566010}
-  m_Layer: 5
-  m_Name: '[EXIT]'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3225304973525536326
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7302826357665699532}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3978064877616597524}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6124357418599566010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7302826357665699532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fdc95d9dfe9cf54398eecb6868b0335, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _updateMode: 0
-  _foldoutControl: 1
-  _foldoutEvents: 0
-  _duration: 0.1
-  timeMode: 1
-  wrapMode: 0
-  arrivedAction: 3
-  sampleOnAwake: 1
-  _onForwardStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  _onForwardArrived:
-    m_PersistentCalls:
-      m_Calls: []
-  _onBackArrived:
-    m_PersistentCalls:
-      m_Calls: []
-  _animations:
-  - rid: 3940993876206551041
-  - rid: 3940993876206551042
-  references:
-    version: 2
-    RefIds:
-    - rid: 3940993876206551041
-      type: {class: TweenCanvasGroupAlpha, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
-      data:
-        enabled: 1
-        _minNormalizedTime: 0
-        _maxNormalizedTime: 1
-        _holdBeforeStart: 1
-        _holdAfterEnd: 1
-        _interpolator:
-          type: 0
-          strength: 0
-          customCurve:
-            serializedVersion: 2
-            m_Curve: []
-            m_PreInfinity: 2
-            m_PostInfinity: 2
-            m_RotationOrder: 4
-        _foldout: 1
-        _comment: 
-        from: 0
-        to: 0
-        target: {fileID: 1679968403580566904}
-    - rid: 3940993876206551042
-      type: {class: TweenCanvasGroupAlpha, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
-      data:
-        enabled: 1
-        _minNormalizedTime: 0
-        _maxNormalizedTime: 1
-        _holdBeforeStart: 1
-        _holdAfterEnd: 1
-        _interpolator:
-          type: 0
-          strength: 0
-          customCurve:
-            serializedVersion: 2
-            m_Curve: []
-            m_PreInfinity: 2
-            m_PostInfinity: 2
-            m_RotationOrder: 4
-        _foldout: 1
-        _comment: 
-        from: 0
-        to: 0
-        target: {fileID: 2253128241231644950}
 --- !u!1 &7549370281644840916
 GameObject:
   m_ObjectHideFlags: 0
@@ -4921,12 +5348,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   algorithm: 0
   size: 4
-  spread: 0
+  spread: 0.4
   useGlobalAngle: 0
   offsetAngle: 90
   offsetDistance: 0
   offset: {x: 0, y: -0}
-  color: {r: 0, g: 0, b: 0, a: 0.6}
+  color: {r: 0, g: 0, b: 0, a: 0.4392157}
   inset: 1
   blendMode: 0
   useCasterAlpha: 1
@@ -5040,7 +5467,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1943248605870127355}
   - component: {fileID: 464316417805520824}
-  - component: {fileID: 5624768424430630542}
   m_Layer: 5
   m_Name: Radial
   m_TagString: Untagged
@@ -5080,18 +5506,208 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8141137334704488717}
   m_CullTransparentMesh: 1
---- !u!225 &5624768424430630542
-CanvasGroup:
+--- !u!1 &8273847468437504225
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8141137334704488717}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2956541940202876601}
+  - component: {fileID: 793168553236792209}
+  m_Layer: 5
+  m_Name: '[EXIT WINNER]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2956541940202876601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8273847468437504225}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3978064877616597524}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &793168553236792209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8273847468437504225}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fdc95d9dfe9cf54398eecb6868b0335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _updateMode: 0
+  _foldoutControl: 1
+  _foldoutEvents: 1
+  _duration: 1.5
+  timeMode: 1
+  wrapMode: 0
+  arrivedAction: 3
+  sampleOnAwake: 1
+  _onForwardStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  _onForwardArrived:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1881580807429786007}
+        m_TargetAssemblyTypeName: LottiePlugin.UI.AnimatedImage, LottiePlugin.Runtime
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5015938348041022285}
+        m_TargetAssemblyTypeName: LottiePlugin.UI.AnimatedImage, LottiePlugin.Runtime
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1106503749142298099}
+        m_TargetAssemblyTypeName: LottiePlugin.UI.AnimatedImage, LottiePlugin.Runtime
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onBackArrived:
+    m_PersistentCalls:
+      m_Calls: []
+  _animations:
+  - rid: 3940993876206551041
+  - rid: 3940993881516802049
+  - rid: 3940993881516802050
+  - rid: 3940993881516802054
+  references:
+    version: 2
+    RefIds:
+    - rid: 3940993876206551041
+      type: {class: TweenCanvasGroupAlpha, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 0
+          strength: 0
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: 1
+        to: 0
+        target: {fileID: 1679968403580566904}
+    - rid: 3940993881516802049
+      type: {class: TweenTransformScale, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 6
+          strength: 0.5
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: {x: 1, y: 1, z: 1}
+        to: {x: 0.8, y: 0.8, z: 1}
+        target: {fileID: 1124371020356069121}
+        toggle:
+          x: 1
+          y: 1
+          z: 0
+    - rid: 3940993881516802050
+      type: {class: TweenCanvasGroupAlpha, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 0
+          strength: 0
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: 1
+        to: 0
+        target: {fileID: 2915391277616382400}
+    - rid: 3940993881516802054
+      type: {class: TweenTransformPosition, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 1
+          strength: 0.5
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: {x: 0, y: 0, z: 0}
+        to: {x: 0, y: 200, z: 0}
+        target: {fileID: 21425016371366905}
+        toggle:
+          x: 0
+          y: 1
+          z: 0
+        space: 1
 --- !u!1 &8389675162059173302
 GameObject:
   m_ObjectHideFlags: 0
@@ -5424,6 +6040,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4279172291852911271}
+  - {fileID: 4163985964337789842}
   m_Father: {fileID: 418418212551483656}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5500,6 +6117,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1572403029802629705}
+  - {fileID: 5427647589253231968}
   m_Father: {fileID: 7922569543176793506}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

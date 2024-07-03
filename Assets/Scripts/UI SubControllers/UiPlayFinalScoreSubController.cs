@@ -19,6 +19,8 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
 
 
     private PlayManager _playManager;
+    private bool _isWinner;
+
 
 
     void Awake()
@@ -38,7 +40,8 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
 
     public override IEnumerator Exit()
     {
-        animationsController.Tween_PlayByName("[EXIT]");
+        if (_isWinner) animationsController.Tween_PlayByName("[EXIT WINNER]");
+        else animationsController.Tween_PlayByName("[EXIT LOOSER]");
 
         /// Don't forget to call the BASE at the end of Exit coroutine
         return base.Exit();
@@ -58,7 +61,7 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
         _progressAnswers.anim.Tween_PlayByName("[ENTER]");
         _progressAnswers.anim.Audio_PlayByName("[ENTER]");
         yield return new WaitForSeconds(0.3f);
-        
+
         _progressScore.MaxValue = 100;
         StartCoroutine(_progressScore.SetValue(myPlayerStats.score));
         _progressScore.anim.Tween_PlayByName("[ENTER]");
@@ -72,22 +75,22 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
         yield return new WaitForSeconds(0.3f);
 
 
-        bool isWinner = false;
+        _isWinner = false;
 
         if (GameManager.gameSessionData.numberOfPlayersRunning == 1)
         {
-            if (myPlayerStats.score > 50f) isWinner = true;
+            if (myPlayerStats.score > 50f) _isWinner = true;
         }
         else if (GameManager.gameSessionData.numberOfPlayersRunning == 2)
         {
             int otherPlayerId = GameManager.userData.playerId == 0 ? 1 : 0;
             GameManager.PlayerStats otherPlayerStats = new GameManager.PlayerStats(otherPlayerId);
 
-            if (myPlayerStats.score > otherPlayerStats.score) isWinner = true;
+            if (myPlayerStats.score > otherPlayerStats.score) _isWinner = true;
         }
 
 
-        if (isWinner) animationsController.Tween_PlayByName("[ENTER WINNER]");
+        if (_isWinner) animationsController.Tween_PlayByName("[ENTER WINNER]");
         else animationsController.Tween_PlayByName("[ENTER LOOSER]");
 
 

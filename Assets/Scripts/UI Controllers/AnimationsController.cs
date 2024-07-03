@@ -9,31 +9,7 @@ public class AnimationsController : MonoBehaviour
     [SerializeField] protected AudioSource[] _audioSources;
     [SerializeField] protected LottieAnimation[] _lottieAnimations;
 
-    [Header("STANDARD ANIMATIONS")]
-    [SerializeField] protected UiAnimatedElement[] _standardAnimations;
-
-
-    //#region COMMONS
-
-
-    /// <summary>
-    /// Close all animations and stop Lottie files at the end
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerator CloseAll()
-    {
-        /// Exit all animations
-        yield return Animations_ExitAll();
-
-        /// Stop all Lottie animations
-        Lottie_StopAll();
-
-        yield return null;
-    }
-
-
-    //#endregion
-
+   
 
 
     //#region TWEEN ANIMATIONS MANAGER
@@ -114,76 +90,6 @@ public class AnimationsController : MonoBehaviour
 
 
 
-
-
-    //#region STANDARD ANIMATIONS MANAGER
-
-    public void Animations_EnterAll()
-    {
-        foreach (var a in _standardAnimations) a.Enter();
-    }
-
-    public IEnumerator Animations_ExitAll()
-    {
-        foreach (var a in _standardAnimations) a.Exit();
-
-        // /// Trick, because immediately don't work
-        // while (!Animations_IsAnyPlaying("Exit"))
-        // {
-        // yield return null;
-        // }
-        yield return new WaitForSeconds(0.1f);
-
-        while (Animations_IsAnyPlaying("Exit"))
-        {
-            yield return null;
-        }
-
-    }
-
-    public void Animations_EnterByName(string animatorName)
-    {
-        // foreach (var anim in _standardAnimations) if (anim.animatorName == animatorName) anim.Enter();
-        var anim = Animations_GetByName(animatorName);
-        if (anim != null) anim.Enter();
-    }
-
-    public void Animations_ExitByName(string animatorName)
-    {
-        // foreach (var anim in _standardAnimations) if (anim.animatorName == animatorName) anim.Exit();
-        var anim = Animations_GetByName(animatorName);
-        if (anim != null) anim.Exit();
-    }
-
-    public void Animations_PlayByName(string animatorName, string animationName)
-    {
-        var anim = Animations_GetByName(animatorName);
-        if (anim != null) anim.PlayAnimation(animationName);
-    }
-
-    public UiAnimatedElement Animations_GetByName(string animatorName)
-    {
-        foreach (var anim in _standardAnimations)
-            if (anim.animatorName == animatorName) return anim;
-
-        Debug.LogError("The Animator '" + animatorName + "' on gameObject " + gameObject.name + " can't be found!");
-        return null;
-    }
-
-    public bool Animations_IsAnyPlaying(string animationName)
-    {
-        var firstMatch = Array.Find(_standardAnimations, elem => elem.IsPlaying(animationName) == true);
-        return firstMatch == null ? false : true;
-    }
-
-    public bool Animations_IsAnyPlaying(UiAnimatedElement[] animations, string animationName)
-    {
-        var firstMatch = Array.Find(animations, elem => elem.IsPlaying(animationName) == true);
-        return firstMatch == null ? true : false;
-    }
-
-
-    //#endregion
 
 
 
