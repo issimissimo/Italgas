@@ -605,7 +605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76707b2533347aa44b46578b0aeb005c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDevelopment: 1
+  isDevelopment: 0
   _singlePageMode: 0
   <FusionDelayTime>k__BackingField: 500
   _modalWindowManager: {fileID: 8164853624248774133}
@@ -1287,11 +1287,11 @@ RectTransform:
   - {fileID: 2093755206}
   m_Father: {fileID: 5363293954000541552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -30, y: -30}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -30, y: 0}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 1, y: 0}
 --- !u!114 &866458292
 MonoBehaviour:
   m_ObjectHideFlags: 0
