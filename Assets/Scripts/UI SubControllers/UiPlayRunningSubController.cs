@@ -142,6 +142,8 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         animationsController.Tween_PlayByName("[ENTER QUESTION]");
         animationsController.Tween_PlayByName("[ENTER QUESTION MARK]");
 
+        yield return new WaitForSeconds(1);
+
 
         /// Setup the Answer Buttons
         List<TweenPlayer> buttonsAnimation = new List<TweenPlayer>();
