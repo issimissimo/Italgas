@@ -2193,8 +2193,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: <wave a=0.2>Chapter Name</wave>
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7c2d059a8f93d214497e5ddf6aca6893, type: 2}
-  m_sharedMaterial: {fileID: -389120978648858369, guid: 7c2d059a8f93d214497e5ddf6aca6893, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 915677e737c2b7e4aa171536eda02b87, type: 2}
+  m_sharedMaterial: {fileID: -8138334550632811972, guid: 915677e737c2b7e4aa171536eda02b87, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2218,7 +2218,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 56.5
+  m_fontSize: 65
   m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2228,7 +2228,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 5
+  m_characterSpacing: 2
   m_wordSpacing: 0
   m_lineSpacing: 20
   m_lineSpacingMax: 0
@@ -2365,6 +2365,7 @@ MonoBehaviour:
   - rid: 3326187996979396610
   - rid: 3940993859738927114
   - rid: 3940993934471725058
+  - rid: 3940994109233430528
   references:
     version: 2
     RefIds:
@@ -2393,7 +2394,7 @@ MonoBehaviour:
     - rid: 3940993859738927114
       type: {class: TweenTransformScale, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
       data:
-        enabled: 1
+        enabled: 0
         _minNormalizedTime: 0
         _maxNormalizedTime: 1
         _holdBeforeStart: 1
@@ -2438,6 +2439,29 @@ MonoBehaviour:
         from: 1
         to: 1
         target: {fileID: 5212480988201482460}
+    - rid: 3940994109233430528
+      type: {class: TweenGameObjectActive, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 0
+          strength: 0
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: 0
+        to: 1
+        target: {fileID: 8865677036639716966}
+        criticalValue: 0.001
 --- !u!1 &4277572871279808163
 GameObject:
   m_ObjectHideFlags: 0
@@ -4690,6 +4714,7 @@ MonoBehaviour:
   _animations:
   - rid: 3326187996979396610
   - rid: 3940993859738927107
+  - rid: 3940994109233430529
   references:
     version: 2
     RefIds:
@@ -4741,6 +4766,29 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 0
+    - rid: 3940994109233430529
+      type: {class: TweenGameObjectActive, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 0
+          strength: 0
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: 1
+        to: 0
+        target: {fileID: 8865677036639716966}
+        criticalValue: 0.99
 --- !u!1 &8865677036639716966
 GameObject:
   m_ObjectHideFlags: 0
@@ -4752,6 +4800,8 @@ GameObject:
   - component: {fileID: 7958688804487349245}
   - component: {fileID: 5715351027444593216}
   - component: {fileID: 1476853240996997227}
+  - component: {fileID: 71302879763441198}
+  - component: {fileID: 3390671626974774269}
   m_Layer: 5
   m_Name: text_Question
   m_TagString: Untagged
@@ -4876,6 +4926,77 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &71302879763441198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8865677036639716966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ace8ced0e81c847968cdca0aeda757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typewriterStartsAutomatically: 1
+  animationLoop: 0
+  timeScale: 0
+  _text: 
+  useDynamicScaling: 1
+  referenceFontSize: 10
+  isResettingTimeOnNewText: 1
+  useDefaultDatabases: 1
+  databaseBehaviors: {fileID: 0}
+  databaseAppearances: {fileID: 0}
+  databaseActions: {fileID: 0}
+  defaultAppearancesTags:
+  - size
+  defaultDisappearancesTags:
+  - fade
+  defaultBehaviorsTags: []
+  defaultTagsMode: 0
+--- !u!114 &3390671626974774269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8865677036639716966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a6945b90dcd0c4b81619c0d8b5c283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useTypeWriter: 1
+  startTypewriterMode: 3
+  hideAppearancesOnSkip: 0
+  triggerEventsOnSkip: 0
+  resetTypingSpeedAtStartup: 1
+  disappearanceOrientation: 0
+  onTextShowed:
+    m_PersistentCalls:
+      m_Calls: []
+  onTypewriterStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onTextDisappeared:
+    m_PersistentCalls:
+      m_Calls: []
+  onCharacterVisible:
+    m_PersistentCalls:
+      m_Calls: []
+  onMessage:
+    m_PersistentCalls:
+      m_Calls: []
+  waitForNormalChars: 0.03
+  waitLong: 0.6
+  waitMiddle: 0.2
+  avoidMultiplePunctuactionWait: 0
+  waitForNewLines: 1
+  waitForLastCharacter: 1
+  useTypewriterWaitForDisappearances: 1
+  disappearanceWaitTime: 0.015
+  disappearanceSpeedMultiplier: 1
 --- !u!1 &9102084405233589144
 GameObject:
   m_ObjectHideFlags: 0

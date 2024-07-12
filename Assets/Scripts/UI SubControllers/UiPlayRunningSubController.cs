@@ -31,6 +31,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     {
         _playManager = FindObjectOfType<PlayManager>();
         _pageCanvasGroup.interactable = false;
+        _questionText.gameObject.SetActive(false); /// used for text animator
 
         _chapterNameText.text = "";
         _questionText.text = "";
