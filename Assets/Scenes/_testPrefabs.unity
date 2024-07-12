@@ -532,6 +532,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2708263558812482052, guid: 26f9d8cb4c72f2c48bc8a487d524764f, type: 3}
+      propertyPath: _foldoutEvents
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2822446757297670766, guid: 26f9d8cb4c72f2c48bc8a487d524764f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

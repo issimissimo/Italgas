@@ -156,7 +156,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             answerBttn.button.onClick.AddListener(() => AnswerButtonListener(answerBttn));
 
             StartCoroutine(answerBttn.animationsController.Tween_PlayByNameWithDelay("[ENTER]", 0.2f * (i + 1)));
-            StartCoroutine(answerBttn.animationsController.Audio_PlayByNameWithDelay("[ENTER]", 0.2f * (i + 1)));
+            // StartCoroutine(answerBttn.animationsController.Audio_PlayByNameWithDelay("[ENTER]", 0.2f * (i + 1)));
         }
 
         /// Let's wait for all animation ENTER
@@ -251,13 +251,13 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
                 if (isTrue)
                 {
                     _answerList[i].animationsController.Tween_PlayByName("[BUTTON TRUE]");
-                    _answerList[i].animationsController.Audio_PlayByName("[BUTTON TRUE]");
+                    // _answerList[i].animationsController.Audio_PlayByName("[BUTTON TRUE]");
                     isRightAnswer = true;
                 }
                 else
                 {
                     _answerList[i].animationsController.Tween_PlayByName("[BUTTON FALSE]");
-                    _answerList[i].animationsController.Audio_PlayByName("[BUTTON FALSE]");
+                    // _answerList[i].animationsController.Audio_PlayByName("[BUTTON FALSE]");
                 }
             }
         }
@@ -272,7 +272,11 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
             /// pressed button was false, or no button has been pressed
             foreach (var a in _answerList)
             {
-                if (a.isTrue) a.animationsController.Tween_PlayByName("[BUTTON WAS TRUE]");
+                if (a.isTrue)
+                {
+                    a.animationsController.Tween_PlayByName("[BUTTON WAS TRUE]");
+                    a.answerText.text = "<bounce a=0.2>" + a.answerText.text + "</bounce>";
+                }
             }
         }
         else
@@ -283,7 +287,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
 
         /// Let's wait a little...
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(6);
 
         /// Close all
         animationsController.Tween_PlayByName("[EXIT QUESTION]");
