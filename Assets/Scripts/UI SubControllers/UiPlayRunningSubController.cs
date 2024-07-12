@@ -139,6 +139,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         /// Setup the Question
         _questionText.text = GameManager.currentGamePage.question;
         animationsController.Tween_PlayByName("[ENTER QUESTION]");
+        animationsController.Tween_PlayByName("[ENTER QUESTION MARK]");
 
 
         /// Setup the Answer Buttons
@@ -191,8 +192,12 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// </summary>
     private IEnumerator OnAnswerClicked(Action callback)
     {
-        /// Stop Countdown
+        /// Close Countdown
         StopTimer();
+        animationsController.Tween_PlayByName("[EXIT COUNTDOWN]");
+
+        /// Close the Question icon
+        animationsController.Tween_PlayByName("[EXIT QUESTION MARK]");
 
         /// Show the clicked animation
         int buttonPressed = _playManager.myPlayer.NetworkedButtonPressedNumber;
@@ -228,19 +233,15 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// </summary>
     private IEnumerator ClosePage()
     {
-        /// Close the Countdown
-        /// or the Wait
         if (_isWaiting)
         {
             _isWaiting = false;
             animationsController.Tween_PlayByName("[EXIT WAIT]");
         }
-        else
-        {
-            animationsController.Tween_PlayByName("[EXIT COUNTDOWN]");
-        }
+        
+        yield return new WaitForSeconds(0.5f);
 
-        /// Show it the pressed button is true or not
+        /// Show if the pressed button is true or not
         int buttonPressed = _playManager.myPlayer.NetworkedButtonPressedNumber;
         bool isTrue = _playManager.myPlayer.NetworkedAnswerResult;
         bool isRightAnswer = false;
@@ -251,13 +252,11 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
                 if (isTrue)
                 {
                     _answerList[i].animationsController.Tween_PlayByName("[BUTTON TRUE]");
-                    // _answerList[i].animationsController.Audio_PlayByName("[BUTTON TRUE]");
                     isRightAnswer = true;
                 }
                 else
                 {
                     _answerList[i].animationsController.Tween_PlayByName("[BUTTON FALSE]");
-                    // _answerList[i].animationsController.Audio_PlayByName("[BUTTON FALSE]");
                 }
             }
         }
@@ -266,7 +265,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         if (!isRightAnswer)
         {
             /// Show the "Wrong" Icon
-            animationsController.Tween_PlayByName("[ENTER QUESTION WRONG]");
+            animationsController.Tween_PlayByName("[ENTER FINGER DOWN]");
 
             /// Show the right answer button if the
             /// pressed button was false, or no button has been pressed
@@ -282,7 +281,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
         else
         {
             /// Show the "Right" Icon
-            animationsController.Tween_PlayByName("[ENTER QUESTION RIGHT]");
+            animationsController.Tween_PlayByName("[ENTER FINGER UP]");
         }
 
 
@@ -291,6 +290,10 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
 
         /// Close all
         animationsController.Tween_PlayByName("[EXIT QUESTION]");
+
+        if (!isRightAnswer) animationsController.Tween_PlayByName("[EXIT FINGER DOWN]");
+        else animationsController.Tween_PlayByName("[EXIT FINGER UP]");
+
         foreach (var a in _answerList)
             a.animationsController.Tween_PlayByName("[EXIT]");
 
