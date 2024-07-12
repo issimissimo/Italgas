@@ -6,12 +6,6 @@ using System;
 public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
 {
     [Header("UI ELEMENTS")]
-    // [SerializeField] private TMP_Text _totalTime;
-    // [SerializeField] private TMP_Text _rightAnswers;
-    // [SerializeField] private TMP_Text _winnerOrLooser;
-    // [SerializeField] private TMP_Text _score;
-    // [SerializeField] private UiAnimatedElement _finalScoreAnimationCtrl;
-
     [Space(20)]
     [SerializeField] private CircleFillHandler _progressAnswers;
     [SerializeField] private CircleFillHandler _progressScore;
@@ -59,13 +53,13 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
         _progressAnswers.MaxValue = myPlayerStats.totalQuestions;
         StartCoroutine(_progressAnswers.SetValue(myPlayerStats.rightQuestions));
         _progressAnswers.anim.Tween_PlayByName("[ENTER]");
-        _progressAnswers.anim.Audio_PlayByName("[ENTER]");
+        // _progressAnswers.anim.Audio_PlayByName("[ENTER]");
         yield return new WaitForSeconds(0.3f);
 
         _progressScore.MaxValue = 100;
         StartCoroutine(_progressScore.SetValue(myPlayerStats.score));
         _progressScore.anim.Tween_PlayByName("[ENTER]");
-        _progressScore.anim.Audio_PlayByName("[ENTER]");
+        // _progressScore.anim.Audio_PlayByName("[ENTER]");
 
 
         /// Exit progress
@@ -93,8 +87,9 @@ public class UiPlayFinalScoreSubController : GamePanelSubControllerBase
         if (_isWinner) animationsController.Tween_PlayByName("[ENTER WINNER]");
         else animationsController.Tween_PlayByName("[ENTER LOOSER]");
 
+        /// Wait before to close and return to the Start page
+        yield return new WaitForSeconds(20f);
 
-        yield return new WaitForSeconds(10f);
         _playManager.Set_IDLE();
     }
 

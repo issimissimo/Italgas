@@ -112,7 +112,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <returns></returns>
     private IEnumerator OpenChapter(Action callback)
     {
-        _chapterNameText.text = GameManager.currentGameChapter.chapterName;
+        _chapterNameText.text = "<wave a=0.2>" + GameManager.currentGameChapter.chapterName + "</wave>";
         animationsController.Tween_PlayByName("[ENTER CHAPTER]");
 
         yield return new WaitForSeconds(5); /// è il tempo dell'animazione di AE
