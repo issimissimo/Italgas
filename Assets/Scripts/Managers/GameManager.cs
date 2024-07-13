@@ -5,6 +5,7 @@ using Michsky.UI.ModernUIPack;
 using System.Collections.Generic;
 using System.Collections;
 using System;
+using LottiePlugin.UI;
 
 
 public class GameManager : MonoBehaviour
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] SpinnerManager _spinnerManager;
     [SerializeField] UiSetupZone _setupZone;
     [SerializeField] UiConnectionZone _connectionZone;
+    [SerializeField] AnimatedImage _animatedWave;
 
 
     [Space]
@@ -274,6 +276,8 @@ public class GameManager : MonoBehaviour
             _backgroundImage.sprite = sp;
         }
         else Debug.LogError("Non è stato inserito lo sprite per lo sfondo!");
+
+        _animatedWave.Play();
     }
     public void SetupConnectionZone(int users, int players)
     {

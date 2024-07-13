@@ -729,7 +729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd340d501d30f364781da00b0938e032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationJson: {fileID: 4900000, guid: 3844a039cbc53664eadd1cc09f505761, type: 3}
+  _animationJson: {fileID: 4900000, guid: 0d9cba244890d9948b8c7f1e1cdbe6e9, type: 3}
   _rawImage: {fileID: 4667868902020232984}
   _animationSpeed: 1
   _textureWidth: 512

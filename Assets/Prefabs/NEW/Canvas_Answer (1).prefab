@@ -414,7 +414,7 @@ MonoBehaviour:
   _updateMode: 0
   _foldoutControl: 1
   _foldoutEvents: 0
-  _duration: 1
+  _duration: 2.5
   timeMode: 1
   wrapMode: 0
   arrivedAction: 3
