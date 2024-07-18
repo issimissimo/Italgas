@@ -9,7 +9,6 @@ public class UiIntroSubController : GamePanelSubControllerBase
         {
             GameManager.instance.isAppJustStarted = false;
             animationsController.Tween_PlayByName("[ENTER]", callback);
-            animationsController.Audio_PlayByName("[ENTER]");
         }
         else callback.Invoke();
     }

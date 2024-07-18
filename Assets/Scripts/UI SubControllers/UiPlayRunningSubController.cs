@@ -277,7 +277,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
                 if (a.isTrue)
                 {
                     a.animationsController.Tween_PlayByName("[BUTTON WAS TRUE]");
-                    a.answerText.text = "<bounce a=0.2>" + a.answerText.text + "</bounce>";
+                    a.answerText.text = "<color=green><bounce a=0.2>" + a.answerText.text + "</bounce>";
                 }
             }
         }
