@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using TMPro;
 using System.IO;
+using Michsky.UI.ModernUIPack;
 
 
 public class UiViewRunningSubController : GamePanelSubControllerBase
@@ -12,6 +13,11 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
     [Header("UI ELEMENTS")]
     [SerializeField] private TMP_Text _chapterNameText;
     [SerializeField] private RawImage _chapterBackgroundImage;
+    [SerializeField] private ProgressBar _countdownProgressBar;
+    [SerializeField] private TMP_Text _questionText;
+
+    [Space]
+    [SerializeField] private AnswerButtonComponent[] _answerList;
 
 
     private ViewManager _viewManager;
@@ -38,7 +44,7 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
 
             case UiController.RUNNING_STATE.PAGE:
 
-                OpenPage();
+                StartCoroutine(OpenPage());
                 break;
 
             case UiController.RUNNING_STATE.CLICKED:
@@ -97,14 +103,7 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
     /// <returns></returns>
     private void LoadChapterImage(Action callback)
     {
-        print(gameObject.name + " - OpenChapter - " + GameManager.currentGameChapter.chapterName);
-
-        // _chapterNameText.text = GameManager.currentGameChapter.chapterName;
-
-        // animationsController.Animations_EnterByName("ChapterName");
-        // yield return null;
-        // while (!animationsController.Animations_IsInEmptyState("ChapterName")) yield return null;
-        // print("...CLOSE CHAPTER");
+        // print(gameObject.name + " - OpenChapter - " + GameManager.currentGameChapter.chapterName);
 
         /// Load background Image
         if (!string.IsNullOrEmpty(GameManager.currentGameChapter.backgroundImageName))
@@ -116,25 +115,80 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
                 if (result.state != FileDownloader.STATE.SUCCESS)
                     GameManager.instance.ShowModal("ERRORE", "Non è stato possibile caricare il file a questo percorso: " + filePath, true, true);
                 else
-                    OpenChapter(callback);
+                    StartCoroutine(OpenChapter(callback));
             }));
         }
         else
-            OpenChapter(callback);
+            StartCoroutine(OpenChapter(callback));
     }
 
 
 
-    private void OpenChapter(Action callback)
+    private IEnumerator OpenChapter(Action callback)
     {
+        _chapterNameText.text = "<wave a=0.2>" + GameManager.currentGameChapter.chapterName + "</wave>";
+        animationsController.Tween_PlayByName("[ENTER CHAPTER]");
+
+        yield return new WaitForSeconds(5); /// è il tempo dell'animazione di AE
+
+        // animationsController.Tween_PlayByName("[EXIT CHAPTER]");
+
         callback.Invoke();
     }
 
 
 
-    private void OpenPage()
+    private IEnumerator OpenPage()
     {
         print(gameObject.name + " - OpenPage - ");
+
+        /// Setup the Question
+        _questionText.text = GameManager.currentGamePage.question;
+        animationsController.Tween_PlayByName("[ENTER QUESTION]");
+        animationsController.Tween_PlayByName("[ENTER QUESTION MARK]");
+
+        yield return new WaitForSeconds(1);
+
+        /// Setup the Answer Buttons
+        for (int i = 0; i < _answerList.Length; i++)
+        {
+            AnswerButtonComponent answerBttn = _answerList[i];
+            answerBttn.Setup(
+                text: GameManager.currentGamePage.answers[i].title,
+                result: GameManager.currentGamePage.answers[i].isTrue,
+                number: i
+            );
+
+            StartCoroutine(answerBttn.animationsController.Tween_PlayByNameWithDelay("[ENTER]", 0.2f * (i + 1)));
+        }
+
+        /// Let's wait for all animation ENTER
+        yield return new WaitForSeconds(1); /// e vaffanculo!
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        
+        /// Setup the Countdown
+        _countdownProgressBar.maxValue = GameManager.currentGameVersion.maxTimeInSeconds;
+        yield return null;
+        _countdownProgressBar.currentPercent = GameManager.currentGameVersion.maxTimeInSeconds - 0.1f; /// weird...
+        animationsController.Tween_PlayByName("[ENTER COUNTDOWN]");
+
+        /// Start the Countdown
+        StartTimer(
+            seconds: GameManager.currentGameVersion.maxTimeInSeconds,
+            callback: () =>
+                {
+                    // /// Time is finished!
+                    // print("TEMPO SCADUTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    // animationsController.Audio_PlayByName("[TIME FINISHED]");
+                    // _playManager.OnAnswerButtonPressed(buttonNumber: -1, isTrue: false, time: timer);
+                }
+            );
     }
 
 
