@@ -143,6 +143,7 @@ public class ViewManager : NetworkManagerBase
 
             case PlayerController.RUNNING_STATE.FINISHED:
 
+                print("FINISHED!!!!!!!!!!!!!!!!!!!");
                 var playerThatHasNotFinished = _runningPlayers.Find(x => x.NetworkedRunningState != PlayerController.RUNNING_STATE.FINISHED);
 
                 if (playerThatHasNotFinished != null)
