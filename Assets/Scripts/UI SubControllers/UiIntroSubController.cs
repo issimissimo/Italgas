@@ -7,7 +7,6 @@ public class UiIntroSubController : GamePanelSubControllerBase
     {
         if (!GameManager.instance.isDevelopment && GameManager.instance.isAppJustStarted)
         {
-            GameManager.instance.isAppJustStarted = false;
             animationsController.Tween_PlayByName("[ENTER]", callback);
         }
         else callback.Invoke();
@@ -16,6 +15,8 @@ public class UiIntroSubController : GamePanelSubControllerBase
 
     public override IEnumerator Exit()
     {
+        GameManager.instance.isAppJustStarted = false;
+        
         /// We don't need to call the Base,
         /// because we don't have exit time for this!
         /// The time for the animation is set in "ENTER" TweenAnimation

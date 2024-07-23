@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Michsky.UI.ModernUIPack;
 using System.Collections.Generic;
 using System.Collections;
 using System;
-using LottiePlugin.UI;
+
 
 
 public class GameManager : MonoBehaviour
@@ -25,14 +24,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] SpinnerManager _spinnerManager;
     [SerializeField] UiSetupZone _setupZone;
     [SerializeField] UiConnectionZone _connectionZone;
-    [SerializeField] AnimatedImage _animatedWave;
 
 
     [Space]
-    [Header("Background images")]
-    [SerializeField] Image _backgroundImage;
-    [SerializeField] Sprite _defaultBackgroundSprite;
-    [SerializeField] Background[] _backgrounds;
+    [SerializeField] Background[] _backgroundPanels;
 
 
     [Space]
@@ -145,8 +140,8 @@ public class GameManager : MonoBehaviour
     private class Background
     {
         public Globals.GAMEMODE gameMode;
-        public Data.VERSION_NAME gameVersion;
-        public Sprite sprite;
+        // public Data.VERSION_NAME gameVersion;
+        public GameObject panel;
     }
 
     [Serializable]
@@ -174,12 +169,15 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this);
         }
+
+        foreach (var bck in _backgroundPanels)
+            bck.panel.SetActive(false);
     }
 
-    void Start()
-    {
-        _backgroundImage.enabled = false;
-    }
+    // void Start()
+    // {
+    //     _backgroundImage.enabled = false;
+    // }
 
     private void InitializeSetupZone()
     {
@@ -256,28 +254,12 @@ public class GameManager : MonoBehaviour
                 _spinnerManager.CloseSpinner();
         }
     }
-    public void SetBackground(bool useDefault = false)
+    public void SetBackground()
     {
         CloseSpinner();
 
-        Sprite sp = null;
-        if (useDefault) sp = _defaultBackgroundSprite;
-        else
-        {
-            foreach (var bck in _backgrounds)
-            {
-                if (bck.gameMode == userData.gameMode && bck.gameVersion == gameData.currentVersion)
-                    sp = bck.sprite;
-            }
-        }
-        if (sp != null)
-        {
-            _backgroundImage.enabled = true;
-            _backgroundImage.sprite = sp;
-        }
-        else Debug.LogError("Non è stato inserito lo sprite per lo sfondo!");
-
-        _animatedWave.Play();
+        foreach (var bck in _backgroundPanels)
+            bck.panel.SetActive(bck.gameMode == userData.gameMode ? true : false);
     }
     public void SetupConnectionZone(int users, int players)
     {

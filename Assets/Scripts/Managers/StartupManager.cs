@@ -45,10 +45,8 @@ public class StartupManager : MonoBehaviour
                                             GameManager.instance.StartGame();
                                         }
                                     }
-                                    else GameManager.instance.SetBackground(useDefault: true);
                                 });
             }
-            else GameManager.instance.SetBackground(useDefault: true);
         });
     }
 

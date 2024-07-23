@@ -157,7 +157,6 @@ MonoBehaviour:
   _uiControllers:
   - {fileID: 2142690052892613220}
   - {fileID: 1576954744}
-  players: []
 --- !u!4 &76989660
 Transform:
   m_ObjectHideFlags: 0
@@ -412,7 +411,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1342881872622638586, guid: 788a49ea94b4fa04aaf012e6bbe46e09, type: 3}
       propertyPath: m_Name
-      value: Ui_View_STAND_BY p2
+      value: Ui_View_READY_TO_START p2
       objectReference: {fileID: 0}
     - target: {fileID: 2972078782748640574, guid: 788a49ea94b4fa04aaf012e6bbe46e09, type: 3}
       propertyPath: m_Pivot.x
@@ -597,7 +596,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
