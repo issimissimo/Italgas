@@ -35,17 +35,6 @@ public class UiController : MonoBehaviour
     }
 
 
-    private void Start()
-    {
-        // Set_STATE_WAITING_FOR_PLAYERS();
-        // Set_STATE_INTRO();
-
-        // Set_STATE_INTRO(() => { });
-
-        // Debug.Log("Sibling Index : " + transform.GetSiblingIndex());
-
-    }
-
 
     private IEnumerator Set(STATE? newState = null, RUNNING_STATE? newRunningState = null, bool isNewPanel = true, Action callback = null)
     {
@@ -67,9 +56,11 @@ public class UiController : MonoBehaviour
             if (p.STATE == state)
             {
                 p.GetComponent<CanvasController>().SetOn();
+                // p.gameObject.SetActive(true);
                 _activePanel = p;
             }
             else p.GetComponent<CanvasController>().SetOff();
+            // else p.gameObject.SetActive(false);
         }
 
         _activePanel.Enter(state, newRunningState, callback);

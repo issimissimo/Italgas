@@ -23,12 +23,12 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
 
     private ViewManager _viewManager;
     private bool _isWaiting;
+    private bool _closeChapter;
 
 
     void Awake()
     {
         _viewManager = FindObjectOfType<ViewManager>();
-
     }
 
 
@@ -43,7 +43,8 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
             case UiController.RUNNING_STATE.CHAPTER:
 
                 _page.SetActive(false);
-                LoadChapterImage(callback);
+                // LoadChapterImage(callback);
+                StartCoroutine(OpenChapter(callback));
                 break;
 
             case UiController.RUNNING_STATE.PAGE:
@@ -102,41 +103,60 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
 
 
 
+
+    // private void LoadChapterImage(Action callback)
+    // {
+    //     /// Load background Image
+    //     if (!string.IsNullOrEmpty(GameManager.currentGameChapter.backgroundImageName))
+    //     {
+    //         string filePath = Path.Combine(Application.persistentDataPath, GameManager.currentGameChapter.backgroundImageName);
+    //         FileDownloader fileDownloader = new FileDownloader();
+    //         StartCoroutine(fileDownloader.LoadFileFromUrlToRawImage(filePath, _chapterBackgroundImage, (result) =>
+    //         {
+    //             if (result.state != FileDownloader.STATE.SUCCESS)
+    //                 GameManager.instance.ShowModal("ERRORE", "Non è stato possibile caricare il file a questo percorso: " + filePath, true, true);
+    //             else
+    //                 StartCoroutine(OpenChapter(callback));
+    //         }));
+    //     }
+    //     else
+    //         StartCoroutine(OpenChapter(callback));
+    // }
+
+
     /// <summary>
     /// OPEN THE CHAPTER
     /// </summary>
     /// <returns></returns>
-    private void LoadChapterImage(Action callback)
+    private IEnumerator OpenChapter(Action callback)
     {
-        // print(gameObject.name + " - OpenChapter - " + GameManager.currentGameChapter.chapterName);
+        /// Fade-in the virtual background
+        if (GameManager.currentGameChapterIndex == 0)
+            animationsController.Tween_PlayByName("[ENTER]");
 
-        /// Load background Image
-        if (!string.IsNullOrEmpty(GameManager.currentGameChapter.backgroundImageName))
-        {
-            string filePath = Path.Combine(Application.persistentDataPath, GameManager.currentGameChapter.backgroundImageName);
-            FileDownloader fileDownloader = new FileDownloader();
-            StartCoroutine(fileDownloader.LoadFileFromUrlToRawImage(filePath, _chapterBackgroundImage, (result) =>
+        // /// Or EXIT the previous chapter
+        // else
+        //     animationsController.Tween_PlayByName("[EXIT CHAPTER]");
+
+        // float secondsToWait = GameManager.currentGameChapterIndex == 0 ? 0f : 1f;
+        // yield return new WaitForSeconds(secondsToWait);
+
+
+        /// Load the chapter image
+        string filePath = Path.Combine(Application.persistentDataPath, GameManager.currentGameChapter.backgroundImageName);
+        FileDownloader fileDownloader = new FileDownloader();
+        yield return StartCoroutine(fileDownloader.LoadFileFromUrlToRawImage(filePath, _chapterBackgroundImage, (result) =>
             {
                 if (result.state != FileDownloader.STATE.SUCCESS)
                     GameManager.instance.ShowModal("ERRORE", "Non è stato possibile caricare il file a questo percorso: " + filePath, true, true);
-                else
-                    StartCoroutine(OpenChapter(callback));
             }));
-        }
-        else
-            StartCoroutine(OpenChapter(callback));
-    }
 
 
-
-    private IEnumerator OpenChapter(Action callback)
-    {
         _chapterNameText.text = "<wave a=0.1>" + GameManager.currentGameChapter.chapterName + "</wave>";
+
         animationsController.Tween_PlayByName("[ENTER CHAPTER]");
 
         yield return new WaitForSeconds(5); /// è il tempo dell'animazione di AE
-
-        // animationsController.Tween_PlayByName("[EXIT CHAPTER]");
 
         callback.Invoke();
     }
@@ -145,7 +165,8 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
 
     private IEnumerator OpenPage()
     {
-        print(gameObject.name + " - OpenPage - ");
+        print("SIAMO A PAGINA: " + GameManager.currentGamePageIndex + " DI: " + GameManager.currentGameChapter.pages.Count);
+        _closeChapter = GameManager.currentGamePageIndex == GameManager.currentGameChapter.pages.Count - 1 ? true : false;
 
         /// Setup the Question
         _questionText.text = GameManager.currentGamePage.question;
@@ -252,14 +273,8 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
 
         yield return new WaitForSeconds(0.5f);
 
-        /// Show if the pressed button is true or not
-        /// 
-        /// 
-        /// 
-        /// 
-        /// 
-        /// 
 
+        /// Show if the pressed button is true or not!!!
         int buttonPressed = 999;
         foreach (var p in _viewManager.players)
         {
@@ -267,20 +282,12 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
                 buttonPressed = p.NetworkedButtonPressedNumber;
         }
 
-
-
-
-
-
-
-        // int buttonPressed = _playManager.myPlayer.NetworkedButtonPressedNumber;
-        // bool isTrue = _playManager.myPlayer.NetworkedAnswerResult;
         bool isRightAnswer = false;
         for (int i = 0; i < _answerList.Length; i++)
         {
             if (i == buttonPressed)
             {
-                if ( _answerList[i].isTrue)
+                if (_answerList[i].isTrue)
                 {
                     _answerList[i].animationsController.Tween_PlayByName("[BUTTON TRUE]");
                     isRightAnswer = true;
@@ -320,6 +327,8 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
         yield return new WaitForSeconds(6);
 
         /// Close all
+        if (_closeChapter) animationsController.Tween_PlayByName("[EXIT CHAPTER]");
+
         animationsController.Tween_PlayByName("[EXIT QUESTION]");
 
         if (!isRightAnswer) animationsController.Tween_PlayByName("[EXIT FINGER DOWN]");
