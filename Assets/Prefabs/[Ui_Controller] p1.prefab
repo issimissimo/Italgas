@@ -1413,10 +1413,10 @@ MonoBehaviour:
   _animations:
   - rid: 3940994355758891008
   - rid: 3940994355758891009
-  - rid: 3940994355758891010
   - rid: 3940994355758891011
   - rid: 3940994355758891012
   - rid: 3940994355758891013
+  - rid: 3940994378509320194
   references:
     version: 2
     RefIds:
@@ -1468,28 +1468,6 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 0
-    - rid: 3940994355758891010
-      type: {class: TweenCanvasGroupAlpha, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
-      data:
-        enabled: 0
-        _minNormalizedTime: 0
-        _maxNormalizedTime: 1
-        _holdBeforeStart: 1
-        _holdAfterEnd: 1
-        _interpolator:
-          type: 0
-          strength: 0
-          customCurve:
-            serializedVersion: 2
-            m_Curve: []
-            m_PreInfinity: 2
-            m_PostInfinity: 2
-            m_RotationOrder: 4
-        _foldout: 1
-        _comment: 
-        from: 1
-        to: 1
-        target: {fileID: 0}
     - rid: 3940994355758891011
       type: {class: TweenGameObjectActive, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
       data:
@@ -1557,6 +1535,28 @@ MonoBehaviour:
         from: 0
         to: 0
         target: {fileID: 4633725010168180979}
+    - rid: 3940994378509320194
+      type: {class: TweenCanvasGroupAlpha, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 0.01
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 0
+          strength: 0
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: 0
+        to: 0
+        target: {fileID: 4459885325799875850}
 --- !u!1 &675100078929389814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,7 +1663,7 @@ MonoBehaviour:
   _updateMode: 0
   _foldoutControl: 1
   _foldoutEvents: 0
-  _duration: 0.1
+  _duration: 0.0001
   timeMode: 1
   wrapMode: 0
   arrivedAction: 3
@@ -1680,6 +1680,8 @@ MonoBehaviour:
   _animations:
   - rid: 3940993876206551041
   - rid: 3940993876206551042
+  - rid: 3940994378509320196
+  - rid: 3940994378509320197
   references:
     version: 2
     RefIds:
@@ -1727,6 +1729,50 @@ MonoBehaviour:
         from: 0
         to: 0
         target: {fileID: 4727460863183652532}
+    - rid: 3940994378509320196
+      type: {class: TweenCanvasGroupAlpha, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 0
+          strength: 0
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: 0
+        to: 0
+        target: {fileID: 6943788749132369813}
+    - rid: 3940994378509320197
+      type: {class: TweenCanvasGroupAlpha, ns: UnityExtensions.Tween, asm: Assembly-CSharp-firstpass}
+      data:
+        enabled: 1
+        _minNormalizedTime: 0
+        _maxNormalizedTime: 1
+        _holdBeforeStart: 1
+        _holdAfterEnd: 1
+        _interpolator:
+          type: 0
+          strength: 0
+          customCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _foldout: 1
+        _comment: 
+        from: 0
+        to: 0
+        target: {fileID: 6641052111479943350}
 --- !u!1 &856532538901551809
 GameObject:
   m_ObjectHideFlags: 0
@@ -4125,7 +4171,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 30
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0

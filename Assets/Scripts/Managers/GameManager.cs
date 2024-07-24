@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [Header("SETTINGS")]
     public bool isDevelopment;
     [SerializeField] bool _singlePageMode;
+    [SerializeField] bool _showBetaImage;
     [field: SerializeField] public int FusionDelayTime { get; private set; } = 500;
 
 
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] SpinnerManager _spinnerManager;
     [SerializeField] UiSetupZone _setupZone;
     [SerializeField] UiConnectionZone _connectionZone;
+    [SerializeField] GameObject _betaImage;
 
 
     [Space]
@@ -174,17 +176,15 @@ public class GameManager : MonoBehaviour
             bck.panel.SetActive(false);
     }
 
-    // void Start()
-    // {
-    //     _backgroundImage.enabled = false;
-    // }
+    void Start()
+    {
+        _betaImage.SetActive(_showBetaImage);
+    }
 
     private void InitializeSetupZone()
     {
         _setupZone.SetupUi();
     }
-
-
 
 
 
