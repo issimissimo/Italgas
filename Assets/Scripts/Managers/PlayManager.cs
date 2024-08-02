@@ -76,6 +76,13 @@ public class PlayManager : NetworkManagerBase
 
             case PlayerController.STATE.RUNNING:
 
+                print("------------------------------------");
+                print("---------- INIZIA IL GIOCO -----------");
+                print("------------------------------------");
+
+                GameManager.currentGameChapterIndex = 0;
+                GameManager.currentGamePageIndex = -1;
+
                 /// I'm starting the Game for my own Player
                 if (playerId == myPlayer.NetworkedId)
                 {
@@ -92,13 +99,13 @@ public class PlayManager : NetworkManagerBase
                     if (otherPlayer.NetworkedSessionRequestedPlayers == 1)
                     {
                         /// Other player want to play alone
-                        print("L'ALTRO PLAYER VUOLE GIOCARE DA SOLO");
+                        // print("L'ALTRO PLAYER VUOLE GIOCARE DA SOLO");
                         _uiControllers[0].Set_STATE_WAITING_FOR_PLAYERS();
                     }
                     else if (otherPlayer.NetworkedSessionRequestedPlayers == 2)
                     {
                         /// Other player want to play with me
-                        print("SICCOME L'ALTRO PLAYER E' RUNNING, METTO IN RUNNING ANCHE IL MIO, CON id " + myPlayer.NetworkedId);
+                        // print("SICCOME L'ALTRO PLAYER E' RUNNING, METTO IN RUNNING ANCHE IL MIO, CON id " + myPlayer.NetworkedId);
                         myPlayer.Set_STATE_RUNNING(runningPlayersNumber: 2);
                     }
                 }
@@ -128,8 +135,8 @@ public class PlayManager : NetworkManagerBase
                 /// The game is finished
                 if (playerId == myPlayer.NetworkedId)
                 {
-                    GameManager.currentGameChapterIndex = 0;
-                    GameManager.currentGamePageIndex = -1;
+                    // GameManager.currentGameChapterIndex = 0;
+                    // GameManager.currentGamePageIndex = -1;
                     _uiControllers[0].Set_STATE_FINAL_SCORE();
                 }
                 break;

@@ -22,7 +22,7 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
         _currentRunningState = runningState;
 
         string stateName = _currentRunningState != null ? _currentRunningState.ToString() : _currentState.ToString();
-        Debug.Log("<color=blue>>>>>>>>>>>>>> </color> entro in: " + stateName.ToString() + " -- ID:" + siblingIndex);
+        // Debug.Log("<color=blue>>>>>>>>>>>>>> </color> entro in: " + stateName.ToString() + " -- ID:" + siblingIndex);
 
         /// To be implemented
     }
@@ -33,7 +33,7 @@ public abstract class GamePanelSubControllerBase : MonoBehaviour
 
         string stateName = _currentRunningState != null ? _currentRunningState.ToString() : _currentState.ToString();
         float exitTime = GameManager.instance.GetStateExitTime(stateName);
-        Debug.Log("<color=blue><<<<<<<<<<<<< </color> esco da: " + stateName.ToString() + " ---- exit time: " + exitTime + " -- ID:" + siblingIndex);
+        // Debug.Log("<color=blue><<<<<<<<<<<<< </color> esco da: " + stateName.ToString() + " ---- exit time: " + exitTime + " -- ID:" + siblingIndex);
 
         yield return new WaitForSeconds(exitTime);
     }

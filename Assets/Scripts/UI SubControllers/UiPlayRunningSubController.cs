@@ -113,6 +113,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <returns></returns>
     private IEnumerator OpenChapter(Action callback)
     {
+        print("APRO CAPITOLO: " + GameManager.currentGameChapterIndex);
         _chapterNameText.text = "<wave a=0.2>" + GameManager.currentGameChapter.chapterName + "</wave>";
         animationsController.Tween_PlayByName("[ENTER CHAPTER]");
 
@@ -130,6 +131,7 @@ public class UiPlayRunningSubController : GamePanelSubControllerBase
     /// <returns></returns>
     private IEnumerator OpenPage()
     {
+        print("APRO PAGINA: " + GameManager.currentGamePageIndex + " DI: " + GameManager.currentGameChapter.pages.Count + " TEMPO: " + GameManager.currentGameVersion.maxTimeInSeconds);
         /// Check if page data are valid
         if (string.IsNullOrEmpty(GameManager.currentGamePage.question) || GameManager.currentGamePage.answers.Count < 4)
         {

@@ -182,7 +182,7 @@ public class StartupManager : MonoBehaviour
                         GameManager.gameData.versions.Add(version);
                     }
 
-                    GameManager.instance.ShowModal("ATTENZIONE", "Non sonoi stati trovati i dati di gioco.\nProcedi a crearli nelle impostazioni.",
+                    GameManager.instance.ShowModal("ATTENZIONE", "Non sono stati trovati i dati di gioco.\nProcedi a crearli nelle impostazioni.",
                     showConfigureButton: true, showRestartButton: false);
                     callback(false);
                     break;

@@ -38,8 +38,8 @@ public class UiController : MonoBehaviour
 
     private IEnumerator Set(STATE? newState = null, RUNNING_STATE? newRunningState = null, bool isNewPanel = true, Action callback = null)
     {
-        if (newState != null) Debug.Log("<color=cyan>UiController - Set: </color>" + newState.ToString());
-        if (newRunningState != null) Debug.Log("<color=cyan>UiController - Set: </color>" + newRunningState.ToString());
+        // if (newState != null) Debug.Log("<color=cyan>UiController - Set: </color>" + newState.ToString());
+        // if (newRunningState != null) Debug.Log("<color=cyan>UiController - Set: </color>" + newRunningState.ToString());
 
         /// This property is just used by the Managers to check the state of the UiController
         if (newState != null) state = newState.Value;

@@ -59,6 +59,7 @@ public abstract class NetworkManagerBase : MonoBehaviour
 
     private async void OnPlayerLeft()
     {
+        print("UN PLAYER SI E' SCOLLEGATO...");
         await Task.Delay(GameManager.instance.FusionDelayTime);
         OnRealPlayersCountChanged();
     }

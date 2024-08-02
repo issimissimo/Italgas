@@ -47,13 +47,13 @@ public class UiSetupZone : MonoBehaviour
         if (_openSetupCoroutine != null) StopCoroutine(_openSetupCoroutine);
     }
 
-    /// <summary>
-    /// BUTTON
-    /// </summary>
-    public void OpenSetup()
-    {
-        StartCoroutine(OpenSetupCoroutine());
-    }
+    // /// <summary>
+    // /// BUTTON
+    // /// </summary>
+    // public void OpenSetup()
+    // {
+    //     StartCoroutine(OpenSetupCoroutine());
+    // }
 
     private IEnumerator OpenSetupCoroutine()
     {

@@ -139,6 +139,7 @@ public class PlayerController : NetworkBehaviour
 
     public void Set_STATE_RUNNING(int? runningPlayersNumber = null)
     {
+        if (NetworkedState == STATE.RUNNING) return;
         NetworkedSessionRequestedPlayers = runningPlayersNumber != null ? runningPlayersNumber.Value : GameManager.gameSessionData.numberOfPlayersRunning;
         NetworkedState = STATE.RUNNING;
     }

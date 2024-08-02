@@ -43,7 +43,6 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
             case UiController.RUNNING_STATE.CHAPTER:
 
                 _page.SetActive(false);
-                // LoadChapterImage(callback);
                 StartCoroutine(OpenChapter(callback));
                 break;
 
@@ -102,44 +101,16 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
 
 
 
-
-
-    // private void LoadChapterImage(Action callback)
-    // {
-    //     /// Load background Image
-    //     if (!string.IsNullOrEmpty(GameManager.currentGameChapter.backgroundImageName))
-    //     {
-    //         string filePath = Path.Combine(Application.persistentDataPath, GameManager.currentGameChapter.backgroundImageName);
-    //         FileDownloader fileDownloader = new FileDownloader();
-    //         StartCoroutine(fileDownloader.LoadFileFromUrlToRawImage(filePath, _chapterBackgroundImage, (result) =>
-    //         {
-    //             if (result.state != FileDownloader.STATE.SUCCESS)
-    //                 GameManager.instance.ShowModal("ERRORE", "Non è stato possibile caricare il file a questo percorso: " + filePath, true, true);
-    //             else
-    //                 StartCoroutine(OpenChapter(callback));
-    //         }));
-    //     }
-    //     else
-    //         StartCoroutine(OpenChapter(callback));
-    // }
-
-
     /// <summary>
     /// OPEN THE CHAPTER
     /// </summary>
     /// <returns></returns>
     private IEnumerator OpenChapter(Action callback)
     {
+        print("APRO CAPITOLO: " + GameManager.currentGameChapterIndex);
         /// Fade-in the virtual background
         if (GameManager.currentGameChapterIndex == 0)
             animationsController.Tween_PlayByName("[ENTER]");
-
-        // /// Or EXIT the previous chapter
-        // else
-        //     animationsController.Tween_PlayByName("[EXIT CHAPTER]");
-
-        // float secondsToWait = GameManager.currentGameChapterIndex == 0 ? 0f : 1f;
-        // yield return new WaitForSeconds(secondsToWait);
 
 
         /// Load the chapter image
@@ -165,7 +136,7 @@ public class UiViewRunningSubController : GamePanelSubControllerBase
 
     private IEnumerator OpenPage()
     {
-        print("SIAMO A PAGINA: " + GameManager.currentGamePageIndex + " DI: " + GameManager.currentGameChapter.pages.Count);
+        print("APRO PAGINA: " + GameManager.currentGamePageIndex + " DI: " + GameManager.currentGameChapter.pages.Count + " TEMPO: " + GameManager.currentGameVersion.maxTimeInSeconds);
         _closeChapter = GameManager.currentGamePageIndex == GameManager.currentGameChapter.pages.Count - 1 ? true : false;
 
         /// Setup the Question

@@ -4,6 +4,7 @@ using Michsky.UI.ModernUIPack;
 using System.Collections.Generic;
 using System.Collections;
 using System;
+using TMPro;
 
 
 
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] UiSetupZone _setupZone;
     [SerializeField] UiConnectionZone _connectionZone;
     [SerializeField] GameObject _betaImage;
+    [SerializeField] TMP_Text _gameVersion;
 
 
     [Space]
@@ -142,7 +144,6 @@ public class GameManager : MonoBehaviour
     private class Background
     {
         public Globals.GAMEMODE gameMode;
-        // public Data.VERSION_NAME gameVersion;
         public GameObject panel;
     }
 
@@ -218,6 +219,7 @@ public class GameManager : MonoBehaviour
     }
     public void Restart()
     {
+        print("****************************** RESTART *****************************");
         SetGameScene(Globals.GAMESCENE.STARTUP);
     }
     public void Quit()
@@ -260,6 +262,8 @@ public class GameManager : MonoBehaviour
 
         foreach (var bck in _backgroundPanels)
             bck.panel.SetActive(bck.gameMode == userData.gameMode ? true : false);
+
+        _gameVersion.text = gameData.currentVersion.ToString().Substring(0, 1);
     }
     public void SetupConnectionZone(int users, int players)
     {

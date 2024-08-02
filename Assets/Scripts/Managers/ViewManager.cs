@@ -34,7 +34,7 @@ public class ViewManager : NetworkManagerBase
     /// <param name="state"></param>
     public override void OnPlayerStateChanged(int playerId, PlayerController.STATE state)
     {
-        Debug.Log("<color=yellow>PlayerManager - StateChanged: </color>" + state.ToString() + " - Player: " + playerId);
+        Debug.Log("<color=yellow>Player with ID: " + playerId + " changed its STATE to: " + state.ToString() + "</color>");
 
         /// Refresh the list of real Players (this is necessary if the Viewer start up after the Player)
         /// AND set (maybe) the UI to READY 
@@ -42,21 +42,19 @@ public class ViewManager : NetworkManagerBase
 
         switch (state)
         {
-            // case PlayerController.STATE.READY:
-
-            //     if (_uiControllers[playerId].state != UiController.STATE.READY_TO_START)
-            //         _uiControllers[playerId].Set_STATE_READY_TO_START();
-            //     break;
-
             case PlayerController.STATE.RUNNING:
 
-                _runningPlayers = new List<PlayerController>(players.FindAll(x => x.NetworkedState == PlayerController.STATE.RUNNING));
+                print("------------------------------------");
+                print("---------- INIZIA IL GIOCO -----------");
+                print("------------------------------------");
 
-                // print("I players sono: " + _players.Count);
+                GameManager.currentGameChapterIndex = 0;
+                GameManager.currentGamePageIndex = -1;
+                
+                _runningPlayers = new List<PlayerController>(players.FindAll(x => x.NetworkedState == PlayerController.STATE.RUNNING));
 
                 GameManager.gameSessionData = new Data.GameSessionData
                 {
-                    // numberOfPlayersRunning = _players[playerId].NetworkedSessionRequestedPlayers
                     numberOfPlayersRunning = _runningPlayers.Count
                 };
 
@@ -78,15 +76,15 @@ public class ViewManager : NetworkManagerBase
     {
         // if (_players[playerId].NetworkedState != PlayerController.STATE.RUNNING) return;
 
-        Debug.Log("<color=orange>ViewManager - RunningStateChanged: </color>" + runningState.ToString() + " - Player: " + playerId);
+        Debug.Log("<color=orange>Player with ID: " + playerId + " changed its RUNNING STATE to: " + runningState.ToString() + "</color>");
 
         switch (runningState)
         {
             case PlayerController.RUNNING_STATE.NONE:
 
                 /// The game is finished
-                GameManager.currentGameChapterIndex = 0;
-                GameManager.currentGamePageIndex = -1;
+                // GameManager.currentGameChapterIndex = 0;
+                // GameManager.currentGamePageIndex = -1;
                 _uiControllers[playerId].Set_STATE_FINAL_SCORE();
                 break;
 
@@ -94,20 +92,22 @@ public class ViewManager : NetworkManagerBase
 
                 _playersInThinking++;
 
+                print("SONO IN THINKING...");
+
                 if (_playersInThinking == 1)
                 {
-                    print("AVANZO DI UNA PAGINA");
                     GameManager.currentGamePageIndex++;
+                    print("... E AVANZO DI UNA PAGINA Adesso: currentGameChapterIndex = " + GameManager.currentGameChapterIndex + " --- currentGamePageIndex = " + GameManager.currentGamePageIndex);
 
                     if (_runningPlayers.Count == 1)
                     {
-                        print("RESETTO X' c'è uno solo running player");
+                        // print("RESETTO X' c'è uno solo running player");
                         _playersInThinking = 0;
                     }
                 }
                 else if (_playersInThinking == 2)
                 {
-                    print("RESETTO X' anche l'altro è in thinking");
+                    // print("RESETTO X' anche l'altro è in thinking");
                     _playersInThinking = 0;
                 }
 
@@ -143,14 +143,17 @@ public class ViewManager : NetworkManagerBase
 
             case PlayerController.RUNNING_STATE.FINISHED:
 
-                print("FINISHED!!!!!!!!!!!!!!!!!!!");
                 var playerThatHasNotFinished = _runningPlayers.Find(x => x.NetworkedRunningState != PlayerController.RUNNING_STATE.FINISHED);
 
                 if (playerThatHasNotFinished != null)
                 {
-                   /// One player have finished, but it have to wait the other Player...
-                   print("UNO HA FINTO MA L'ALTRO NO!!!!");
+                    /// One player have finished, but it have to wait the other Player...
+                    print("UN PLAYER HA FINITO DI RISPONDERE MA L'ALTRO NO...");
                     _uiControllers[playerId].Set_RUNNING_STATE_WAIT_OTHER_PLAYER();
+                }
+                else
+                {
+                    print("TUTTI I PLAYERS HANNO FINITO DI RISPONDERE");
                 }
                 break;
         }
@@ -173,7 +176,7 @@ public class ViewManager : NetworkManagerBase
 
         print("ADESSO CE NE SONO: " + players.Count);
 
-        
+
         if (players.Count == 0)
         {
             for (int i = 0; i < _uiControllers.Length; i++)
